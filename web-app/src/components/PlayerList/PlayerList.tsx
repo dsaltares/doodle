@@ -11,7 +11,7 @@ const PlayerList: FunctionComponent<Props> = ({
 }) => (
   <List>
     {
-      playerIds.map(id => <PlayerListItem id={id} />)
+      playerIds.map(id => <PlayerListItem key={id} id={id} />)
     }
   </List>
 );
