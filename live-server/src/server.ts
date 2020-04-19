@@ -1,12 +1,9 @@
-import * as express from 'express';
+import express from 'express';
 import { createServer } from 'http';
-import * as socketIo from 'socket.io';
-import * as cors from 'cors';
+import socketIo from 'socket.io';
+import cors from 'cors';
 
-import {
-  joinGame,
-  disconnect,
-} from './handlers';
+import subscribe from './handlers/subscribe';
 import {
   postGame
 } from './controllers';
@@ -25,10 +22,7 @@ app.post('/games', postGame());
 
 io.on('connect', (socket) => {
   console.log(`connected client on port ${port}`);
-
-  const handlerParams = { io, socket, store };
-  socket.on('joinGame', joinGame(handlerParams));
-  socket.on('disconnect', disconnect(handlerParams));
+  subscribe({ io, socket, store });
 });
 
 server.listen(port, () => {
