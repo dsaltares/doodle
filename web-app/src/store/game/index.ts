@@ -54,11 +54,14 @@ const gameSlice = createSlice({
         return state;
       }
       state.gameState = action.payload.gameState;
-      state.startingGame = false;
-      state.choosingConcept = undefined;
-      state.submittedEntry = false;
-      state.chosenEntry = undefined;
-      state.acknowledgedWinner = false;
+
+      if (action.payload.updateBy === state.player) {
+        state.startingGame = false;
+        state.choosingConcept = undefined;
+        state.submittedEntry = false;
+        state.chosenEntry = undefined;
+        state.acknowledgedWinner = false;
+      }
     },
   },
 });
