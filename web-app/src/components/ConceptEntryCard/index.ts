@@ -1,1 +1,1 @@
-export { default } from './ConceptEntryCard';
+export { default } from './ConceptEntryCard.container';

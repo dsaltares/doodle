@@ -1,7 +1,4 @@
-import React, {
-  useEffect,
-  FunctionComponent,
-} from 'react';
+import React, { FunctionComponent } from 'react';
 import {
   Router,
   Switch,
@@ -18,6 +15,7 @@ import JoinMenu from '../JoinMenu';
 import TopBar from '../TopBar';
 import SideBar from '../SideBar';
 import useStyles from './App.styles';
+import useMountEffect from '../../utils/useMountEffect';
 
 type Props = {
   playerName?: string,
@@ -28,7 +26,7 @@ const App: FunctionComponent<Props> = ({
   playerName,
   connect,
 }) => {
-  useEffect(() => {
+  useMountEffect(() => {
     connect();
   });
 

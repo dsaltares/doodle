@@ -1,1 +1,1 @@
-export { default } from './DoodleEntryCard';
+export { default } from './DoodleEntryCard.container';

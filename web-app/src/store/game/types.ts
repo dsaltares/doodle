@@ -1,14 +1,4 @@
-export type GamePhase = 'initial'
-  | 'joining'
-  | 'waitingToStart'
-  | 'choosingConcept'
-  | 'drawing'
-  | 'guessing'
-  | 'waitingForPlayers'
-  | 'choosingEntry'
-  | 'chosenEntry';
-
-type Avatar = {
+export type Avatar = {
   topType: string,
   accessoriesType: string,
   hairColor: string,
@@ -28,15 +18,78 @@ export type Player = {
   points: number,
 }
 
-export type PlayerDictionary = {
+export type Players = {
   [id: string]: Player,
 }
 
+export type ConceptEntry = {
+  type: 'contept',
+  concept: string,
+}
+
+export type DrawingEntry = {
+  type: 'drawing',
+  drawing: string
+}
+
+export type Entry = {
+  author: string,
+  data: ConceptEntry | DrawingEntry
+};
+
+export type Stack = {
+  player: string,
+  entries: Entry[],
+  chosen?: string,
+};
+
+type Stacks = {
+  [id: string]: Stack,
+};
+
+export type InitialPhase = {
+  name: 'initial',
+};
+export type ConceptChoicePhase = {
+  name: 'conceptChoice'
+  choices: {
+    [id: string]: string[],
+  },
+};
+export type CreateEntryPhase = {
+  name: 'createEntry'
+  index: number,
+};
+export type EntryChoicePhase = {
+  name: 'entryChoice',
+  index: number,
+  acknowledgeBy: string[],
+}
+
+type Phase = InitialPhase
+  | ConceptChoicePhase
+  | CreateEntryPhase
+  | EntryChoicePhase;
+
+type Concepts = {
+  [id: string]: string,
+};
+
+export type Round = {
+  phase: Phase,
+  order: string[],
+  stacks: Stacks,
+  concepts: Concepts,
+};
+
 export type GameState = {
   code: string,
-  players: PlayerDictionary,
+  players: Players,
+  playersBySocket: Players,
   lastUpdate: number,
-}
+  createdBy: string,
+  round: Round,
+};
 
 export type GameConfig = {
   name?: string,
@@ -46,7 +99,12 @@ export type GameConfig = {
 export type GameSliceState = {
   config: GameConfig,
   gameState?: GameState,
-  player?: Player,
+  player?: string,
+  startingGame: boolean,
+  choosingConcept?: string,
+  submittedEntry: boolean,
+  chosenEntry?: string,
+  acknowledgedWinner: boolean;
 }
 
 export type CreateGameParams = {
@@ -60,9 +118,10 @@ export type JoinGameParams = {
 
 export type GameJoinedEvent = {
   code: string,
-  player: Player,
+  player: string,
 };
 
 export type GameUpdatedEvent = {
   gameState: GameState,
+  updateBy: string,
 };

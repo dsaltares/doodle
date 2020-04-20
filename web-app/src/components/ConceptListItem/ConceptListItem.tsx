@@ -10,17 +10,23 @@ import Emoji from '../Emoji';
 
 type Props = {
   concept: string,
+  selected?: boolean,
+  disabled?: boolean,
   onClick: (event: MouseEvent<HTMLElement>) => void,
 }
 
 const ConceptListItem: FunctionComponent<Props> = ({
   concept,
+  selected = false,
+  disabled = false,
   onClick,
 }) => (
   <ListItem
     divider
     button
     onClick={onClick}
+    selected={selected}
+    disabled={disabled}
   >
     <ListItemAvatar>
       <Emoji symbol="💡" />

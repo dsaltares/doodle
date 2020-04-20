@@ -1,24 +1,43 @@
-import React, { useEffect, FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react';
+import Typography from '@material-ui/core/Typography';
 
-import Editor from '../Editor';
+import InitialPhase from '../InitialPhase';
+import ConceptChoicePhase from '../ConceptChoicePhase';
+import CreateEntryPhase from '../CreateEntryPhase';
+import EntryChoicePhase from '../EntryChoicePhase';
+import useMountEffect from '../../utils/useMountEffect';
 
 type Props = {
+  connected: boolean,
+  phaseName: string,
   connect: () => void,
 }
 
 const Game: FunctionComponent<Props> = ({
+  connected,
+  phaseName,
   connect,
 }) => {
-  useEffect(() => {
+  useMountEffect(() => {
     connect();
   });
 
-return (
-    <React.Fragment>
+  if (!connected) {
+    return <Typography>Connecting</Typography>;
+  }
 
-      <Editor />
-    </React.Fragment>
-  );
+  switch (phaseName) {
+    case 'initial':
+      return <InitialPhase />;
+    case 'conceptChoice':
+      return <ConceptChoicePhase />;
+    case 'createEntry':
+      return <CreateEntryPhase />;
+    case 'entryChoice':
+      return <EntryChoicePhase />
+    default:
+      return <Typography>Unknown phase</Typography>
+  }
 };
 
 export default Game;

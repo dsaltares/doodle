@@ -15,6 +15,10 @@ import * as selectors from './selectors';
 
 const initialState: GameSliceState = {
   config: {},
+  startingGame: false,
+  choosingConcept: undefined,
+  submittedEntry: false,
+  acknowledgedWinner: false,
 }
 
 const gameSlice = createSlice({
@@ -27,16 +31,36 @@ const gameSlice = createSlice({
     setCode: (state, action: PayloadAction<string>) => {
       state.config.code = action.payload;
     },
+    setGamePlayer: (state, action: PayloadAction<GameJoinedEvent>) => {
+      state.player = action.payload.player;
+    },
+    startGame: (state) => {
+      state.startingGame = true;
+    },
+    chooseConcept: (state, action: PayloadAction<string>) => {
+      state.choosingConcept = action.payload;
+    },
+    submitEntry: (state) => {
+      state.submittedEntry = true;
+    },
+    chooseEntry: (state, action: PayloadAction<string>) => {
+      state.chosenEntry = action.payload;
+    },
+    acknowledgeWinner: (state) => {
+      state.acknowledgedWinner = true;
+    },
     updateGame: (state, action: PayloadAction<GameUpdatedEvent>) => {
       if (state.gameState && state.gameState.lastUpdate > action.payload.gameState.lastUpdate) {
         return state;
       }
       state.gameState = action.payload.gameState;
+      state.startingGame = false;
+      state.choosingConcept = undefined;
+      state.submittedEntry = false;
+      state.chosenEntry = undefined;
+      state.acknowledgedWinner = false;
     },
-    setGamePlayer: (state, action: PayloadAction<GameJoinedEvent>) => {
-      state.player = action.payload.player;
-    },
-  }
+  },
 });
 
 const { actions, reducer } = gameSlice;
@@ -77,6 +101,58 @@ export const connectToGameChannel = () => async (
   const { game: { config: { name, code } } } = getState();
   const socket = await socketDeferred.promise;
   socket.emit('joinGame', { name, code });
-}
+};
+
+export const startGame = () => async (
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.startGame());
+  const socket = await socketDeferred.promise;
+  socket.emit('startGame', {});
+};
+
+export const chooseConcept = (concept: string) => async (
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.chooseConcept(concept));
+  const socket = await socketDeferred.promise;
+  socket.emit('chooseConcept', { concept });
+};
+
+export const submitDrawing = (drawing: string) => async (
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.submitEntry());
+  const socket = await socketDeferred.promise;
+  socket.emit('submitEntry', {
+    entry: { type: 'drawing', drawing }
+  });
+};
+
+export const submitConcept = (concept: string) => async (
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.submitEntry());
+  const socket = await socketDeferred.promise;
+  socket.emit('submitEntry', {
+    entry: { type: 'concept', concept }
+  });
+};
+
+export const chooseEntry = (targetPlayer: string) => async(
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.chooseEntry(targetPlayer));
+  const socket = await socketDeferred.promise;
+  socket.emit('chooseEntry', { targetPlayer });
+};
+
+export const acknowledgeWinner = () => async(
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.acknowledgeWinner());
+  const socket = await socketDeferred.promise;
+  socket.emit('acknowledgeWinner', {});
+};
 
 export { selectors };

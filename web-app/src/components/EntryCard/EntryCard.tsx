@@ -2,17 +2,20 @@ import React, {
   FunctionComponent,
   ReactNode
 } from 'react';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Avatar from '@material-ui/core/Avatar';
-import Badge from '@material-ui/core/Badge';
+import Avataaar from 'avataaars';
+
+import { Avatar as AvatarType } from '../../store/game/types';
+import useStyles from './EntryCard.styles';
 
 type Props = {
   name: string,
-  avatar: string,
+  avatar: AvatarType,
   entry: ReactNode,
-  order: number,
   onClick?: () => void,
 }
 
@@ -20,12 +23,29 @@ const EntryCard: FunctionComponent<Props> = ({
   name,
   avatar,
   entry,
-  order,
   onClick,
 }) => {
+  const classes = useStyles();
+
   const content = [
     <CardHeader
-      avatar={<Avatar variant="rounded" alt={name} src={avatar}/>}
+      avatar={(
+        <Avatar variant="rounded" alt={name} className={classes.avatar}>
+          <Avataaar
+            avatarStyle="Circle"
+            topType={avatar.topType}
+            accessoriesType={avatar.accessoriesType}
+            hairColor={avatar.hairColor}
+            facialHairType={avatar.facialHairType}
+            clotheType={avatar.clotheType}
+            clotheColor={avatar.clotheColor}
+            eyeType={avatar.eyeType}
+            eyebrowType={avatar.eyebrowType}
+            mouthType={avatar.mouthType}
+            skinColor={avatar.skinColor}
+          />
+        </Avatar>
+      )}
       title={name}
     />,
     entry,
@@ -33,12 +53,13 @@ const EntryCard: FunctionComponent<Props> = ({
   const wrapped = onClick
     ? (<CardActionArea>{content}</CardActionArea>)
     : content;
+
   return (
-    <Badge badgeContent={order} color="primary">
+    <Grid item xs={12}>
       <Card onClick={onClick}>
         {wrapped}
       </Card>
-    </Badge>
+    </Grid>
   );
 }
 
