@@ -1,6 +1,5 @@
 import { HandlerParams } from "./types"
 import { MIN_PLAYERS } from './constants';
-import Concepts from '../concepts';
 import { createRound } from './utils';
 
 const startGame = ({

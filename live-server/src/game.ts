@@ -1,10 +1,12 @@
 import { Players } from './player';
 
 export type ConceptEntry = {
+  type: 'contept',
   concept: string,
 }
 
 export type DrawingEntry = {
+  type: 'drawing',
   drawing: string
 }
 

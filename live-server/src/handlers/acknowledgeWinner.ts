@@ -33,6 +33,7 @@ const acknowledgeWinner = ({
       game.round = createRound(game);
     } else {
       phase.index += 1;
+      phase.acknowledgeBy = [];
     }
   }
 

@@ -22,9 +22,15 @@ const chooseEntry = ({
     });
   }
 
-  const phase = game.round.phase as EntryChoicePhase;
   const player = game.playersBySocket[socket.id];
   const playerId = player.id;
+  if (playerId === targetPlayer) {
+    return socket.emit('failedToChooseEntry', {
+      message: 'Cannot choose your own entry',
+    });
+  }
+
+  const phase = game.round.phase as EntryChoicePhase;
   const playerIdx = game.round.order.indexOf(playerId);
   const isPlayerTurn = phase.index === playerIdx;
   if (!isPlayerTurn) {

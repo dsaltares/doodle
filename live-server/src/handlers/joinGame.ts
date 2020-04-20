@@ -16,6 +16,17 @@ const joinGame = ({
   name, code,
 }: JoinParams) => {
   console.log('joinGame: ', name, code);
+
+  const alreadyInGame = !!gameBySocketId[socket.id];
+  if (alreadyInGame) {
+    const game = gameBySocketId[socket.id];
+    const player = game.playersBySocket[socket.id];
+    return socket.emit('connectedToGame', ({
+      player: player.id,
+      code
+    }));
+  }
+
   const player = createPlayer({ name, socketId: socket.id });
   const game = games[code] || createGame({
     code,
@@ -42,7 +53,7 @@ const joinGame = ({
   gameBySocketId[socket.id] = game;
 
   socket.join(code);
-  socket.emit('connectedToGame', ({ player, code }));
+  socket.emit('connectedToGame', ({ player: player.id, code }));
   return io.to(code).emit('gameUpdated', {
     gameState: game,
     updateBy: player.id,

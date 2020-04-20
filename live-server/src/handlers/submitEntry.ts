@@ -31,7 +31,7 @@ const submitEntry = ({
   const player = game.playersBySocket[socket.id];
   const playerId = player.id;
   const playerIdx = game.round.order.indexOf(playerId);
-  const targetPlayerIdx = (playerIdx + phase.index + 1) % numPlayers;
+  const targetPlayerIdx = (playerIdx + phase.index) % numPlayers;
   const targetPlayerId = game.round.order[targetPlayerIdx];
   const stack = game.round.stacks[targetPlayerId];
   const stackHasEntryByPlayer = !!stack.entries.find(entry => entry.author === playerId);
@@ -54,7 +54,7 @@ const submitEntry = ({
     phase.index += 1;
   }
 
-  const isCreateEntryDone = phase.index === numPlayers - 1;
+  const isCreateEntryDone = phase.index === numPlayers;
   if (isCreateEntryDone) {
     game.round.phase = {
       name: 'entryChoice',

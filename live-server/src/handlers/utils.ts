@@ -22,7 +22,13 @@ export const createRound = (game: Game): Round => {
       }), {}),
     },
     order: shuffle(playerIds),
-    stacks: {},
+    stacks: playerIds.reduce((acc, id) => ({
+      ...acc,
+      [id]: {
+        player: id,
+        entries: [],
+      }
+    }), {}),
     concepts: {},
   };
 };
