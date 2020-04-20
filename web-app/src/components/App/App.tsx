@@ -1,4 +1,7 @@
-import React, { FunctionComponent } from 'react';
+import React, {
+  useState,
+  FunctionComponent,
+} from 'react';
 import {
   Router,
   Switch,
@@ -30,12 +33,18 @@ const App: FunctionComponent<Props> = ({
     connect();
   });
 
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const onToggleDrawer = () => setDrawerOpen(!drawerOpen);
+
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <TopBar />
-      <SideBar />
+      <TopBar onToggleDrawer={onToggleDrawer} />
+      <SideBar
+        drawerOpen={drawerOpen}
+        onToggleDrawer={onToggleDrawer}
+      />
       <div className={classes.content}>
         <Toolbar />
         <Grid container justify="center">
