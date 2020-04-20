@@ -50,9 +50,8 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
   const otherEntries = entries.slice(1);
 
   return (
-    <Grid item xs={8}>
+    <Grid item xs={12}>
       <Grid container direction="column" spacing={4}>
-
         <Grid item xs={12}>
           <Paper elevation={1} variant="outlined" className={classes.paper}>
             <Grid container direction="column" spacing={2}>
@@ -61,6 +60,7 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
               </Grid>
               <Grid item xs={12}>
                 <img
+                  className={classes.img}
                   src={drawingEntry.drawing}
                   alt={`Initial drawing by ${stackPlayerName}`}
                 />
@@ -79,33 +79,40 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
             </Grid>
           </Paper>
         </Grid>
-
-        {
-          otherEntries.map((entry) => (
-            entry.data.type === 'drawing'
-            ? (
-              <DoodleEntryCard
-                playerId={entry.author}
-                image={entry.data.drawing}
-                onClick={
-                  currentPlayerChooses
-                    ? () => onChooseEntry(entry.author)
-                    : undefined
-                }
-              />
-            )
-            : (
-              <ConceptEntryCard
-                playerId={entry.author}
-                concept={entry.data.concept}
-                onClick={
-                  currentPlayerChooses
-                    ? () => onChooseEntry(entry.author)
-                    : undefined
-                }
-              />
-            )
-          ))
+          {
+            otherEntries.map((entry) => {
+              const entryCard = entry.data.type === 'drawing'
+                ? (
+                  <DoodleEntryCard
+                    playerId={entry.author}
+                    image={entry.data.drawing}
+                    onClick={
+                      currentPlayerChooses
+                        ? () => onChooseEntry(entry.author)
+                        : undefined
+                    }
+                  />
+                )
+                : (
+                  <ConceptEntryCard
+                    playerId={entry.author}
+                    concept={entry.data.concept}
+                    onClick={
+                      currentPlayerChooses
+                        ? () => onChooseEntry(entry.author)
+                        : undefined
+                    }
+                  />
+                );
+              return (
+                <Grid item xs={12}>
+                  <Paper elevation={1} variant="outlined" className={classes.paper}>
+                    {entryCard}
+                  </Paper>
+                </Grid>
+              );
+            }
+          )
         }
       </Grid>
     </Grid>

@@ -106,8 +106,8 @@ class Editor extends React.Component<Props, State> {
     const editorColor = tool === 'pencil' ? color : '#ffffff';
 
     return (
-      <Grid container>
-        <Grid item>
+      <Grid container direction="row">
+        <Grid item xs={2}>
           <ToolBar
             lineWidth={lineWidth}
             onLineWidthChange={this.onLineWidthChange}
@@ -122,10 +122,9 @@ class Editor extends React.Component<Props, State> {
             onEraseAll={this.onEraseAll}
           />
         </Grid>
-        <Grid item>
+        <Grid item xs={10}>
           <SketchField
             ref={(sketch: any) => this.sketch = sketch}
-            width='720px'
             height='480px'
             tool={tool}
             lineColor={editorColor}

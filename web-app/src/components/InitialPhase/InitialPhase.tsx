@@ -1,10 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-import useStyles from './InitialPhase.styles';
+import MainContent from '../MainContent';
 import Emoji from '../Emoji';
 
 type Props = {
@@ -20,8 +19,6 @@ const InitialPhase: FunctionComponent<Props> = ({
   startDisabled,
   onStart,
 }) => {
-  const classes = useStyles();
-
   const startButton = startVisible
     ? (
       <Button
@@ -37,18 +34,14 @@ const InitialPhase: FunctionComponent<Props> = ({
     : null;
 
   return (
-    <Grid item xs={4}>
-      <Paper elevation={1} variant="outlined" className={classes.paper}>
-        <Grid container direction="column" justify="center" spacing={2}>
-          <Grid item xs={12}>
-            <Typography>{message}</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            {startButton}
-          </Grid>
-        </Grid>
-      </Paper>
-    </Grid>
+    <MainContent>
+      <Grid item xs={12}>
+        <Typography>{message}</Typography>
+      </Grid>
+      <Grid item xs={12}>
+        {startButton}
+      </Grid>
+    </MainContent>
   );
 };
 
