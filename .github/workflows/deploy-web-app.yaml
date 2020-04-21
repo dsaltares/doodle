@@ -1,4 +1,4 @@
-name: MasterDeployCI
+name: Deploy web-app
 on:
   push:
     branches:
