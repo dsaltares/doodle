@@ -19,10 +19,6 @@ import SideBar from '../SideBar';
 import useStyles from './App.styles';
 import useMountEffect from '../../utils/useMountEffect';
 
-const publicPath = process.env.NODE_ENV === 'development'
-  ? '/'
-  : '/doodle';
-
 type Props = {
   playerName?: string,
   connect: () => void,
@@ -51,7 +47,7 @@ const App: FunctionComponent<Props> = ({
       <div className={classes.content}>
         <Toolbar />
         <Grid container justify="center">
-          <BrowserRouter basename={publicPath}>
+          <BrowserRouter>
             <Switch>
               <Route exact path="/">
                 <Menu />
