@@ -30,6 +30,10 @@ const DrawPhase: FunctionComponent<Props> = ({
     }
   };
 
+  const submittedMessage = submitted
+    ? 'Waiting for other players to finish their turn.'
+    : '';
+
   return (
     <MainContent width={800}>
       <Grid item xs={12}>
@@ -39,15 +43,22 @@ const DrawPhase: FunctionComponent<Props> = ({
         <Editor ref={editorRef}/>
       </Grid>
       <Grid item xs={12}>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleSubmitClicked}
-          disabled={submitted}
-        >
-          <Emoji symbol="🎨"/>
-          <span>Done</span>
-        </Button>
+        <Grid container spacing={2} alignItems="center">
+          <Grid item>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmitClicked}
+              disabled={submitted}
+            >
+              <Emoji symbol="🎨"/>
+              <span>Done</span>
+            </Button>
+          </Grid>
+          <Grid item>
+            <Typography>{submittedMessage}</Typography>
+          </Grid>
+        </Grid>
       </Grid>
     </MainContent>
   );
