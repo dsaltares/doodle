@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import defer from 'p-defer';
 import { AppDispatch } from '..';
 import { SocketState } from "./types";
+import { LIVE_SERVER_URL } from '../endpoints';
 
 const initialState: SocketState = {
   status: 'disconnected',
@@ -38,7 +39,7 @@ export const socketDeferred = defer<SocketIOClient.Socket>();
 export const connect = (subscribe: (socket: SocketIOClient.Socket) => void) => async (dispatch: AppDispatch) => {
   dispatch(actions.connectToSocketStarted());
 
-  socket = io('http://localhost:3001');
+  socket = io(LIVE_SERVER_URL);
   socketDeferred.resolve(socket);
 
   const successEvents = ['connect', 'reconnect'];

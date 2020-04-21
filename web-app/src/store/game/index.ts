@@ -9,7 +9,7 @@ import {
   GameUpdatedEvent,
   JoinGameParams,
 } from "./types";
-import { ENDPOINT } from '../constants';
+import { LIVE_SERVER_URL } from '../endpoints';
 import * as selectors from './selectors';
 
 const initialState: GameSliceState = {
@@ -84,7 +84,7 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
 export const createGame = (
   { name, goToGame }: CreateGameParams,
 )=> async (dispatch: AppDispatch) => {
-  const { data: { code } } = await axios.post(`${ENDPOINT}/games`);
+  const { data: { code } } = await axios.post(`${LIVE_SERVER_URL}/games`);
   dispatch(joinGame({ code, name, goToGame }));
 };
 
