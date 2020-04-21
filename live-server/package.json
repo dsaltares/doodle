@@ -7,8 +7,10 @@
   "private": true,
   "scripts": {
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "prod": "tsc && node ./dist/server.js",
+    "prod": "yarn build && node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "build": "tsc",
+    "gcp-build": "tsc -p .",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "dependencies": {
@@ -25,6 +27,7 @@
     "lodash.shuffle": "^4.2.0",
     "npm": "^6.14.4",
     "socket.io": "^2.3.0",
+    "typescript": "^3.8.3",
     "uuid": "^7.0.3"
   },
   "devDependencies": {
@@ -32,7 +35,6 @@
     "ts-node": "^8.8.2",
     "ts-node-dev": "^1.0.0-pre.44",
     "tslint": "^6.1.1",
-    "typescript": "^3.8.3",
     "typescript-eslint-parser": "^22.0.0"
   }
 }
