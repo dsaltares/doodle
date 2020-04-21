@@ -17,7 +17,7 @@ jobs:
       run: yarn install
       working-directory: ${{env.working-directory}}
     - name: Build
-      run: yarn install
+      run: yarn build
       working-directory: ${{env.working-directory}}
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
