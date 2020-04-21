@@ -2,6 +2,7 @@ import React, {
   useState,
   FunctionComponent,
 } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -18,14 +19,16 @@ export type StartGameParams = {
   mode: GameMode,
   name: string,
   code: string,
+  goToGame: (code: string) => any,
 }
 
-type Props = {
+interface Props extends RouteComponentProps<any> {
   startGame: (params: StartGameParams) => void,
 }
 
 const Menu: FunctionComponent<Props> = ({
   startGame,
+  history,
 }) => {
   const classes = useStyles();
 
@@ -48,6 +51,7 @@ const Menu: FunctionComponent<Props> = ({
     mode: mode as GameMode,
     name,
     code,
+    goToGame: (code: string) => history.push(`/game/${code}`),
   });
 
   const hasName = name.length > 0;
@@ -114,4 +118,4 @@ const Menu: FunctionComponent<Props> = ({
   );
 };
 
-export default Menu;
+export default withRouter(Menu);

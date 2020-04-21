@@ -1,6 +1,6 @@
 {
   "name": "web-app",
-  "homepage": "https://dsaltares.github.io/doodle",
+  "homepage": "/doodle/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -41,7 +41,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "predeploy": "CI=false yarn build",
-    "deploy": "gh-pages -d build"
+    "deploy": "NODE_ENV=production gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"

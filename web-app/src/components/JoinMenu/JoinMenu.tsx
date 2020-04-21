@@ -2,7 +2,7 @@ import React, {
   useState,
   FunctionComponent,
 } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, withRouter, RouteComponentProps } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -11,12 +11,13 @@ import Emoji from '../Emoji';
 import { JoinGameParams } from '../../store/game/types';
 import MainContent from '../MainContent';
 
-type Props = {
+interface Props extends RouteComponentProps<any> {
   joinGame: (params: JoinGameParams) => void,
 }
 
 const JoinMenu: FunctionComponent<Props> = ({
   joinGame,
+  history,
 }) => {
   const [name, setName] = useState('');
   const handleNameChange = (
@@ -27,6 +28,7 @@ const JoinMenu: FunctionComponent<Props> = ({
   const handleGoClicked = () => joinGame({
     name,
     code: code as string,
+    goToGame: (code: string) => history.push(`/game/${code}`),
   });
 
   const hasName = name.length > 0;
@@ -57,4 +59,4 @@ const JoinMenu: FunctionComponent<Props> = ({
   );
 };
 
-export default JoinMenu;
+export default withRouter(JoinMenu);

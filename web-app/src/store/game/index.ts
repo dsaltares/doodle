@@ -9,7 +9,6 @@ import {
   GameUpdatedEvent,
   JoinGameParams,
 } from "./types";
-import history from '../../history';
 import { ENDPOINT } from '../constants';
 import * as selectors from './selectors';
 
@@ -83,18 +82,18 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
 };
 
 export const createGame = (
-  { name }: CreateGameParams,
+  { name, goToGame }: CreateGameParams,
 )=> async (dispatch: AppDispatch) => {
   const { data: { code } } = await axios.post(`${ENDPOINT}/games`);
-  dispatch(joinGame({ code, name }));
+  dispatch(joinGame({ code, name, goToGame }));
 };
 
 export const joinGame = (
-  { code, name }: JoinGameParams,
+  { code, name, goToGame }: JoinGameParams,
 )=> async (dispatch: AppDispatch) => {
   dispatch(actions.setPlayerName(name));
   dispatch(actions.setCode(code));
-  history.push(`/game/${code}`);
+  goToGame(code);
 };
 
 export const connectToGameChannel = () => async (

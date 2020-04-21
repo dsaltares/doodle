@@ -3,7 +3,7 @@ import React, {
   FunctionComponent,
 } from 'react';
 import {
-  Router,
+  BrowserRouter,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -11,7 +11,6 @@ import {
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 
-import history from '../../history';
 import Menu from '../Menu';
 import Game from '../Game';
 import JoinMenu from '../JoinMenu';
@@ -19,6 +18,10 @@ import TopBar from '../TopBar';
 import SideBar from '../SideBar';
 import useStyles from './App.styles';
 import useMountEffect from '../../utils/useMountEffect';
+
+const publicPath = process.env.NODE_ENV === 'development'
+  ? '/'
+  : '/doodle';
 
 type Props = {
   playerName?: string,
@@ -48,12 +51,12 @@ const App: FunctionComponent<Props> = ({
       <div className={classes.content}>
         <Toolbar />
         <Grid container justify="center">
-          <Router history={history}>
+          <BrowserRouter basename={publicPath}>
             <Switch>
-              <Route exact path='/'>
+              <Route exact path="/">
                 <Menu />
               </Route>
-              <Route exact path='/game/:code'>
+              <Route exact path="/game/:code">
                 {
                   playerName
                     ? <Game />
@@ -61,7 +64,7 @@ const App: FunctionComponent<Props> = ({
                 }
               </Route>
             </Switch>
-          </Router>
+          </BrowserRouter>
         </Grid>
       </div>
     </div>

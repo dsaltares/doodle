@@ -109,11 +109,13 @@ export type GameSliceState = {
 
 export type CreateGameParams = {
   name: string,
+  goToGame: (code: string) => void,
 };
 
 export type JoinGameParams = {
   code: string,
   name: string,
+  goToGame: (code: string) => void,
 };
 
 export type GameJoinedEvent = {
