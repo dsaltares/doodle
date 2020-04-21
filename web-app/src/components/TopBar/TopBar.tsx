@@ -30,7 +30,8 @@ const TopBar: FunctionComponent<Props> = ({
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" color="inherit" noWrap>
-          doodle.io
+          <span>doodle.io - </span>
+          {process.env.NODE_ENV}
         </Typography>
       </Toolbar>
     </AppBar>
