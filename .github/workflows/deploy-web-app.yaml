@@ -16,6 +16,8 @@ jobs:
     - name: Install Packages
       run: yarn install
       working-directory: ${{env.working-directory}}
+    - name: Setup git identity
+      run: git config --global user.name "dsaltares" && git config --global user.email "david.saltares@gmail.com"
     - name: Deploy to GH Pages
       run: yarn deploy
       working-directory: ${{env.working-directory}}
