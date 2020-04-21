@@ -3,8 +3,10 @@ on:
   push:
     branches:
       - master
+    paths:
+      - 'web-app/**'
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     env:
       working-directory: ./web-app
