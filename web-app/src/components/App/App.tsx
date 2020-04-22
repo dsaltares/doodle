@@ -3,7 +3,7 @@ import React, {
   FunctionComponent,
 } from 'react';
 import {
-  BrowserRouter,
+  HashRouter,
   Switch,
   Route,
 } from 'react-router-dom';
@@ -47,7 +47,7 @@ const App: FunctionComponent<Props> = ({
       <div className={classes.content}>
         <Toolbar />
         <Grid container justify="center">
-          <BrowserRouter>
+          <HashRouter>
             <Switch>
               <Route exact path="/">
                 <Menu />
@@ -60,7 +60,7 @@ const App: FunctionComponent<Props> = ({
                 }
               </Route>
             </Switch>
-          </BrowserRouter>
+          </HashRouter>
         </Grid>
       </div>
     </div>
