@@ -48,11 +48,6 @@ const gameSlice = createSlice({
       state.acknowledgedWinner = true;
     },
     updateGame: (state, action: PayloadAction<GameUpdatedEvent>) => {
-      if (state.gameState && state.gameState.lastUpdate > action.payload.gameState.lastUpdate) {
-        return state;
-      }
-      state.gameState = action.payload.gameState;
-
       if (action.payload.updateBy === state.player) {
         state.startingGame = false;
         state.choosingConcept = undefined;
@@ -60,6 +55,11 @@ const gameSlice = createSlice({
         state.chosenEntry = undefined;
         state.acknowledgedWinner = false;
       }
+
+      if (state.gameState && state.gameState.lastUpdate > action.payload.gameState.lastUpdate) {
+        return state;
+      }
+      state.gameState = action.payload.gameState;
     },
   },
 });
@@ -76,6 +76,7 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
 
   socket.on('gameUpdated', (event: GameUpdatedEvent) => {
     console.log('gameUpdated:', event);
+
     dispatch(actions.updateGame(event));
   });
 };
