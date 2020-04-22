@@ -35,26 +35,30 @@ const JoinMenu: FunctionComponent<Props> = ({
 
   return (
     <MainContent>
-      <Grid item xs={12}>
-        <TextField
-          variant="outlined"
-          label="Name"
-          value={name}
-          onChange={handleNameChange}
-          fullWidth
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={!hasName}
-          onClick={handleGoClicked}
-        >
-          <Emoji symbol="🙌"/>
-          <span>Go!</span>
-        </Button>
-      </Grid>
+      <form onSubmit={handleGoClicked}>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              variant="outlined"
+              label="Name"
+              value={name}
+              onChange={handleNameChange}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={!hasName}
+              onClick={handleGoClicked}
+            >
+              <Emoji symbol="🙌"/>
+              <span>Go!</span>
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
     </MainContent>
   );
 };
