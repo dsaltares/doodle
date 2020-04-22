@@ -1,4 +1,3 @@
-export const LIVE_SERVER_URL = process.env.NODE_ENV === 'development'
+export const LIVE_SERVER_SOCKET = process.env.NODE_ENV === 'development'
   ? 'http://localhost:3001'
-  : 'https://doodler.ew.r.appspot.com';
-
+  : 'ec2-3-250-18-16.eu-west-1.compute.amazonaws.com:3000';

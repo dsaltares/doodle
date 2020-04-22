@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import defer from 'p-defer';
 import { AppDispatch } from '..';
 import { SocketState } from "./types";
-import { LIVE_SERVER_URL } from '../endpoints';
+import { LIVE_SERVER_SOCKET } from '../endpoints';
 
 const initialState: SocketState = {
   status: 'disconnected',
@@ -39,7 +39,7 @@ export const socketDeferred = defer<SocketIOClient.Socket>();
 export const connect = (subscribe: (socket: SocketIOClient.Socket) => void) => async (dispatch: AppDispatch) => {
   dispatch(actions.connectToSocketStarted());
 
-  socket = io(LIVE_SERVER_URL);
+  socket = io(LIVE_SERVER_SOCKET);
   socketDeferred.resolve(socket);
 
   const successEvents = ['connect', 'reconnect'];
@@ -48,14 +48,14 @@ export const connect = (subscribe: (socket: SocketIOClient.Socket) => void) => a
       dispatch(actions.connectToSocketSuccess());
       subscribe(socket);
     });
-  })
+  });
 
   const errorEvents = ['connect_error', 'connect_timeout', 'error', 'disconnected'];
   errorEvents.forEach(event => {
     socket.on(event, () => {
       dispatch(actions.connectToSocketFailed());
     });
-  })
+  });
 
   socket.on('reconnecting', () => {
     dispatch(actions.connectToSocketStarted());

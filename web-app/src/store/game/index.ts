@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import axios from 'axios';
+import { v4 as uuid } from 'uuid';
 import { AppDispatch, AppGetState } from '..';
 import { socketDeferred } from '../socket';
 import {
@@ -9,7 +9,6 @@ import {
   GameUpdatedEvent,
   JoinGameParams,
 } from "./types";
-import { LIVE_SERVER_URL } from '../endpoints';
 import * as selectors from './selectors';
 
 const initialState: GameSliceState = {
@@ -84,7 +83,7 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
 export const createGame = (
   { name, goToGame }: CreateGameParams,
 )=> async (dispatch: AppDispatch) => {
-  const { data: { code } } = await axios.post(`${LIVE_SERVER_URL}/games`);
+  const code = uuid();
   dispatch(joinGame({ code, name, goToGame }));
 };
 
