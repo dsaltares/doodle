@@ -17,6 +17,7 @@ jobs:
         image: dsaltares/doodle-live-server
         tag: latest
         registry: docker.io
+        dockerfile: ./live-server/Dockerfile
         directory: ./live-server
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
