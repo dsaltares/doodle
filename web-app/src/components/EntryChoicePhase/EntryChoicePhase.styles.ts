@@ -5,6 +5,9 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
     maxWidth: 500,
   },
+  entryPaper: {
+    maxWidth: 500,
+  },
   choicesContainer: {
     padding: theme.spacing(3),
     maxWidth: 500,

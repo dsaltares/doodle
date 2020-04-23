@@ -106,7 +106,7 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
                 );
               return (
                 <Grid item xs={12}>
-                  <Paper elevation={1} variant="outlined" className={classes.paper}>
+                  <Paper elevation={1} variant="outlined" className={classes.entryPaper}>
                     {entryCard}
                   </Paper>
                 </Grid>

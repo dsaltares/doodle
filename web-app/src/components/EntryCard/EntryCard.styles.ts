@@ -1,6 +1,9 @@
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
+  container: {
+    padding: theme.spacing(3),
+  },
   avatar: {
     backgroundColor: 'rgba(0, 0, 0, 0)',
     width: theme.spacing(8),
