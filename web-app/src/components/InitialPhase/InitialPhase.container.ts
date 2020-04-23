@@ -5,8 +5,7 @@ import { RootState } from '../../store/reducers';
 import { GameState, Player } from '../../store/game/types';
 import pluralize from '../../utils/pluralize';
 import { startGame } from '../../store/game';
-
-const MIN_PLAYERS = 2;
+import { MIN_PLAYERS } from '../../store/game/constants';
 
 const getMessage = (
   missingPlayers: number,
