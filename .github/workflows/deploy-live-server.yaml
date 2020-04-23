@@ -18,7 +18,7 @@ jobs:
         docker push dsaltares/doodle-live-server:latest
       working-directory: "./live-server"
 
-    - name: executing remote ssh commands using ssh key
+    - name: Update production image
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.AWS_EC2_HOST }}
