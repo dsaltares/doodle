@@ -4,9 +4,6 @@ import socketIo from 'socket.io';
 import cors from 'cors';
 
 import subscribe from './handlers/subscribe';
-import {
-  postGame
-} from './controllers';
 import createStore from './store';
 
 const app = express();
@@ -16,9 +13,7 @@ const port = process.env.PORT || 3001;
 
 const store = createStore();
 
-app.use(cors())
-
-app.post('/games', postGame());
+app.use(cors());
 
 io.on('connect', (socket) => {
   console.log(`connected client on port ${port}`);
