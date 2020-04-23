@@ -9,8 +9,7 @@
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
     "prod": "yarn build && node ./dist/server.js",
     "start": "node ./dist/server.js",
-    "build": "tsc",
-    "gcp-build": "tsc -p .",
+    "build": "tsc -p .",
     "lint": "tslint -c tslint.json 'src/**/*.ts'"
   },
   "dependencies": {
