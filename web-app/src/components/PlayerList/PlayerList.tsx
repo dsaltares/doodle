@@ -22,7 +22,7 @@ const PlayerSkeleton = () => {
   return (
     <ListItem divider>
       <ListItemAvatar>
-        <Skeleton variant="circle" height={52} width={52} className={classes.avatar}/>
+        <Skeleton variant="circle" height={64} width={64} className={classes.avatar}/>
       </ListItemAvatar>
       <ListItemText
         primary={<Skeleton variant="text" width={100} />}
