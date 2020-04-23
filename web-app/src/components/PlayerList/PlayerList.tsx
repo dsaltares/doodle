@@ -8,7 +8,6 @@ import Skeleton from '@material-ui/lab/Skeleton';
 
 import PlayerListItem from '../PlayerListItem';
 import useStyles from './PlayerList.styles';
-import pluralize from '../../utils/pluralize';
 
 export type Props = {
   visible: boolean,
@@ -45,12 +44,12 @@ const PlayerList: FunctionComponent<Props> = ({
   const numPlayers = playerIds.length;
   const remainingPlayers = Math.max(0, maxPlayers - numPlayers);
   const skeletons = Array.from(Array(remainingPlayers).keys()).map(index => (
-    <PlayerSkeleton key={`skeleton_${index}`} />
+      <PlayerSkeleton key={`skeleton_${index}`} />
   ));
   const getMessage = () => {
     if (numPlayers < minPlayers) {
       const needed = minPlayers - numPlayers;
-      return `${needed} ${pluralize('player', 'players', needed)} needed`;
+      return `${needed} needed`;
     }
     if (numPlayers === maxPlayers) {
       return 'game full';
@@ -63,7 +62,7 @@ const PlayerList: FunctionComponent<Props> = ({
       <ListSubheader>Players - {`${getMessage()}`}</ListSubheader>
     )}>
       {[
-        ...playerIds.map(id => <PlayerListItem key={id} id={id} />),
+        ...playerIds.map(id => (<PlayerListItem key={id} id={id} />)),
         ...skeletons,
       ]}
     </List>
