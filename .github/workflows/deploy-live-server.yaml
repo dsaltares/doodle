@@ -29,7 +29,7 @@ jobs:
         aws-region: us-west-1
 
     - name: Update EC2 Docker image
-      uses: peterkimzz/aws-ssm-send-command
+      uses: peterkimzz/aws-ssm-send-command@0.0.2
       with:
         instance_ids: ${{ secrets.EC2_INSTANCE_ID }}
         commands: docker pull dsaltares/doodle-live-server && docker stop doodle-live-server && docker rm doodle-live-server && docker run --name doodle-live-server -d -p 3000:3000 dsaltares/doodle-live-server
