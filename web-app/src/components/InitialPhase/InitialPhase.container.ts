@@ -5,7 +5,10 @@ import { RootState } from '../../store/reducers';
 import { GameState, Player } from '../../store/game/types';
 import pluralize from '../../utils/pluralize';
 import { startGame } from '../../store/game';
-import { MIN_PLAYERS } from '../../store/game/constants';
+import {
+  MIN_PLAYERS,
+  MAX_PLAYERS,
+} from '../../store/game/constants';
 
 const getMessage = (
   missingPlayers: number,
@@ -29,11 +32,15 @@ const mapStateToProps = (state: RootState) => {
   const missingPlayers = Math.max(0, MIN_PLAYERS - numPlayers);
   const createdBy = game.players[game.createdBy];
   const createdGame = createdBy.id === player;
+  const gameFull = numPlayers === MAX_PLAYERS;
+  const location = window.location;
 
   return {
     message: getMessage(missingPlayers, createdBy, player),
     startVisible: createdGame,
     startDisabled: missingPlayers > 0,
+    gameFull,
+    gameUrl: `${location.protocol}//${location.host}/#/game/${game.code}`,
   };
 };
 

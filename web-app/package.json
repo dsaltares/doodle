@@ -20,6 +20,7 @@
     "@types/socket.io-client": "^1.4.32",
     "@types/uuid": "^7.0.2",
     "avataaars": "^1.2.1",
+    "copy-to-clipboard": "^3.3.1",
     "p-defer": "^3.0.0",
     "react": "^16.13.1",
     "react-color": "^2.18.0",
