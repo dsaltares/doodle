@@ -49,6 +49,22 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
   const drawingEntry = firstEntry.data as DrawingEntry;
   const otherEntries = entries.slice(1);
 
+  const nextButton = !currentPlayerChooses
+    ? (
+      <Grid item xs={12}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!chosenPlayerName || acknowledged}
+          onClick={onAcknowledge}
+        >
+          <Emoji symbol="👏"/>
+          <span>Next</span>
+        </Button>
+      </Grid>
+    )
+    : null;
+
   return (
     <Grid item xs={12}>
       <Grid container direction="column" spacing={4}>
@@ -65,17 +81,7 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
                   alt={`Initial drawing by ${stackPlayerName}`}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={!chosenPlayerName || acknowledged}
-                  onClick={onAcknowledge}
-                >
-                  <Emoji symbol="👏"/>
-                  <span>Next</span>
-                </Button>
-              </Grid>
+              {nextButton}
             </Grid>
           </Paper>
         </Grid>

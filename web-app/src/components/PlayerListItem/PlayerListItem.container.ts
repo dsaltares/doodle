@@ -53,14 +53,14 @@ const getPlayerState = (state: RootState, id: string): PlayerState | undefined =
       const isPlayerTurn = playerInTurn === id;
       const stack = game.round.stacks[id];
       const alreadyChosen = !!stack.chosen;
-      const alreadyAcknowledged = choicePhase.acknowledgeBy.includes(id);
+      const alreadyAcknowledged = !!choicePhase.acknowledgedBy[id];
 
       if (alreadyAcknowledged) {
         return 'Ready';
       }
 
       if (alreadyChosen) {
-        return 'Looking';
+        return isPlayerTurn ? 'Ready' : 'Looking';
       }
 
       return isPlayerTurn ? 'Thinking' : 'Looking';

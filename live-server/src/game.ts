@@ -41,7 +41,9 @@ export type CreateEntryPhase = {
 export type EntryChoicePhase = {
   name: 'entryChoice',
   index: number,
-  acknowledgeBy: string[],
+  acknowledgedBy: {
+    [id: string]: boolean,
+  },
 }
 
 type Phase = InitialPhase

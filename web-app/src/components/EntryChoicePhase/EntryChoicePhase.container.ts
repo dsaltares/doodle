@@ -26,7 +26,7 @@ const mapStateToProps = (state: RootState) => {
     ? game.players[chosenPlayerId].name
     : undefined;
   const entries = stack.entries;
-  const acknowledged = state.game.acknowledgedWinner || !!phase.acknowledgeBy.includes(playerId);
+  const acknowledged = state.game.acknowledgedWinner || !!phase.acknowledgedBy[playerId];
 
   return {
     stackPlayerName,

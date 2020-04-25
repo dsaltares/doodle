@@ -20,20 +20,29 @@ const acknowledgeWinner = ({
   const phase = game.round.phase as EntryChoicePhase;
   const player = game.playersBySocket[socket.id];
   const playerId = player.id;
-  const hasAcknowledged = phase.acknowledgeBy.includes(playerId);
+
+  const playerIdx = game.round.order.indexOf(playerId);
+  const isPlayerTurn = phase.index === playerIdx;
+  if (isPlayerTurn) {
+    return socket.emit('failedToChooseEntry', {
+      message: 'No need to acknowledge when it is your turn',
+    });
+  }
+
+  const hasAcknowledged = !!phase.acknowledgedBy[playerId];
   if (!hasAcknowledged) {
-    phase.acknowledgeBy.push(playerId);
+    phase.acknowledgedBy[playerId] = true;
   }
 
   const numPlayers = Object.keys(game.players).length;
-  const allHaveAcknowledged = phase.acknowledgeBy.length === numPlayers;
+  const allHaveAcknowledged = Object.keys(phase.acknowledgedBy).length === numPlayers - 1;
   const isFinalStack = phase.index === numPlayers - 1;
   if (allHaveAcknowledged) {
     if (isFinalStack) {
       game.round = createRound(game);
     } else {
       phase.index += 1;
-      phase.acknowledgeBy = [];
+      phase.acknowledgedBy = {};
     }
   }
 

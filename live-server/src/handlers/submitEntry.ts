@@ -59,7 +59,7 @@ const submitEntry = ({
     game.round.phase = {
       name: 'entryChoice',
       index: 0,
-      acknowledgeBy: [],
+      acknowledgedBy: {},
     };
   }
 
