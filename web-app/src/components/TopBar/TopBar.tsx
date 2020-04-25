@@ -3,11 +3,11 @@ import React, { FunctionComponent } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import useStyles from './TopBar.styles';
+import TopBarTitle from '../TopBarTitle';
 import TopBarLinks from '../TopBarLinks';
 
 type Props = {
@@ -37,9 +37,7 @@ const TopBar: FunctionComponent<Props> = ({
                 </IconButton>
               </Grid>
               <Grid item>
-                <Typography variant="h6" color="inherit" noWrap>
-                  doodle.io
-                </Typography>
+                <TopBarTitle />
               </Grid>
             </Grid>
           </Grid>
