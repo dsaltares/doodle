@@ -6,10 +6,11 @@ import { useParams, withRouter, RouteComponentProps } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import Emoji from '../Emoji';
 import { JoinGameParams } from '../../store/game/types';
-import MainContent from '../MainContent';
+import MenuContainer from '../MenuContainer';
 
 interface Props extends RouteComponentProps<any> {
   joinGame: (params: JoinGameParams) => void,
@@ -34,9 +35,15 @@ const JoinMenu: FunctionComponent<Props> = ({
   const hasName = name.length > 0;
 
   return (
-    <MainContent>
+    <MenuContainer>
       <form onSubmit={handleGoClicked}>
         <Grid container spacing={2}>
+        <Grid item xs={12}>
+            <Typography>
+              <Emoji symbol="👥"/>
+              <span>Join a game</span>
+            </Typography>
+          </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -59,7 +66,7 @@ const JoinMenu: FunctionComponent<Props> = ({
           </Grid>
         </Grid>
       </form>
-    </MainContent>
+    </MenuContainer>
   );
 };
 

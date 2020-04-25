@@ -9,7 +9,6 @@ import {
 } from 'react-router-dom';
 
 import Toolbar from '@material-ui/core/Toolbar';
-import Grid from '@material-ui/core/Grid';
 
 import Menu from '../Menu';
 import Game from '../Game';
@@ -40,28 +39,32 @@ const App: FunctionComponent<Props> = ({
   return (
     <div className={classes.root}>
       <TopBar onToggleDrawer={onToggleDrawer} />
-      <SideBar
-        drawerOpen={drawerOpen}
-        onToggleDrawer={onToggleDrawer}
-      />
+      {
+        playerName
+          ? (
+            <SideBar
+              drawerOpen={drawerOpen}
+              onToggleDrawer={onToggleDrawer}
+            />
+          )
+          : null
+      }
       <div className={classes.content}>
         <Toolbar />
-        <Grid container justify="center">
-          <HashRouter>
-            <Switch>
-              <Route exact path="/">
-                <Menu />
-              </Route>
-              <Route exact path="/game/:code">
-                {
-                  playerName
-                    ? <Game />
-                    : <JoinMenu />
-                }
-              </Route>
-            </Switch>
-          </HashRouter>
-        </Grid>
+        <HashRouter>
+          <Switch>
+            <Route exact path="/">
+              <Menu />
+            </Route>
+            <Route exact path="/game/:code">
+              {
+                playerName
+                  ? <Game />
+                  : <JoinMenu />
+              }
+            </Route>
+          </Switch>
+        </HashRouter>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-import MainContent from '../MainContent';
+import MenuContainer from '../MenuContainer';
 import Emoji from '../Emoji';
 import useStyles from './Menu.styles';
 
@@ -78,7 +78,7 @@ const Menu: FunctionComponent<Props> = ({
     : null;
 
   return (
-    <MainContent>
+    <MenuContainer>
       <form onSubmit={handleGoClicked}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -124,7 +124,7 @@ const Menu: FunctionComponent<Props> = ({
           </Grid>
         </Grid>
       </form>
-    </MainContent>
+    </MenuContainer>
   );
 };
 
