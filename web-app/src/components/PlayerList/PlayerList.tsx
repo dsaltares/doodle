@@ -14,6 +14,7 @@ export type Props = {
   playerIds: string[],
   minPlayers: number,
   maxPlayers: number,
+  gameStarted: boolean,
 }
 
 const PlayerSkeleton = () => {
@@ -36,6 +37,7 @@ const PlayerList: FunctionComponent<Props> = ({
   playerIds,
   minPlayers,
   maxPlayers,
+  gameStarted,
 }) => {
   if (!visible) {
     return null;
@@ -43,9 +45,11 @@ const PlayerList: FunctionComponent<Props> = ({
 
   const numPlayers = playerIds.length;
   const remainingPlayers = Math.max(0, maxPlayers - numPlayers);
-  const skeletons = Array.from(Array(remainingPlayers).keys()).map(index => (
+  const skeletons = !gameStarted
+    ? Array.from(Array(remainingPlayers).keys()).map(index => (
       <PlayerSkeleton key={`skeleton_${index}`} />
-  ));
+    ))
+    : [];
   const getMessage = () => {
     if (numPlayers < minPlayers) {
       const needed = minPlayers - numPlayers;

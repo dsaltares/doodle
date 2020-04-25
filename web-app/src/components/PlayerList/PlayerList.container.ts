@@ -12,6 +12,7 @@ const mapStateToProps = (state: RootState) => ({
   playerIds: selectors.playerIds(state),
   minPlayers: MIN_PLAYERS,
   maxPlayers: MAX_PLAYERS,
+  gameStarted: Boolean(state.game.gameState && state.game.gameState.round.phase.name !== 'initial'),
 });
 
 export default connect(mapStateToProps)(PlayerList);
