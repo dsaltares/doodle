@@ -22,7 +22,7 @@ const TopBarTitle = () => (
     <Hidden xsDown implementation="css">
       <Grid item>
         <Typography variant="h6" color="inherit" noWrap>
-          Doodle - A crazy draw/guess chain game
+          Doodle - A crazy drawing &amp; guessing chain game
         </Typography>
       </Grid>
     </Hidden>
