@@ -10,7 +10,7 @@ import Emoji from '../Emoji';
 import pluralize from '../../utils/pluralize';
 import useStyles from './PlayerListItem.styles';
 
-type PlayerState = 'Ready' | 'Thinking' | 'Guessing' | 'Drawing';
+export type PlayerState = 'Ready' | 'Thinking' | 'Guessing' | 'Drawing' | 'Looking';
 
 type Avatar = {
   topType: string,
@@ -34,6 +34,7 @@ type Props = {
 
 const statusEmojis = {
   Ready: '✅',
+  Looking: '👀',
   Thinking: '🤔',
   Guessing: '🕵️‍♂️',
   Drawing: '✏️',

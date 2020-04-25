@@ -52,7 +52,7 @@ const EntryCard: FunctionComponent<Props> = ({
     </div>
   );
   const wrapped = onClick
-    ? (<CardActionArea>{content}</CardActionArea>)
+    ? (<CardActionArea onClick={onClick}>{content}</CardActionArea>)
     : content;
 
   return (
