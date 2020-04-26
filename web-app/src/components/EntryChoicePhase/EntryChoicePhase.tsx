@@ -15,6 +15,7 @@ type Props = {
   concept: string,
   stackPlayerName: string,
   currentPlayerChooses: boolean,
+  chosenPlayerId?: string,
   chosenPlayerName?: string,
   acknowledged: boolean,
   onChooseEntry: (playerId: string) => void,
@@ -26,7 +27,8 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
   concept,
   stackPlayerName,
   currentPlayerChooses,
-  chosenPlayerName = '',
+  chosenPlayerId,
+  chosenPlayerName,
   acknowledged,
   onChooseEntry,
   onAcknowledge,
@@ -87,6 +89,7 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
         </Grid>
           {
             otherEntries.map((entry) => {
+              const chosen = chosenPlayerId === entry.author;
               const entryCard = entry.data.type === 'drawing'
                 ? (
                   <DoodleEntryCard
@@ -112,7 +115,11 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
                 );
               return (
                 <Grid item xs={12} key={entry.author}>
-                  <Paper elevation={1} variant="outlined" className={classes.entryPaper}>
+                  <Paper
+                    elevation={1}
+                    variant="outlined"
+                    className={`${classes.entryPaper} ${chosen ? classes.selectedEntry : ''}`}
+                  >
                     {entryCard}
                   </Paper>
                 </Grid>

@@ -32,6 +32,7 @@ const mapStateToProps = (state: RootState) => {
     stackPlayerName,
     concept,
     currentPlayerChooses,
+    chosenPlayerId,
     chosenPlayerName,
     entries,
     acknowledged,
