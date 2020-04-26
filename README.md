@@ -1,3 +1,5 @@
+[![ko-fi](https://www.ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y8Y81N7G8)
+
 ![Deploy live-server](https://github.com/dsaltares/doodle/workflows/Deploy%20live-server/badge.svg)
 ![Deploy web-app](https://github.com/dsaltares/doodle/workflows/Deploy%20web-app/badge.svg)
 
