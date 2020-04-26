@@ -25,7 +25,7 @@ const ToolPickerButton: FunctionComponent<Props> = ({
   onToolchange,
 }) => (
   <ExpandableToolBarButton
-    title="Color"
+    title="Tool"
     icon={getIconForTool(tool)}
     renderContent={({ close }) => (
       <ToggleButtonGroup
