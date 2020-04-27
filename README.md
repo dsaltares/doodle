@@ -9,18 +9,6 @@ Doodle is a crazy drawing & guessing chain game I made as a side project during 
 
 [![brainstorming](/img/brainstorming.png)](/img/brainstorming.png)
 
-## How to play
-
-* 💻 Go to [doodle.saltares.com](https://doodle.saltares.com)
-* 🎮 Enter your name and start a game
-* 👪 Share the link with your friends for them to join. The game is for between 4 and 8 players.
-* 📹 Remember, Doodle is best played over video conferencing so you can laugh together.
-* 🤫 Each player picks a concept. Don't share it, it's a secret.
-* ✏️ Draw the concept you picked.
-* 🕵️ On the next round the next player will try guess what you drew.
-* ✏️ After that, you will draw what other players guessed.
-* 🤔 Once everyone is done, each player will pick their favorite entry for their concept.
-
 [![covid19](/img/covid19.png)](/img/covid19.png)
 
 ## Want to contribute?
