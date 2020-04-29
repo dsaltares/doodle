@@ -14,7 +14,7 @@ import InstructionListItem from './InstructionListItem';
 const Instructions = [
   {
     emoji: '🎮',
-    text: 'Create a game',
+    text: 'Create a game.',
   },
   {
     emoji: '🔗',
@@ -26,7 +26,7 @@ const Instructions = [
   },
   {
     emoji: '✏️',
-    text: "Draw the concept you picked. Don't worry if you're not an artist, the worse you draw, the more fun the round will be!",
+    text: "Draw your concept. Don't know how to draw? Worry not, the worse you draw, the more fun the round will be!",
   },
   {
     emoji: '🤔',
@@ -34,7 +34,7 @@ const Instructions = [
   },
   {
     emoji: '✏️',
-    text: "You will now alternate between drawing other players' guesses and guessing what others drew!",
+    text: "Time to draw what another player guessed!",
   },
   {
     emoji: '🙌',
