@@ -1,6 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
 
+import Connecting from '../Connecting';
 import InitialPhase from '../InitialPhase';
 import ConceptChoicePhase from '../ConceptChoicePhase';
 import CreateEntryPhase from '../CreateEntryPhase';
@@ -23,7 +24,7 @@ const Game: FunctionComponent<Props> = ({
   });
 
   if (!connected) {
-    return <Typography>Connecting</Typography>;
+    return <Connecting />;
   }
 
   switch (phaseName) {

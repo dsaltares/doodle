@@ -7,6 +7,7 @@ import { LIVE_SERVER_SOCKET } from '../endpoints';
 
 const initialState: SocketState = {
   status: 'disconnected',
+  hasError: false,
 }
 
 const socketSlice = createSlice({
@@ -18,12 +19,15 @@ const socketSlice = createSlice({
     },
     connectToSocketSuccess: (state) => {
       state.status = 'connected';
+      state.hasError = false;
     },
     connectToSocketFailed: state => {
-      state.status = 'error'
+      state.status = 'error';
+      state.hasError = true;
     },
     disconnected: state => {
       state.status = 'disconnected';
+      state.hasError = true;
     },
   }
 });

@@ -5,4 +5,5 @@ export type SocketStatus = 'disconnected'
 
 export type SocketState = {
   status: SocketStatus,
-}
+  hasError: boolean,
+};
