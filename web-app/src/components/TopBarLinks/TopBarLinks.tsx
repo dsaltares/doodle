@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/Help';
 
@@ -24,16 +25,15 @@ const TopBarLinks = () => {
     <>
       <Grid container direction="row" justify="flex-start" alignItems="center" spacing={0}>
         <Grid item>
-          <Tooltip title="How to play" placement="bottom">
-            <IconButton
-              className={classes.iconButton}
-              onClick={handleHelpClicked}
-            >
-              <SvgIcon>
-                <HelpIcon />
-              </SvgIcon>
-            </IconButton>
-          </Tooltip>
+          <Button
+            className={classes.iconButton}
+            variant="contained"
+            color="primary"
+            onClick={handleHelpClicked}
+            startIcon={<HelpIcon />}
+          >
+            How to play
+          </Button>
         </Grid>
         <Grid item>
           <Tooltip title="Support the project on Ko-fi ☕" placement="bottom">
