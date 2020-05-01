@@ -32,6 +32,19 @@ const gameSlice = createSlice({
     setGamePlayer: (state, action: PayloadAction<GameJoinedEvent>) => {
       state.player = action.payload.player;
     },
+    leaveGame: (state) => {
+      state.config = {
+        code: undefined,
+        name: undefined,
+      };
+      state.player = undefined;
+      state.gameState = undefined;
+      state.startingGame = false;
+      state.choosingConcept = undefined;
+      state.submittedEntry = false;
+      state.chosenEntry = undefined;
+      state.acknowledgedWinner = false;
+    },
     startGame: (state) => {
       state.startingGame = true;
     },
@@ -111,6 +124,14 @@ export const startGame = () => async (
   dispatch(actions.startGame());
   const socket = await socketDeferred.promise;
   socket.emit('startGame', {});
+};
+
+export const leaveGame = () => async (
+  dispatch: AppDispatch,
+) => {
+  dispatch(actions.leaveGame());
+  const socket = await socketDeferred.promise;
+  socket.emit('leaveGame', {});
 };
 
 export const chooseConcept = (concept: string) => async (
