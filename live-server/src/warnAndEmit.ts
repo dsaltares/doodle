@@ -6,19 +6,19 @@ type InitParams = {
   socket: Socket,
 };
 
-type Params = {
+export type Params = {
   event: string,
   message: string,
-  data: any,
+  data?: any,
 };
 
-const warnAndRespond = ({
+const warnAndEmit = ({
   logger,
   socket,
 }: InitParams) => ({
   event,
   message,
-  data,
+  data = {},
 }: Params): boolean => {
   logger.warn(message, {
     event,
@@ -27,4 +27,4 @@ const warnAndRespond = ({
   return socket.emit(event, { message });
 };
 
-export default warnAndRespond;
+export default warnAndEmit;
