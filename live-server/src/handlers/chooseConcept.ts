@@ -9,33 +9,54 @@ const chooseConcept = ({
   io,
   socket,
   store: { gameBySocketId },
+  logger,
+  warnAndEmit,
 }: HandlerParams) => ({
   concept,
 }: ChooseParams) => {
-  console.log('chooseConcept', concept);
-
   const game = gameBySocketId[socket.id];
   const player = game.playersBySocket[socket.id];
+  const playerId = player.id;
+  const phase = game.round.phase;
 
-  if (game.round.phase.name !== 'conceptChoice') {
-    return socket.emit('failedToChooseConcept', {
+  if (phase.name !== 'conceptChoice') {
+    return warnAndEmit({
+      event: 'failedToChooseConcept',
       message: 'Cannot choose concept now',
+      data: {
+        gameCode: game.code,
+        playerId,
+        phase: phase.name,
+      },
     });
   }
 
   const { choices } = game.round.phase as ConceptChoicePhase;
-  const choicesForPlayer = choices[player.id];
+  const choicesForPlayer = choices[playerId];
   if (!choicesForPlayer.includes(concept)) {
-    return socket.emit('failedToChooseConcept', {
+    return warnAndEmit({
+      event: 'failedToChooseConcept',
       message: 'The concept is not amongst the available concepts',
+      data: {
+        gameCode: game.code,
+        playerId,
+        concept,
+        choicesForPlayer,
+      },
     });
   }
 
   const { round: { concepts } } = game;
-  const playerHasConcept = !!concepts[player.id];
+  const playerHasConcept = !!concepts[playerId];
   if (playerHasConcept) {
-    return socket.emit('failedToChooseConcept', {
+    return warnAndEmit({
+      event: 'failedToChooseConcept',
       message: 'The player had already chosen a concept',
+      data: {
+        gameCode: game.code,
+        playerId,
+        concept: concepts[playerId],
+      },
     });
   }
 
@@ -50,6 +71,12 @@ const chooseConcept = ({
       index: 0,
     };
   }
+
+  logger.info('chooseConcept', {
+    gameCode: game.code,
+    playerId,
+    concept,
+  });
 
   return io.to(game.code).emit('gameUpdated', {
     gameState: game,

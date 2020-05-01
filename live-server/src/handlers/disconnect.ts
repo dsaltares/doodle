@@ -4,6 +4,7 @@ const disconnect = ({
   io,
   socket,
   store: { games, gameBySocketId },
+  logger,
 }: HandlerParams) => ({}) => {
   const game = gameBySocketId[socket.id];
   if (!game) {
@@ -15,8 +16,13 @@ const disconnect = ({
   delete game.players[player.id];
   delete gameBySocketId[socket.id];
 
+  logger.info('disconnect', {
+    playerId: player.id,
+    gameCode: game.code,
+    playersLeft: Object.keys(game.players),
+  });
+
   io.to(game.code).emit('gameUpdated', { gameState: game });
-  console.log('left game: ', player.name);
 
   const numPlayers = Object.keys(game.players).length;
   if (numPlayers === 0) {

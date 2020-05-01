@@ -9,24 +9,36 @@ const chooseEntry = ({
   io,
   socket,
   store: { gameBySocketId },
+  logger,
+  warnAndEmit,
 }: HandlerParams) => ({
   targetPlayer,
 }: ChooseParams) => {
-  console.log('chooseEntry');
-
   const game = gameBySocketId[socket.id];
+  const player = game.playersBySocket[socket.id];
+  const playerId = player.id;
 
   if (game.round.phase.name !== 'entryChoice') {
-    return socket.emit('failedToChooseEntry', {
+    return warnAndEmit({
+      event: 'failedToChooseEntry',
       message: 'Cannot choose an entry now',
+      data: {
+        gameCode: game.code,
+        playerId,
+        phase: game.round.phase.name,
+      },
     });
   }
 
-  const player = game.playersBySocket[socket.id];
-  const playerId = player.id;
   if (playerId === targetPlayer) {
-    return socket.emit('failedToChooseEntry', {
+    return warnAndEmit({
+      event: 'failedToChooseEntry',
       message: 'Cannot choose your own entry',
+      data: {
+        gameCode: game.code,
+        playerId,
+        targetPlayer,
+      },
     });
   }
 
@@ -34,8 +46,15 @@ const chooseEntry = ({
   const playerIdx = game.round.order.indexOf(playerId);
   const isPlayerTurn = phase.index === playerIdx;
   if (!isPlayerTurn) {
-    return socket.emit('failedToChooseEntry', {
+    return warnAndEmit({
+      event: 'failedToChooseEntry',
       message: 'Not the player turn',
+      data: {
+        gameCode: game.code,
+        playerId,
+        index: phase.index,
+        order: game.round.order,
+      },
     });
   }
 
@@ -46,6 +65,12 @@ const chooseEntry = ({
     stack.chosen = targetPlayer;
     game.players[targetPlayer].points += 1;
   }
+
+  logger.info('chooseEntry', {
+    gameCode: game.code,
+    playerId,
+    targetPlayer,
+  });
 
   return io.to(game.code).emit('gameUpdated', {
     gameState: game,

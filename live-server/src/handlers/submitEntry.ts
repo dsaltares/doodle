@@ -13,31 +13,44 @@ const submitEntry = ({
   io,
   socket,
   store: { gameBySocketId },
+  logger,
+  warnAndEmit,
 }: HandlerParams) => ({
   entry,
 }: EntryParams) => {
-  console.log('submitEntry');
-
   const game = gameBySocketId[socket.id];
+  const player = game.playersBySocket[socket.id];
+  const playerId = player.id;
 
   if (game.round.phase.name !== 'createEntry') {
-    return socket.emit('failedToSubmitEntry', {
+    return warnAndEmit({
+      event: 'createEntry',
       message: 'Cannot submit an entry now',
+      data: {
+        gameCode: game.code,
+        playerId,
+        phase: game.round.phase.name,
+      },
     });
   }
 
   const phase = game.round.phase as CreateEntryPhase;
   const numPlayers = Object.keys(game.players).length;
-  const player = game.playersBySocket[socket.id];
-  const playerId = player.id;
   const playerIdx = game.round.order.indexOf(playerId);
   const targetPlayerIdx = (playerIdx + phase.index) % numPlayers;
   const targetPlayerId = game.round.order[targetPlayerIdx];
   const stack = game.round.stacks[targetPlayerId];
   const stackHasEntryByPlayer = !!stack.entries.find(entry => entry.author === playerId);
   if (stackHasEntryByPlayer) {
-    return socket.emit('failedToSubmitEntry', {
+    return warnAndEmit({
+      event: 'createEntry',
       message: 'Already submitted to this stack',
+      data: {
+        gameCode: game.code,
+        playerId,
+        targetPlayerId,
+        order: game.round.order,
+      },
     });
   }
 
@@ -62,6 +75,13 @@ const submitEntry = ({
       acknowledgedBy: {},
     };
   }
+
+  logger.info('submitEntry', {
+    gameCode: game.code,
+    playerId,
+    targetPlayerId,
+    entryType: entry.type,
+  });
 
   return io.to(game.code).emit('gameUpdated', {
     gameState: game,

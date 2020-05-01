@@ -12,11 +12,11 @@ const joinGame = ({
   io,
   socket,
   store: { games, gameBySocketId },
+  logger,
+  warnAndEmit,
 }: HandlerParams) => ({
   name, code,
 }: JoinParams) => {
-  console.log('joinGame: ', name, code);
-
   const alreadyInGame = !!gameBySocketId[socket.id];
   if (alreadyInGame) {
     const game = gameBySocketId[socket.id];
@@ -34,14 +34,24 @@ const joinGame = ({
   });
 
   if (Object.keys(game.players).length >= MAX_PLAYERS) {
-    return socket.emit('failedToJoinGame', {
+    return warnAndEmit({
+      event: 'failedToJoinGame',
       message: 'The game is already full',
+      data: {
+        gameCode: game.code,
+        name,
+      },
     });
   }
 
   if (game.round.phase.name !== 'initial') {
-    return socket.emit('failedToJoinGame', {
+    return warnAndEmit({
+      event: 'failedToJoinGame',
       message: 'The game has already started',
+      data: {
+        gameCode: game.code,
+        name,
+      },
     });
   }
 
@@ -51,6 +61,11 @@ const joinGame = ({
   games[code] = game;
 
   gameBySocketId[socket.id] = game;
+
+  logger.info('joinGame', {
+    gameCode: code,
+    name,
+  });
 
   socket.join(code);
   socket.emit('connectedToGame', ({ player: player.id, code }));

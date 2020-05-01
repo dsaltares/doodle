@@ -6,26 +6,36 @@ const acknowledgeWinner = ({
   io,
   socket,
   store: { gameBySocketId },
+  logger,
+  warnAndEmit,
 }: HandlerParams) => () => {
-  console.log('acknowledgeWinner');
-
   const game = gameBySocketId[socket.id];
-
-  if (game.round.phase.name !== 'entryChoice') {
-    return socket.emit('failedToChooseEntry', {
-      message: 'Cannot choose an entry now',
-    });
-  }
-
   const phase = game.round.phase as EntryChoicePhase;
   const player = game.playersBySocket[socket.id];
   const playerId = player.id;
 
+  if (game.round.phase.name !== 'entryChoice') {
+    return warnAndEmit({
+      event: 'failedToAcknowledgeWinner',
+      message: 'Cannot acknowledge a winner now',
+      data: {
+        gameCode: game.code,
+        playerId,
+        phase: phase.name,
+      },
+    });
+  }
+
   const playerIdx = game.round.order.indexOf(playerId);
   const isPlayerTurn = phase.index === playerIdx;
   if (isPlayerTurn) {
-    return socket.emit('failedToChooseEntry', {
+    return warnAndEmit({
+      event: 'failedToAcknowledgeWinner',
       message: 'No need to acknowledge when it is your turn',
+      data: {
+        gameCode: game.code,
+        playerId,
+      },
     });
   }
 
@@ -45,6 +55,11 @@ const acknowledgeWinner = ({
       phase.acknowledgedBy = {};
     }
   }
+
+  logger.info('acknowledgeWinner', {
+    gameCode: game.code,
+    playerId,
+  });
 
   return io.to(game.code).emit('gameUpdated', {
     gameState: game,

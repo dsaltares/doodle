@@ -2,24 +2,66 @@ import express from 'express';
 import { createServer } from 'http';
 import socketIo from 'socket.io';
 import cors from 'cors';
+import winston from 'winston';
+import HumioTransport from 'humio-winston';
+import Transport from 'winston-transport';
 
 import subscribe from './handlers/subscribe';
 import createStore from './store';
+import WarnAndEmit from './warnAndEmit';
 
-const app = express();
-const server = createServer(app);
-const io = socketIo(server);
-const port = process.env.PORT || 3001;
+const createLogger = () => {
+  const transports: Transport[] = [
+    new winston.transports.Console({
+      handleExceptions: true,
+    }),
+  ];
+  if (process.env.NODE_ENV !== 'development') {
+    transports.push(new HumioTransport({
+      ingestToken: process.env.HUMIO_INGEST_TOKEN,
+      tags: {
+        app: 'doodle-live-server',
+      },
+      handleExceptions: true,
+    }));
+  }
+  const logger = winston.createLogger({
+    format: winston.format.combine(
+      winston.format.timestamp(),
+      winston.format.splat(),
+      winston.format.json(),
+    ),
+    transports: transports,
+  });
 
-const store = createStore();
+  return logger;
+};
 
-app.use(cors());
+const startServer = (logger: winston.Logger) => {
+  const app = express();
+  const server = createServer(app);
+  const io = socketIo(server);
+  const port = process.env.PORT || 3001;
 
-io.on('connect', (socket) => {
-  console.log(`connected client on port ${port}`);
-  subscribe({ io, socket, store });
-});
+  const store = createStore();
 
-server.listen(port, () => {
-  console.log(`Running server on port ${port}`);
-});
+  app.use(cors());
+
+  io.on('connect', (socket) => {
+    logger.info('connected client', { port });
+    subscribe({
+      io,
+      socket,
+      store,
+      logger,
+      warnAndEmit: WarnAndEmit({ logger, socket }),
+    });
+  });
+
+  server.listen(port, () => {
+    logger.info('running server', { port });
+  });
+};
+
+const logger = createLogger();
+startServer(logger);
