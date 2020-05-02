@@ -1,7 +1,7 @@
 import { HandlerParams } from './types';
 
 import joinGame from './joinGame';
-import disconnect from './disconnect';
+import leaveGame from './leaveGame';
 import startGame from './startGame';
 import chooseConcept from './chooseConcept';
 import submitEntry from './submitEntry';
@@ -12,7 +12,8 @@ const subscribe = (params: HandlerParams) => {
   const { socket } = params;
 
   socket.on('joinGame', joinGame(params));
-  socket.on('disconnect', disconnect(params));
+  socket.on('disconnect', leaveGame(params));
+  socket.on('leaveGame', leaveGame(params));
   socket.on('startGame', startGame(params));
   socket.on('chooseConcept', chooseConcept(params));
   socket.on('submitEntry', submitEntry(params));

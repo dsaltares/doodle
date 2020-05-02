@@ -32,3 +32,12 @@ export const createRound = (game: Game): Round => {
     concepts: {},
   };
 };
+
+export const initialRound = (): Round => ({
+  phase: {
+    name: 'initial',
+  },
+  order: [],
+  stacks: {},
+  concepts: {},
+});
