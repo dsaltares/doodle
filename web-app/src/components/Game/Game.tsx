@@ -81,18 +81,22 @@ class Game extends React.Component<Props, {}> {
 
   renderAlert() {
     const { alert, dismissAlert } = this.props;
-    const message = alert ? alert.message : '';
+    const alertComponent = alert
+      ? (
+        <Alert onClose={dismissAlert} severity={alert.severity}>
+          {alert.message}
+        </Alert>
+      )
+      : undefined;
 
     return (
       <Snackbar
         open={!!alert}
         autoHideDuration={5000}
         onClose={dismissAlert}
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       >
-        <Alert onClose={dismissAlert} severity={alert ? alert.severity : 'info'}>
-          {message}
-        </Alert>
+        {alertComponent}
       </Snackbar>
     );
   }
