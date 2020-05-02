@@ -15,7 +15,27 @@ const chooseConcept = ({
   concept,
 }: ChooseParams) => {
   const game = gameBySocketId[socket.id];
+  if (!game) {
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The game does not exist',
+      data: {
+        socketId: socket.id,
+      },
+    });
+  }
+
   const player = game.playersBySocket[socket.id];
+  if (!player) {
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The player is not in the game',
+      data: {
+        gameCode: game.code,
+      },
+    });
+  }
+
   const playerId = player.id;
   const phase = game.round.phase;
 

@@ -10,19 +10,24 @@ const leaveGame = ({
 }: HandlerParams) => () => {
   const game = gameBySocketId[socket.id];
   if (!game) {
-    logger.info('The game does not exist', {
-      event: 'leaveGame',
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The game does not exist',
+      data: {
+        socketId: socket.id,
+      },
     });
-    return;
   }
 
   const player = game.playersBySocket[socket.id];
   if (!player) {
-    logger.info('The player is not in the game', {
-      event: 'leaveGame',
-      gameCode: game.code,
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The player is not in the game',
+      data: {
+        gameCode: game.code,
+      },
     });
-    return;
   }
 
   const playerId = player.id;

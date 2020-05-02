@@ -10,8 +10,28 @@ const acknowledgeWinner = ({
   warnAndEmit,
 }: HandlerParams) => () => {
   const game = gameBySocketId[socket.id];
-  const phase = game.round.phase as EntryChoicePhase;
+  if (!game) {
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The game does not exist',
+      data: {
+        socketId: socket.id,
+      }
+    });
+  }
+
   const player = game.playersBySocket[socket.id];
+  if (!player) {
+    return warnAndEmit({
+      event: 'gameDoesNotExist',
+      message: 'The player is not in the game',
+      data: {
+        gameCode: game.code,
+      },
+    });
+  }
+
+  const phase = game.round.phase as EntryChoicePhase;
   const playerId = player.id;
 
   if (game.round.phase.name !== 'entryChoice') {
