@@ -45,6 +45,7 @@ const gameSlice = createSlice({
       state.submittedEntry = false;
       state.chosenEntry = undefined;
       state.acknowledgedWinner = false;
+      state.alerts = [];
     },
     startGame: (state) => {
       state.startingGame = true;
@@ -62,7 +63,11 @@ const gameSlice = createSlice({
       state.acknowledgedWinner = true;
     },
     updateGame: (state, action: PayloadAction<GameUpdatedEvent>) => {
-      if (action.payload.updateBy === state.player) {
+      const {
+        payload: { updateBy, gameState, alert },
+      } = action;
+
+      if (updateBy === state.player) {
         state.startingGame = false;
         state.choosingConcept = undefined;
         state.submittedEntry = false;
@@ -70,14 +75,14 @@ const gameSlice = createSlice({
         state.acknowledgedWinner = false;
       }
 
-      if (action.payload.alert) {
-        state.alerts.push(action.payload.alert);
+      if (alert && !alert.ignorePlayers.includes(state.player as string)) {
+        state.alerts.push(alert);
       }
 
-      if (state.gameState && state.gameState.lastUpdate > action.payload.gameState.lastUpdate) {
+      if (state.gameState && state.gameState.lastUpdate > gameState.lastUpdate) {
         return state;
       }
-      state.gameState = action.payload.gameState;
+      state.gameState = gameState;
     },
     dismissAlert: (state) => {
       if (state.alerts.length > 0) {
@@ -101,6 +106,16 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
     console.log('gameUpdated:', event);
 
     dispatch(actions.updateGame(event));
+  });
+
+  socket.on('gameDoesNotExist', () => {
+    console.log('gameDoesNotExist');
+    dispatch(actions.leaveGame());
+  });
+
+  socket.on('disconnect', () => {
+    console.log('disconnect');
+    dispatch(actions.leaveGame());
   });
 };
 

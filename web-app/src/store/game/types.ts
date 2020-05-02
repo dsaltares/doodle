@@ -101,6 +101,7 @@ export type GameConfig = {
 export type Alert = {
   message: string,
   severity: 'error' | 'warning' | 'info' | 'success',
+  ignorePlayers: string[],
 }
 
 export type GameSliceState = {

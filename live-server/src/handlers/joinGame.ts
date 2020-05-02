@@ -75,6 +75,7 @@ const joinGame = ({
     alert: {
       severity: 'success',
       message: `${player.name} joined the game!`,
+      ignorePlayers: [player.id],
     },
   });
 };
