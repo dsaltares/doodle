@@ -17,6 +17,7 @@ const initialState: GameSliceState = {
   choosingConcept: undefined,
   submittedEntry: false,
   acknowledgedWinner: false,
+  alerts: [],
 }
 
 const gameSlice = createSlice({
@@ -69,11 +70,20 @@ const gameSlice = createSlice({
         state.acknowledgedWinner = false;
       }
 
+      if (action.payload.alert) {
+        state.alerts.push(action.payload.alert);
+      }
+
       if (state.gameState && state.gameState.lastUpdate > action.payload.gameState.lastUpdate) {
         return state;
       }
       state.gameState = action.payload.gameState;
     },
+    dismissAlert: (state) => {
+      if (state.alerts.length > 0) {
+        state.alerts.shift();
+      }
+    }
   },
 });
 
@@ -177,5 +187,8 @@ export const acknowledgeWinner = () => async(
   const socket = await socketDeferred.promise;
   socket.emit('acknowledgeWinner', {});
 };
+
+const { dismissAlert } = actions;
+export { dismissAlert };
 
 export { selectors };

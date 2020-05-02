@@ -98,6 +98,11 @@ export type GameConfig = {
   code?: string,
 }
 
+export type Alert = {
+  message: string,
+  severity: 'error' | 'warning' | 'info' | 'success',
+}
+
 export type GameSliceState = {
   config: GameConfig,
   gameState?: GameState,
@@ -107,6 +112,7 @@ export type GameSliceState = {
   submittedEntry: boolean,
   chosenEntry?: string,
   acknowledgedWinner: boolean;
+  alerts: Alert[],
 }
 
 export type CreateGameParams = {
@@ -128,4 +134,5 @@ export type GameJoinedEvent = {
 export type GameUpdatedEvent = {
   gameState: GameState,
   updateBy: string,
+  alert?: Alert,
 };

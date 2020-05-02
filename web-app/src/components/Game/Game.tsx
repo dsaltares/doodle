@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 import Connecting from '../Connecting';
 import InitialPhase from '../InitialPhase';
@@ -8,11 +10,15 @@ import ConceptChoicePhase from '../ConceptChoicePhase';
 import CreateEntryPhase from '../CreateEntryPhase';
 import EntryChoicePhase from '../EntryChoicePhase';
 
+import { Alert as AlertType } from '../../store/game/types';
+
 interface Props extends RouteComponentProps<any> {
   connected: boolean,
   phaseName: string,
+  alert?: AlertType,
   connect: () => void,
   leave: () => void,
+  dismissAlert: () => void,
 }
 
 class Game extends React.Component<Props, {}> {
@@ -49,8 +55,11 @@ class Game extends React.Component<Props, {}> {
     }
   }
 
-  render() {
-    const { connected, phaseName } = this.props;
+  renderContent() {
+    const {
+      connected,
+      phaseName,
+    } = this.props;
 
     if (!connected) {
       return <Connecting />;
@@ -68,6 +77,33 @@ class Game extends React.Component<Props, {}> {
       default:
         return <Typography>Unknown phase</Typography>
     }
+  }
+
+  renderAlert() {
+    const { alert, dismissAlert } = this.props;
+    const message = alert ? alert.message : '';
+
+    return (
+      <Snackbar
+        open={!!alert}
+        autoHideDuration={5000}
+        onClose={dismissAlert}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={dismissAlert} severity={alert ? alert.severity : 'info'}>
+          {message}
+        </Alert>
+      </Snackbar>
+    );
+  }
+
+  render() {
+    return (
+      <React.Fragment>
+        {this.renderContent()}
+        {this.renderAlert()}
+      </React.Fragment>
+    );
   }
 }
 

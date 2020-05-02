@@ -72,6 +72,10 @@ const joinGame = ({
   return io.to(code).emit('gameUpdated', {
     gameState: game,
     updateBy: player.id,
+    alert: {
+      severity: 'success',
+      message: `${player.name} joined the game!`,
+    },
   });
 };
 

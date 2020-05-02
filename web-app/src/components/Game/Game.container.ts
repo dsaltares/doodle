@@ -2,7 +2,11 @@ import { connect } from 'react-redux';
 
 import Game from './Game';
 import { AppDispatch } from '../../store';
-import { connectToGameChannel, leaveGame } from '../../store/game';
+import {
+  connectToGameChannel,
+  leaveGame,
+  dismissAlert,
+} from '../../store/game';
 import { RootState } from '../../store/reducers';
 
 const mapStateToProps = (state: RootState) => {
@@ -16,12 +20,16 @@ const mapStateToProps = (state: RootState) => {
   return {
     connected: true,
     phaseName: state.game.gameState.round.phase.name,
+    alert: state.game.alerts.length > 0
+      ? state.game.alerts[0]
+      : undefined,
   };
 }
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   connect: () => dispatch(connectToGameChannel()),
   leave: () => dispatch(leaveGame()),
+  dismissAlert: () => dispatch(dismissAlert()),
 });
 
 export default connect(

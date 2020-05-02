@@ -48,6 +48,10 @@ const leaveGame = ({
   io.to(game.code).emit('gameUpdated', {
     gameState: game,
     updateBy: player.id,
+    alert: {
+      severity: 'warning',
+      message: `${player.name} left the game!`,
+    },
   });
 
   const numPlayers = playerIds.length;
