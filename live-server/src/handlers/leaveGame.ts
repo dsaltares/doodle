@@ -41,6 +41,12 @@ const leaveGame = ({
     game.round = initialRound();
   }
 
+  game.players = {
+    ...game.players,
+    ...game.waitingPlayers,
+  };
+  game.waitingPlayers = {};
+
   const playerIds = Object.keys(game.players);
   const numPlayers = playerIds.length;
   if (game.createdBy === playerId && numPlayers > 0) {
