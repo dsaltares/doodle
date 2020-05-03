@@ -5,7 +5,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Toolbar from '@material-ui/core/Toolbar';
 
 import useStyles from './SideBar.styles';
-import PlayerList from '../PlayerList';
+import PlayerList, { WaitingPlayerList } from '../PlayerList';
 
 type Props = {
   drawerOpen: boolean,
@@ -23,6 +23,7 @@ const SideBar: FunctionComponent<Props> = ({
       <Toolbar />
       <div className={classes.drawerContainer}>
         <PlayerList />
+        <WaitingPlayerList />
       </div>
     </React.Fragment>
   );

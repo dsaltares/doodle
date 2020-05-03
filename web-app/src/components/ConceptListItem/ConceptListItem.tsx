@@ -5,6 +5,7 @@ import React, {
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Typography from '@material-ui/core/Typography';
 
 import Emoji from '../Emoji';
 
@@ -29,7 +30,7 @@ const ConceptListItem: FunctionComponent<Props> = ({
     disabled={disabled}
   >
     <ListItemAvatar>
-      <Emoji symbol="💡" />
+      <Typography variant="h4"><Emoji symbol="💡" /></Typography>
     </ListItemAvatar>
     <ListItemText primary={concept}/>
   </ListItem>

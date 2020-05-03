@@ -10,16 +10,21 @@ import {
 import { RootState } from '../../store/reducers';
 
 const mapStateToProps = (state: RootState) => {
-  if (!state.game.gameState) {
+  const game = state.game.gameState;
+  const playerId = state.game.player;
+
+  if (!game || !playerId) {
     return {
       connected: false,
+      waitingToJoin: false,
       phaseName: '',
     };
   }
 
   return {
     connected: true,
-    phaseName: state.game.gameState.round.phase.name,
+    waitingToJoin: !!game.waitingPlayers[playerId],
+    phaseName: game.round.phase.name,
     alert: state.game.alerts.length > 0
       ? state.game.alerts[0]
       : undefined,

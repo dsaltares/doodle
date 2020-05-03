@@ -33,7 +33,10 @@ const joinGame = ({
     creator: player.id,
   });
 
-  if (Object.keys(game.players).length >= MAX_PLAYERS) {
+  const numPlayers = Object.keys(game.players).length;
+  const numWaitingPlayers = Object.keys(game.waitingPlayers).length;
+  const totalNumPlayers = numPlayers + numWaitingPlayers;
+  if (totalNumPlayers >= MAX_PLAYERS) {
     return warnAndEmit({
       event: 'failedToJoinGame',
       message: 'The game is already full',
@@ -44,22 +47,15 @@ const joinGame = ({
     });
   }
 
-  if (game.round.phase.name !== 'initial') {
-    return warnAndEmit({
-      event: 'failedToJoinGame',
-      message: 'The game has already started',
-      data: {
-        gameCode: game.code,
-        name,
-      },
-    });
+  if (game.round.phase.name === 'initial') {
+    game.players[player.id] = player;
+  } else {
+    game.waitingPlayers[player.id] = player;
   }
 
-  game.players[player.id] = player;
   game.playersBySocket[socket.id] = player;
   game.lastUpdate = new Date().getTime();
   games[code] = game;
-
   gameBySocketId[socket.id] = game;
 
   logger.info('joinGame', {
@@ -69,6 +65,7 @@ const joinGame = ({
 
   socket.join(code);
   socket.emit('connectedToGame', ({ player: player.id, code }));
+
   return io.to(code).emit('gameUpdated', {
     gameState: game,
     updateBy: player.id,

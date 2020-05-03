@@ -8,6 +8,7 @@ import {
   GameJoinedEvent,
   GameUpdatedEvent,
   JoinGameParams,
+  Alert,
 } from "./types";
 import * as selectors from './selectors';
 
@@ -75,8 +76,13 @@ const gameSlice = createSlice({
         state.acknowledgedWinner = false;
       }
 
-      if (alert && !alert.ignorePlayers.includes(state.player as string)) {
-        state.alerts.push(alert);
+      const hasAlert = !!alert;
+      const playerId = state.player as string;
+      const forCurrentPlayer = !alert?.ignorePlayers
+        || !alert.ignorePlayers.includes(playerId)
+
+      if (hasAlert && forCurrentPlayer) {
+        state.alerts.push(alert as Alert);
       }
 
       if (state.gameState && state.gameState.lastUpdate > gameState.lastUpdate) {

@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Alert from '@material-ui/lab/Alert';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Typography from '@material-ui/core/Typography';
 
 import useStyles from './Connecting.styles';
 import Emoji from '../Emoji';
@@ -25,7 +26,9 @@ const Connecting: FunctionComponent<Props> = ({
         spacing={1}
       >
         <Grid item>
-          <Emoji className={classes.messageEmoji} symbol="🙈" />
+          <Typography variant="h4">
+            <Emoji symbol="🙈" />
+          </Typography>
         </Grid>
         <Grid item>
           Failed to connect, retrying...

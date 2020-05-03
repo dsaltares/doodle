@@ -13,8 +13,12 @@ type Props = {
   id: string
 }
 
-const getPlayerState = (state: RootState, id: string): PlayerState | undefined => {
-  if (!state.game.gameState) {
+const getPlayerState = (
+  state: RootState,
+  id: string,
+  isWaiting: boolean,
+): PlayerState | undefined => {
+  if (!state.game.gameState || isWaiting) {
     return;
   }
 
@@ -70,10 +74,11 @@ const getPlayerState = (state: RootState, id: string): PlayerState | undefined =
 
 const mapStateToProps = (state: RootState, ownProps: Props) => {
   const player = selectors.player(state, ownProps.id) as Player;
+  const isWaiting = selectors.isWaiting(state, ownProps.id);
 
   return {
     ...player,
-    state: getPlayerState(state, ownProps.id),
+    state: getPlayerState(state, ownProps.id, isWaiting),
   };
 }
 

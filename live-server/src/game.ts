@@ -65,6 +65,7 @@ export type Round = {
 export type Game = {
   code: string,
   players: Players,
+  waitingPlayers: Players,
   playersBySocket: Players,
   lastUpdate: number,
   createdBy: string,
@@ -86,6 +87,7 @@ export const createGame = ({
 }: CreateGameParams): Game => ({
   code,
   players: {},
+  waitingPlayers: {},
   playersBySocket: {},
   lastUpdate: new Date().getTime(),
   createdBy: creator,

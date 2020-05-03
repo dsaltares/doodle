@@ -4,9 +4,6 @@ const useStyles = makeStyles((theme) => ({
   alert: {
     maxWidth: 500,
   },
-  messageEmoji: {
-    fontSize: 24,
-  },
 }));
 
 export default useStyles;

@@ -69,6 +69,11 @@ const acknowledgeWinner = ({
   const isFinalStack = phase.index === numPlayers - 1;
   if (allHaveAcknowledged) {
     if (isFinalStack) {
+      game.players = {
+        ...game.players,
+        ...game.waitingPlayers,
+      };
+      game.waitingPlayers = {};
       game.round = createRound(game);
     } else {
       phase.index += 1;

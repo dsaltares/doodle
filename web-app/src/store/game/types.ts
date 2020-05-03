@@ -87,6 +87,7 @@ export type Round = {
 export type GameState = {
   code: string,
   players: Players,
+  waitingPlayers: Players,
   playersBySocket: Players,
   lastUpdate: number,
   createdBy: string,

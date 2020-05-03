@@ -3,6 +3,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Avataaar from 'avataaars';
 
@@ -73,7 +74,9 @@ const PlayerItem: FunctionComponent<Props> = ({
       {
         state && (
           <ListItemSecondaryAction>
-            <Emoji symbol={statusEmojis[state]} />
+            <Typography variant="h5">
+              <Emoji symbol={statusEmojis[state]} />
+            </Typography>
           </ListItemSecondaryAction>
         )
       }

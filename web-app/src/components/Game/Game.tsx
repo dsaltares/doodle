@@ -5,6 +5,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 
 import Connecting from '../Connecting';
+import WaitingToJoin from '../WaitingToJoin';
 import InitialPhase from '../InitialPhase';
 import ConceptChoicePhase from '../ConceptChoicePhase';
 import CreateEntryPhase from '../CreateEntryPhase';
@@ -14,6 +15,7 @@ import { Alert as AlertType } from '../../store/game/types';
 
 interface Props extends RouteComponentProps<any> {
   connected: boolean,
+  waitingToJoin: boolean,
   phaseName: string,
   alert?: AlertType,
   connect: () => void,
@@ -59,10 +61,15 @@ class Game extends React.Component<Props, {}> {
     const {
       connected,
       phaseName,
+      waitingToJoin,
     } = this.props;
 
     if (!connected) {
       return <Connecting />;
+    }
+
+    if (waitingToJoin) {
+      return <WaitingToJoin />
     }
 
     switch (phaseName) {
