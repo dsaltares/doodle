@@ -42,6 +42,11 @@ const leaveGame = ({
   }
 
   const playerIds = Object.keys(game.players);
+  const numPlayers = playerIds.length;
+  if (game.createdBy === playerId && numPlayers > 0) {
+    game.createdBy = playerIds[0];
+  }
+
   logger.info('leaveGame', {
     gameCode: game.code,
     playerId,
@@ -59,7 +64,6 @@ const leaveGame = ({
     },
   });
 
-  const numPlayers = playerIds.length;
   if (numPlayers === 0) {
     delete games[game.code];
   }
