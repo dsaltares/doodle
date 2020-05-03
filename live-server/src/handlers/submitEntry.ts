@@ -57,8 +57,11 @@ const submitEntry = ({
   const phase = game.round.phase as CreateEntryPhase;
   const numPlayers = Object.keys(game.players).length;
   const playerIdx = game.round.order.indexOf(playerId);
-  const targetPlayerIdx = (playerIdx + phase.index) % numPlayers;
-  const targetPlayerId = game.round.order[targetPlayerIdx];
+  const playerIdxMinusTurn = playerIdx - phase.index;
+  const targetIdx = playerIdxMinusTurn < 0
+    ? numPlayers + playerIdxMinusTurn
+    : playerIdxMinusTurn;
+  const targetPlayerId = game.round.order[targetIdx];
   const stack = game.round.stacks[targetPlayerId];
   const stackHasEntryByPlayer = !!stack.entries.find(entry => entry.author === playerId);
   if (stackHasEntryByPlayer) {
@@ -101,6 +104,7 @@ const submitEntry = ({
     playerId,
     targetPlayerId,
     entryType: entry.type,
+    phaseIndex: phase.index,
   });
 
   return io.to(game.code).emit('gameUpdated', {

@@ -1,5 +1,5 @@
 import { RootState } from "../reducers";
-import { Player } from "./types";
+import { Player, CreateEntryPhase, Stack } from "./types";
 
 export const playerIds = (state: RootState): string[] => {
   if (!state.game.gameState) {
@@ -29,4 +29,85 @@ export const isWaiting = (state: RootState, id: string): boolean => {
     return false;
   }
   return !!game.waitingPlayers[id];
+};
+
+export const isFirstCreateTurn = (state: RootState) => {
+  const game = state.game.gameState;
+  if (!game) {
+    return false;
+  }
+  const phase = game.round.phase;
+  if (phase.name !== 'createEntry') {
+    return false;
+  }
+  return phase.index === 0;
+};
+
+export const conceptForCurrentPlayer = (state: RootState) => {
+  const game = state.game.gameState;
+  const playerId = state.game.player
+  if (!game || !playerId) {
+    return;
+  }
+
+  return game.round.concepts[playerId];
+};
+
+const currentStackForPlayer = (state: RootState, playerId: string) => {
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return;
+  }
+
+  const phase = game.round.phase as CreateEntryPhase;
+  const playerIdx = game.round.order.indexOf(playerId);
+  const numPlayers = Object.keys(game.players).length;
+  const playerIdxMinusTurn = playerIdx - phase.index;
+  const sourceIdx = playerIdxMinusTurn < 0
+    ? numPlayers + playerIdxMinusTurn
+    : playerIdxMinusTurn;
+  const sourcePlayerId = game.round.order[sourceIdx];
+  return game.round.stacks[sourcePlayerId];
+};
+
+const getPlayerSourceEntry = (state: RootState, playerId: string) => {
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return;
+  }
+
+  const phase = game.round.phase as CreateEntryPhase;
+  const stack = currentStackForPlayer(state, playerId) as Stack;
+  const lastEntry = stack.entries[phase.index - 1];
+  return lastEntry;
+};
+
+export const getSourceEntry = (state: RootState) => {
+  const playerId = state.game.player as string;
+  return getPlayerSourceEntry(state, playerId);
+};
+
+export const playerHasSubmitted = (state: RootState, playerId: string) => {
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return false;
+  }
+
+  const stack = currentStackForPlayer(state, playerId) as Stack;
+  const entry = stack.entries[stack.entries.length - 1];
+  return !!entry && entry.author === playerId;
+};
+
+export const hasSubmitted = (state: RootState) => {
+  if (state.game.submittedEntry) {
+    return true;
+  }
+
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return false;
+  }
+
+  const playerId = state.game.player as string;
+  return playerHasSubmitted(state, playerId);
 };

@@ -37,17 +37,11 @@ const getPlayerState = (
       return hasChosen ? 'Ready' : 'Thinking';
     }
     case 'createEntry': {
-      const createPhase = game.round.phase as CreateEntryPhase;
-      const playerIdx = game.round.order.indexOf(id);
-      const targetPlayerIdx = (playerIdx + createPhase.index) % numPlayers;
-      const targetPlayerId = game.round.order[targetPlayerIdx];
-      const stack = game.round.stacks[targetPlayerId];
-      const stackHasEntryByPlayer = !!stack.entries.find(entry => entry.author === id);
-
-      if (stackHasEntryByPlayer) {
+      if (selectors.playerHasSubmitted(state, id)) {
         return 'Ready';
       }
 
+      const createPhase = game.round.phase as CreateEntryPhase;
       const isDrawingPhase = createPhase.index % 2 === 0;
       return isDrawingPhase ? 'Drawing' : 'Guessing';
     }
