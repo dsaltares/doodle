@@ -104,7 +104,7 @@ const Menu: FunctionComponent<Props> = ({
           <Grid item xs={12}>
             <TextField
               variant="outlined"
-              label="Name"
+              label="Player name"
               value={name}
               onChange={handleNameChange}
               fullWidth
