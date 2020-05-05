@@ -1,5 +1,5 @@
 import { HandlerParams } from "./types"
-import { initialRound } from './utils';
+import { setToInitialRound } from './utils';
 
 const leaveGame = ({
   io,
@@ -38,7 +38,7 @@ const leaveGame = ({
 
   const phaseName = game.round.phase.name;
   if (phaseName !== 'initial') {
-    game.round = initialRound();
+    setToInitialRound(game);
   }
 
   game.players = {

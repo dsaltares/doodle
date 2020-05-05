@@ -1,6 +1,6 @@
 import { HandlerParams } from "./types"
 import { EntryChoicePhase } from '../game';
-import { createRound } from './utils';
+import { setToNewRound } from './utils';
 
 const acknowledgeWinner = ({
   io,
@@ -69,12 +69,7 @@ const acknowledgeWinner = ({
   const isFinalStack = phase.index === numPlayers - 1;
   if (allHaveAcknowledged) {
     if (isFinalStack) {
-      game.players = {
-        ...game.players,
-        ...game.waitingPlayers,
-      };
-      game.waitingPlayers = {};
-      game.round = createRound(game);
+      setToNewRound(game);
     } else {
       phase.index += 1;
       phase.acknowledgedBy = {};

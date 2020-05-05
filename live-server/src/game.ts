@@ -70,6 +70,7 @@ export type Game = {
   lastUpdate: number,
   createdBy: string,
   round: Round,
+  usedConcepts: string[],
 };
 
 export type Games = {
@@ -99,4 +100,5 @@ export const createGame = ({
     stacks: {},
     concepts: {},
   },
+  usedConcepts: [],
 });

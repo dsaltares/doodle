@@ -1,19 +1,33 @@
 import shuffle from 'lodash.shuffle';
 import chunk from 'lodash.chunk';
+import flatten from 'lodash.flatten';
 
-import {
-  Game,
-  Round,
-} from '../game';
+import { Game } from '../game';
 import { CONCEPTS_PER_PLAYER } from './constants';
 import Concepts from '../concepts';
 
-export const createRound = (game: Game): Round => {
-  const randomConcepts = shuffle(Concepts);
-  const conceptChunks = chunk(randomConcepts, CONCEPTS_PER_PLAYER);
+export const setToNewRound = (game: Game) => {
   const playerIds = Object.keys(game.players);
+  const numPlayers = playerIds.length;
+  const numConceptsNeeded = numPlayers * CONCEPTS_PER_PLAYER;
+  const usedConcepts = new Set(game.usedConcepts);
+  const unusedConcepts = Concepts.filter(concept => !usedConcepts.has(concept));
+  const concepts = unusedConcepts.length >= numConceptsNeeded
+    ? unusedConcepts
+    : (() => {
+      game.usedConcepts = [];
+      return Concepts;
+    })();
 
-  return {
+  const randomConcepts = shuffle(concepts);
+  const conceptChunks = chunk(randomConcepts, CONCEPTS_PER_PLAYER);
+
+  game.players = {
+    ...game.players,
+    ...game.waitingPlayers,
+  };
+  game.waitingPlayers = {};
+  game.round = {
     phase: {
       name: 'conceptChoice',
       choices: playerIds.reduce((acc, id, index) => ({
@@ -31,13 +45,19 @@ export const createRound = (game: Game): Round => {
     }), {}),
     concepts: {},
   };
+  game.usedConcepts = [
+    ...game.usedConcepts,
+    ...flatten(conceptChunks.slice(0, numPlayers)),
+  ];
 };
 
-export const initialRound = (): Round => ({
-  phase: {
-    name: 'initial',
-  },
-  order: [],
-  stacks: {},
-  concepts: {},
-});
+export const setToInitialRound = (game: Game) => {
+  game.round = {
+    phase: {
+      name: 'initial',
+    },
+    order: [],
+    stacks: {},
+    concepts: {},
+  };
+};

@@ -1,6 +1,6 @@
 import { HandlerParams } from "./types"
 import { MIN_PLAYERS } from './constants';
-import { createRound } from './utils';
+import { setToNewRound } from './utils';
 
 const startGame = ({
   io,
@@ -71,7 +71,7 @@ const startGame = ({
     });
   }
 
-  game.round = createRound(game);
+  setToNewRound(game);
 
   logger.info('startGame', {
     gameCode: game.code,
