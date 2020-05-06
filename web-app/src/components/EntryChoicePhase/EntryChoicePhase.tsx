@@ -39,12 +39,12 @@ const EntryChoicePhase: FunctionComponent<Props> = ({
     if (currentPlayerChooses) {
       return chosenPlayerName
         ? `You chose the entry by ${chosenPlayerName} for "${concept}"!`
-        : `Choose your favourite entry for "${concept}"`;
+        : `Choose your favourite entry for "${concept}".`;
     }
 
     return chosenPlayerName
       ? `${stackPlayerName} chose the entry by ${chosenPlayerName} for "${concept}"!`
-      : `${stackPlayerName} is choosing their favourite entry for "${concept}"`;
+      : `${stackPlayerName} is choosing their favourite entry for "${concept}".`;
   };
 
   const firstEntry = entries[0];

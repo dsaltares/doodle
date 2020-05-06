@@ -11,14 +11,18 @@ import Editor from '../Editor';
 import Emoji from '../Emoji';
 
 type Props = {
-  message: string,
+  firstCreateTurn: boolean,
   submitted: boolean,
+  concept: string | undefined,
+  conceptFrom: string | undefined,
   onSubmit: (image: string) => void,
 };
 
 const DrawPhase: FunctionComponent<Props> = ({
-  message,
+  firstCreateTurn,
   submitted,
+  concept,
+  conceptFrom,
   onSubmit,
 }) => {
   const editorRef = createRef<Editor>();
@@ -30,35 +34,37 @@ const DrawPhase: FunctionComponent<Props> = ({
     }
   };
 
-  const submittedMessage = submitted
-    ? 'Waiting for other players to finish their turn.'
-    : '';
+  const emoji = submitted ? '⏳' : '✏️';
+  let message = '';
+  if (submitted) {
+    message = 'Waiting for everyone to finish their drawing.';
+  } else if (firstCreateTurn) {
+    message = `Draw "${concept}".`;
+  } else {
+    message = `From ${conceptFrom}, draw "${concept}".`;
+  }
 
   return (
     <MainContent width={800}>
       <Grid item xs={12}>
-        <Typography>{message}</Typography>
+        <Typography>
+          <Emoji symbol={emoji} />
+          <span> {message}</span>
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <Editor ref={editorRef}/>
       </Grid>
       <Grid item xs={12}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmitClicked}
-              disabled={submitted}
-            >
-              <Emoji symbol="🎨"/>
-              <span>Done</span>
-            </Button>
-          </Grid>
-          <Grid item>
-            <Typography>{submittedMessage}</Typography>
-          </Grid>
-        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmitClicked}
+          disabled={submitted}
+        >
+          <Emoji symbol="🎨"/>
+          <span>Done</span>
+        </Button>
       </Grid>
     </MainContent>
   );

@@ -1,5 +1,5 @@
 import { RootState } from "../reducers";
-import { Player, CreateEntryPhase, Stack } from "./types";
+import { Player, CreateEntryPhase, Stack, Entry, ConceptEntry, DrawingEntry } from "./types";
 
 export const playerIds = (state: RootState): string[] => {
   if (!state.game.gameState) {
@@ -43,14 +43,42 @@ export const isFirstCreateTurn = (state: RootState) => {
   return phase.index === 0;
 };
 
-export const conceptForCurrentPlayer = (state: RootState) => {
-  const game = state.game.gameState;
-  const playerId = state.game.player
-  if (!game || !playerId) {
-    return;
+export const currentConcept = (state: RootState) => {
+  if (isFirstCreateTurn(state)) {
+    const game = state.game.gameState;
+    const playerId = state.game.player
+    if (!game || !playerId) {
+      return;
+    }
+
+    return game.round.concepts[playerId];
   }
 
-  return game.round.concepts[playerId];
+  const entry = getSourceEntry(state) as Entry;
+  const conceptEntry = entry.data as ConceptEntry;
+  return conceptEntry.concept;
+};
+
+export const currentDrawing = (state: RootState) => {
+  const entry = getSourceEntry(state) as Entry;
+  const drawingEntry = entry.data as DrawingEntry;
+  return drawingEntry.drawing;
+};
+
+export const sourceEntryAuthor = (state: RootState) => {
+  if (isFirstCreateTurn(state)) {
+    const game = state.game.gameState;
+    const playerId = state.game.player
+    if (!game || !playerId) {
+      return;
+    }
+
+    return game.players[playerId].name;
+  }
+
+  const entry = getSourceEntry(state) as Entry;
+  const author = player(state, entry.author);
+  return author?.name;
 };
 
 const currentStackForPlayer = (state: RootState, playerId: string) => {

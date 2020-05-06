@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 
 import MainContent from '../MainContent';
+import Emoji from '../Emoji';
 import ConceptListItem from '../ConceptListItem';
 
 type Props = {
@@ -17,14 +18,18 @@ const ConceptChoicePhase: FunctionComponent<Props> = ({
   selectedConcept,
   onChooseConcept,
 }) => {
+  const emoji = selectedConcept ? '⏳' : '🤫';
   const message = selectedConcept
-    ? 'Waiting for other players to choose'
-    : 'Choose a concept';
+    ? 'You will start drawing as soon as every player has chosen what to draw.'
+    : 'Choose what to draw. Keep it a secret!';
 
   return (
     <MainContent>
       <Grid item xs={12}>
-        <Typography>{message}</Typography>
+        <Typography>
+          <Emoji symbol={emoji} />
+          <span> {message}</span>
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <List>

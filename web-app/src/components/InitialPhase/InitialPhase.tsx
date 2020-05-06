@@ -12,32 +12,33 @@ import copy from 'copy-to-clipboard';
 import MainContent from '../MainContent';
 import Emoji from '../Emoji';
 import useStyles from './InitialPhase.styles';
+import pluralize from '../../utils/pluralize';
 
 type Props = {
-  message: string,
-  startVisible: boolean,
-  startDisabled: boolean,
+  createdGame: boolean,
+  creatorName: string,
+  missingPlayers: number,
   gameFull: boolean,
   gameUrl: string,
   onStart: () => void,
 };
 
 const InitialPhase: FunctionComponent<Props> = ({
-  message,
-  startVisible,
-  startDisabled,
+  createdGame,
+  creatorName,
+  missingPlayers,
   onStart,
   gameFull,
   gameUrl,
 }) => {
   const classes = useStyles();
 
-  const startButton = startVisible
+  const startButton = createdGame
     ? (
       <Button
         variant="contained"
         color="primary"
-        disabled={startDisabled}
+        disabled={missingPlayers > 0}
         onClick={onStart}
       >
         <Emoji symbol="🚀" />
@@ -45,6 +46,15 @@ const InitialPhase: FunctionComponent<Props> = ({
       </Button>
     )
     : null;
+
+  let message = '';
+  if (missingPlayers > 0) {
+    message = `Waiting for ${missingPlayers} more ${pluralize('player', 'players', missingPlayers)}.`;
+  } else if (createdGame) {
+    message = 'Ready to start?';
+  } else {
+    message = `Waiting for ${creatorName} to start the game.`;
+  }
 
   const [alertOpen, setAlertOpen] = useState(false);
   const handleInviteClicked = () => {

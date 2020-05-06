@@ -12,14 +12,14 @@ import Emoji from '../Emoji';
 import MainContent from '../MainContent';
 
 type Props = {
-  message: string,
+  author: string | undefined,
   image: string,
   submitted: boolean,
   onSubmit: (image: string) => void,
 };
 
 const GuessPhase: FunctionComponent<Props> = ({
-  message,
+  author,
   image,
   submitted,
   onSubmit,
@@ -33,14 +33,18 @@ const GuessPhase: FunctionComponent<Props> = ({
     onSubmit(guess);
   };
 
-  const submittedMessage = submitted
-    ? 'Waiting for other players to finish their turn.'
-    : '';
+  const message = submitted
+    ? 'Waiting for everyone to guess.'
+    : `Guess what ${author} drew.`;
+  const emoji = submitted ? '⏳' : '🕵️‍♂️';
 
   return (
     <MainContent width={800}>
       <Grid item xs={12}>
-        <Typography>{message}</Typography>
+        <Typography>
+          <Emoji symbol={emoji} />
+          <span> {message}</span>
+        </Typography>
       </Grid>
       <Grid item xs={12}>
         <img src={image} alt={message} className={classes.image} />
@@ -55,22 +59,15 @@ const GuessPhase: FunctionComponent<Props> = ({
         />
       </Grid>
       <Grid item xs={12}>
-        <Grid container spacing={2} alignItems="center">
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSubmitClicked}
-              disabled={submitted}
-            >
-              <Emoji symbol="🎨"/>
-              <span>Done</span>
-            </Button>
-          </Grid>
-          <Grid item>
-            <Typography>{submittedMessage}</Typography>
-          </Grid>
-        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSubmitClicked}
+          disabled={submitted}
+        >
+          <Emoji symbol="🎨"/>
+          <span>Done</span>
+        </Button>
       </Grid>
     </MainContent>
   );
