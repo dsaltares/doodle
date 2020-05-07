@@ -95,11 +95,11 @@ const Menu: FunctionComponent<Props> = ({
                   >
                     <ToggleButton value="newGame" className={classes.button}>
                       <Emoji symbol="✏️"/>
-                      New Game
+                      <span> New Game</span>
                     </ToggleButton>
                     <ToggleButton value="joinGame" className={classes.button}>
                       <Emoji symbol="👥"/>
-                      <span>Join Game</span>
+                      <span> Join Game</span>
                     </ToggleButton>
                   </ToggleButtonGroup>
                 </Grid>
