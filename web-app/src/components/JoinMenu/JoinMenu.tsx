@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Emoji from '../Emoji';
 import { JoinGameParams } from '../../store/game/types';
-import MenuContainer from '../MenuContainer';
+import MainContent from '../MainContent';
 
 interface Props extends RouteComponentProps<any> {
   joinGame: (params: JoinGameParams) => void,
@@ -35,38 +35,42 @@ const JoinMenu: FunctionComponent<Props> = ({
   const hasName = name.length > 0;
 
   return (
-    <MenuContainer>
-      <form onSubmit={handleGoClicked}>
-        <Grid container spacing={2}>
-        <Grid item xs={12}>
-            <Typography>
-              <Emoji symbol="👥"/>
-              <span>Join a game</span>
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Player name"
-              value={name}
-              onChange={handleNameChange}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={!hasName}
-              onClick={handleGoClicked}
-            >
-              <Emoji symbol="🙌"/>
-              <span>Go!</span>
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </MenuContainer>
+    <Grid container direction="column" alignItems="center" spacing={3}>
+      <Grid item>
+        <MainContent>
+          <form onSubmit={handleGoClicked}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Typography>
+                  <Emoji symbol="👥"/>
+                  <span>Join a game</span>
+                </Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  label="Player name"
+                  value={name}
+                  onChange={handleNameChange}
+                  fullWidth
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={!hasName}
+                  onClick={handleGoClicked}
+                >
+                  <Emoji symbol="🙌"/>
+                  <span>Go!</span>
+                </Button>
+              </Grid>
+            </Grid>
+          </form>
+        </MainContent>
+      </Grid>
+    </Grid>
   );
 };
 

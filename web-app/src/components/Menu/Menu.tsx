@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-import MenuContainer from '../MenuContainer';
+import MainContent from '../MainContent';
 import Emoji from '../Emoji';
 import useStyles from './Menu.styles';
 import { HowToPlayPanel } from '../HowToPlay';
@@ -81,7 +81,7 @@ const Menu: FunctionComponent<Props> = ({
   return (
     <Grid container direction="column" alignItems="center" spacing={3}>
       <Grid item>
-        <MenuContainer>
+        <MainContent>
           <form onSubmit={handleGoClicked}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -127,7 +127,7 @@ const Menu: FunctionComponent<Props> = ({
               </Grid>
             </Grid>
           </form>
-        </MenuContainer>
+        </MainContent>
       </Grid>
       <Grid item>
         <HowToPlayPanel />
