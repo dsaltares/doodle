@@ -4,25 +4,17 @@ import Paper from '@material-ui/core/Paper';
 
 import useStyles from './MenuContainer.styles';
 
-type Props = {
-  centered?: boolean,
-};
-
-const MenuContainer: FunctionComponent<Props> = ({
+const MenuContainer: FunctionComponent = ({
   children,
 }) => {
   const classes = useStyles();
 
   return (
-    <Grid container direction="row" justify="center" alignItems="center">
-      <Paper variant="outlined" className={classes.paper}>
-        <Grid item xs={12}>
-          <Grid container direction="column" spacing={2}>
-            {children}
-          </Grid>
-        </Grid>
-      </Paper>
-    </Grid>
+    <Paper variant="outlined" className={classes.paper}>
+      <Grid container direction="column" spacing={2}>
+        {children}
+      </Grid>
+    </Paper>
   );
 };
 

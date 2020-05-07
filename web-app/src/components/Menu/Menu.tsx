@@ -13,6 +13,7 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import MenuContainer from '../MenuContainer';
 import Emoji from '../Emoji';
 import useStyles from './Menu.styles';
+import { HowToPlayPanel } from '../HowToPlay';
 
 export type GameMode = 'newGame' | 'joinGame';
 
@@ -78,53 +79,60 @@ const Menu: FunctionComponent<Props> = ({
     : null;
 
   return (
-    <MenuContainer>
-      <form onSubmit={handleGoClicked}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Grid container direction="row" justify="center">
-              <ToggleButtonGroup
-                value={mode}
-                onChange={handleModeChange}
-                exclusive
-                aria-label="game mode"
-                className={classes.buttonGroup}
-              >
-                <ToggleButton value="newGame" className={classes.button}>
-                  <Emoji symbol="✏️"/>
-                  New Game
-                </ToggleButton>
-                <ToggleButton value="joinGame" className={classes.button}>
-                  <Emoji symbol="👥"/>
-                  <span>Join Game</span>
-                </ToggleButton>
-              </ToggleButtonGroup>
+    <Grid container direction="column" alignItems="center" spacing={3}>
+      <Grid item>
+        <MenuContainer>
+          <form onSubmit={handleGoClicked}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <Grid container direction="row" justify="center">
+                  <ToggleButtonGroup
+                    value={mode}
+                    onChange={handleModeChange}
+                    exclusive
+                    aria-label="game mode"
+                    className={classes.buttonGroup}
+                  >
+                    <ToggleButton value="newGame" className={classes.button}>
+                      <Emoji symbol="✏️"/>
+                      New Game
+                    </ToggleButton>
+                    <ToggleButton value="joinGame" className={classes.button}>
+                      <Emoji symbol="👥"/>
+                      <span>Join Game</span>
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                </Grid>
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  variant="outlined"
+                  label="Player name"
+                  value={name}
+                  onChange={handleNameChange}
+                  fullWidth
+                />
+              </Grid>
+              {codeField}
+              <Grid item xs={12}>
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  disabled={!canStartGame}
+                >
+                  <Emoji symbol="🙌"/>
+                  <span>Go!</span>
+                </Button>
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              label="Player name"
-              value={name}
-              onChange={handleNameChange}
-              fullWidth
-            />
-          </Grid>
-          {codeField}
-          <Grid item xs={12}>
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              disabled={!canStartGame}
-            >
-              <Emoji symbol="🙌"/>
-              <span>Go!</span>
-            </Button>
-          </Grid>
-        </Grid>
-      </form>
-    </MenuContainer>
+          </form>
+        </MenuContainer>
+      </Grid>
+      <Grid item>
+        <HowToPlayPanel />
+      </Grid>
+    </Grid>
   );
 };
 

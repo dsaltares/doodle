@@ -11,6 +11,7 @@ import copy from 'copy-to-clipboard';
 
 import MainContent from '../MainContent';
 import Emoji from '../Emoji';
+import { HowToPlayPanel } from '../HowToPlay';
 import useStyles from './InitialPhase.styles';
 import pluralize from '../../utils/pluralize';
 
@@ -64,41 +65,48 @@ const InitialPhase: FunctionComponent<Props> = ({
   const handleAlertClosed = () => setAlertOpen(false);
 
   return (
-    <MainContent>
-      <Grid item xs={12}>
-        <Typography>{message}</Typography>
-      </Grid>
-      <Grid
-        container direction="row"
-        justify="space-between"
-        alignItems="center"
-        className={classes.buttonContainer}
-      >
-        <Grid item>
-          <Button
-            variant="contained"
-            color="secondary"
-            disabled={gameFull}
-            onClick={handleInviteClicked}
-          >
-            Invite friends
-          </Button>
-          <Snackbar
-            open={alertOpen}
-            autoHideDuration={5000}
-            onClose={handleAlertClosed}
-            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          >
-            <Alert onClose={handleAlertClosed} severity="success">
-              Game code copied to clipboard!
-            </Alert>
-          </Snackbar>
+    <Grid container direction="column" spacing={3}>
+      <Grid item>
+        <MainContent>
+        <Grid item xs={12}>
+          <Typography>{message}</Typography>
         </Grid>
-        <Grid item>
-          {startButton}
+        <Grid
+          container direction="row"
+          justify="space-between"
+          alignItems="center"
+          className={classes.buttonContainer}
+        >
+          <Grid item>
+            <Button
+              variant="contained"
+              color="secondary"
+              disabled={gameFull}
+              onClick={handleInviteClicked}
+            >
+              Invite friends
+            </Button>
+            <Snackbar
+              open={alertOpen}
+              autoHideDuration={5000}
+              onClose={handleAlertClosed}
+              anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+              <Alert onClose={handleAlertClosed} severity="success">
+                Game code copied to clipboard!
+              </Alert>
+            </Snackbar>
+          </Grid>
+          <Grid item>
+            {startButton}
+          </Grid>
         </Grid>
+      </MainContent>
       </Grid>
-    </MainContent>
+      <Grid item>
+        <HowToPlayPanel />
+      </Grid>
+    </Grid>
   );
 };
 

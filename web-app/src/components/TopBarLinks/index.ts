@@ -1,1 +1,1 @@
-export { default } from './TopBarLinks';
+export { default } from './TopBarLinks.container';
