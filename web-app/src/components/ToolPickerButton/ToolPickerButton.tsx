@@ -1,28 +1,33 @@
 import React, { FunctionComponent } from 'react';
 
 import CreateIcon from '@material-ui/icons/Create';
-import ClearIcon from '@material-ui/icons/Clear';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
 import ExpandableToolBarButton from '../ExpandableToolBarButton';
+import { ReactComponent as EraserIcon } from './eraser.svg';
 
 type Tool = 'pencil' | 'eraser'
 
 type Props = {
   tool: Tool,
-  onToolchange: (tool: Tool) => void,
+  onToolChange: (tool: Tool) => void,
 }
 
 const getIconForTool = (tool: Tool) => (
   tool === 'pencil'
     ? <CreateIcon />
-    : <ClearIcon />
+    : (
+      <SvgIcon>
+        <EraserIcon />
+      </SvgIcon>
+    )
 );
 
 const ToolPickerButton: FunctionComponent<Props> = ({
   tool,
-  onToolchange,
+  onToolChange,
 }) => (
   <ExpandableToolBarButton
     title="Tool"
@@ -33,7 +38,7 @@ const ToolPickerButton: FunctionComponent<Props> = ({
         exclusive
         onChange={(_event, newTool) => {
           close();
-          onToolchange(newTool)
+          onToolChange(newTool)
         }}
         aria-label="text alignment"
       >
@@ -41,7 +46,9 @@ const ToolPickerButton: FunctionComponent<Props> = ({
           <CreateIcon />
         </ToggleButton>
         <ToggleButton value="eraser" aria-label="eraser">
-          <ClearIcon />
+          <SvgIcon>
+            <EraserIcon />
+          </SvgIcon>
         </ToggleButton>
       </ToggleButtonGroup>
     )}

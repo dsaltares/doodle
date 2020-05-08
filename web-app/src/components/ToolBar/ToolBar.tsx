@@ -56,7 +56,7 @@ const ToolBar: FunctionComponent<Props> = ({
     />
     <ToolPickerButton
       tool={tool}
-      onToolchange={onToolChange}
+      onToolChange={onToolChange}
     />
     <ToolBarButton
       title="Undo"
