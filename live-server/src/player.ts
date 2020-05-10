@@ -1,28 +1,28 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export type Avatar = {
-  topType: string,
-  accessoriesType: string,
-  hairColor: string,
-  facialHairType: string,
-  clotheType: string,
-  clotheColor: string,
-  eyeType: string,
-  eyebrowType: string,
-  mouthType: string,
-  skinColor: string,
+  topType: string;
+  accessoriesType: string;
+  hairColor: string;
+  facialHairType: string;
+  clotheType: string;
+  clotheColor: string;
+  eyeType: string;
+  eyebrowType: string;
+  mouthType: string;
+  skinColor: string;
 }
 
 export type Player = {
-  id: string,
-  socketId: string,
-  name: string,
-  avatar: Avatar,
-  points: number,
+  id: string;
+  socketId: string;
+  name: string;
+  avatar: Avatar;
+  points: number;
 };
 
 export type Players = {
-  [id: string]: Player,
+  [id: string]: Player;
 }
 
 const TopTypes = [
@@ -167,7 +167,7 @@ const randomInt = (max: number): number => (
   Math.floor(Math.random() * Math.floor(max))
 );
 
-const pickRandom = <T>(array: T[]) => (
+const pickRandom = <T>(array: T[]): T => (
   array[randomInt(array.length)]
 );
 
@@ -185,8 +185,8 @@ const createAvatar = (): Avatar => ({
 });
 
 type CreatePlayerParams = {
-  name: string,
-  socketId: string,
+  name: string;
+  socketId: string;
 }
 
 export const createPlayer = ({ socketId, name }: CreatePlayerParams): Player => ({

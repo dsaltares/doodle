@@ -5,9 +5,9 @@ import { Store } from '../store';
 import { Params as WarnAndEmitParams } from '../warnAndEmit';
 
 export type HandlerParams = {
-  io: Server,
-  socket: Socket,
-  store: Store,
-  logger: winston.Logger,
-  warnAndEmit: (params: WarnAndEmitParams) => boolean,
+  io: Server;
+  socket: Socket;
+  store: Store;
+  logger: winston.Logger;
+  warnAndEmit: (params: WarnAndEmitParams) => boolean;
 }

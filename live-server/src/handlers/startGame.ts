@@ -8,7 +8,7 @@ const startGame = ({
   store: { gameBySocketId },
   logger,
   warnAndEmit,
-}: HandlerParams) => () => {
+}: HandlerParams) => (): boolean => {
   const game = gameBySocketId[socket.id];
   if (!game) {
     return warnAndEmit({

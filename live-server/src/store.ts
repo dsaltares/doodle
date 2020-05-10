@@ -1,8 +1,8 @@
 import { Games } from './game';
 
 export type Store = {
-  games: Games,
-  gameBySocketId: Games,
+  games: Games;
+  gameBySocketId: Games;
 }
 
 const createStore = (): Store => ({

@@ -1,49 +1,49 @@
 import { Players } from './player';
 
 export type ConceptEntry = {
-  type: 'contept',
-  concept: string,
+  type: 'contept';
+  concept: string;
 }
 
 export type DrawingEntry = {
-  type: 'drawing',
-  drawing: string
+  type: 'drawing';
+  drawing: string;
 }
 
 type Entry = {
-  author: string,
-  data: ConceptEntry | DrawingEntry
+  author: string;
+  data: ConceptEntry | DrawingEntry;
 };
 
 type Stack = {
-  player: string,
-  entries: Entry[],
-  chosen?: string,
+  player: string;
+  entries: Entry[];
+  chosen?: string;
 };
 
 type Stacks = {
-  [id: string]: Stack,
+  [id: string]: Stack;
 };
 
 export type InitialPhase = {
-  name: 'initial',
+  name: 'initial';
 };
 export type ConceptChoicePhase = {
-  name: 'conceptChoice'
+  name: 'conceptChoice';
   choices: {
-    [id: string]: string[],
-  },
+    [id: string]: string[];
+  };
 };
 export type CreateEntryPhase = {
-  name: 'createEntry'
-  index: number,
+  name: 'createEntry';
+  index: number;
 };
 export type EntryChoicePhase = {
-  name: 'entryChoice',
-  index: number,
+  name: 'entryChoice';
+  index: number;
   acknowledgedBy: {
-    [id: string]: boolean,
-  },
+    [id: string]: boolean;
+  };
 }
 
 type Phase = InitialPhase
@@ -52,34 +52,34 @@ type Phase = InitialPhase
   | EntryChoicePhase;
 
 type Concepts = {
-  [id: string]: string,
+  [id: string]: string;
 };
 
 export type Round = {
-  phase: Phase,
-  order: string[],
-  stacks: Stacks,
-  concepts: Concepts,
+  phase: Phase;
+  order: string[];
+  stacks: Stacks;
+  concepts: Concepts;
 };
 
 export type Game = {
-  code: string,
-  players: Players,
-  waitingPlayers: Players,
-  playersBySocket: Players,
-  lastUpdate: number,
-  createdBy: string,
-  round: Round,
-  usedConcepts: string[],
+  code: string;
+  players: Players;
+  waitingPlayers: Players;
+  playersBySocket: Players;
+  lastUpdate: number;
+  createdBy: string;
+  round: Round;
+  usedConcepts: string[];
 };
 
 export type Games = {
-  [code: string]: Game,
+  [code: string]: Game;
 };
 
 export type CreateGameParams = {
-  code: string,
-  creator: string,
+  code: string;
+  creator: string;
 };
 
 export const createGame = ({

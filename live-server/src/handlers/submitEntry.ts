@@ -6,7 +6,7 @@ import {
 } from '../game';
 
 type EntryParams = {
-  entry: ConceptEntry | DrawingEntry,
+  entry: ConceptEntry | DrawingEntry;
 };
 
 const submitEntry = ({
@@ -17,7 +17,7 @@ const submitEntry = ({
   warnAndEmit,
 }: HandlerParams) => ({
   entry,
-}: EntryParams) => {
+}: EntryParams): boolean => {
   const game = gameBySocketId[socket.id];
   if (!game) {
     return warnAndEmit({

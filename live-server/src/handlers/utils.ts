@@ -6,7 +6,7 @@ import { Game } from '../game';
 import { CONCEPTS_PER_PLAYER } from './constants';
 import Concepts from '../concepts';
 
-export const setToNewRound = (game: Game) => {
+export const setToNewRound = (game: Game): void => {
   const playerIds = Object.keys(game.players);
   const numPlayers = playerIds.length;
   const numConceptsNeeded = numPlayers * CONCEPTS_PER_PLAYER;
@@ -14,7 +14,7 @@ export const setToNewRound = (game: Game) => {
   const unusedConcepts = Concepts.filter(concept => !usedConcepts.has(concept));
   const concepts = unusedConcepts.length >= numConceptsNeeded
     ? unusedConcepts
-    : (() => {
+    : ((): string[] => {
       game.usedConcepts = [];
       return Concepts;
     })();
@@ -51,7 +51,7 @@ export const setToNewRound = (game: Game) => {
   ];
 };
 
-export const setToInitialRound = (game: Game) => {
+export const setToInitialRound = (game: Game): void => {
   game.round = {
     phase: {
       name: 'initial',

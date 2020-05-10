@@ -4,8 +4,8 @@ import { createGame } from '../game';
 import { MAX_PLAYERS } from './constants';
 
 type JoinParams = {
-  name: string,
-  code: string,
+  name: string;
+  code: string;
 }
 
 const joinGame = ({
@@ -16,7 +16,7 @@ const joinGame = ({
   warnAndEmit,
 }: HandlerParams) => ({
   name, code,
-}: JoinParams) => {
+}: JoinParams): boolean => {
   const alreadyInGame = !!gameBySocketId[socket.id];
   if (alreadyInGame) {
     const game = gameBySocketId[socket.id];

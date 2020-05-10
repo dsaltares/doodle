@@ -8,7 +8,7 @@ import submitEntry from './submitEntry';
 import chooseEntry from './chooseEntry';
 import acknowledgeWinner from './acknowledgeWinner';
 
-const subscribe = (params: HandlerParams) => {
+const subscribe = (params: HandlerParams): void => {
   const { socket } = params;
 
   socket.on('joinGame', joinGame(params));

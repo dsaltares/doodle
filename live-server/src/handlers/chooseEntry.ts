@@ -2,7 +2,7 @@ import { HandlerParams } from "./types"
 import { EntryChoicePhase } from '../game';
 
 type ChooseParams = {
-  targetPlayer: string,
+  targetPlayer: string;
 };
 
 const chooseEntry = ({
@@ -13,7 +13,7 @@ const chooseEntry = ({
   warnAndEmit,
 }: HandlerParams) => ({
   targetPlayer,
-}: ChooseParams) => {
+}: ChooseParams): boolean => {
   const game = gameBySocketId[socket.id];
   if (!game) {
     return warnAndEmit({

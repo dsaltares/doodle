@@ -2,7 +2,7 @@ import express from 'express';
 import { createServer } from 'http';
 import socketIo from 'socket.io';
 import cors from 'cors';
-import winston from 'winston';
+import winston, { Logger } from 'winston';
 import HumioTransport from 'humio-winston';
 import Transport from 'winston-transport';
 
@@ -10,7 +10,7 @@ import subscribe from './handlers/subscribe';
 import createStore from './store';
 import WarnAndEmit from './warnAndEmit';
 
-const createLogger = () => {
+const createLogger = (): Logger => {
   const transports: Transport[] = [
     new winston.transports.Console({
       handleExceptions: true,
@@ -37,7 +37,7 @@ const createLogger = () => {
   return logger;
 };
 
-const startServer = (logger: winston.Logger) => {
+const startServer = (logger: winston.Logger): void => {
   const app = express();
   const server = createServer(app);
   const io = socketIo(server);
