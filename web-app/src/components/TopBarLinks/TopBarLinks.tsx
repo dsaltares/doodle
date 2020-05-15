@@ -50,7 +50,7 @@ const TopBarLinks: FunctionComponent<Props> = ({
     <>
       <Grid container direction="row" justify="flex-start" alignItems="center" spacing={0}>
         {howToPlay}
-        <Grid item>
+        {/* <Grid item>
           <Tooltip title="Support the project on Ko-fi ☕" placement="bottom">
             <IconButton
               className={classes.iconButton}
@@ -61,7 +61,7 @@ const TopBarLinks: FunctionComponent<Props> = ({
               </SvgIcon>
             </IconButton>
           </Tooltip>
-        </Grid>
+        </Grid> */}
         <Grid item>
           <Tooltip title="Check out the source code! 💻" placement="bottom">
             <IconButton
