@@ -12,7 +12,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import useStyles from './TopBarLinks.styles';
 import { ReactComponent as GitHub } from './github.svg';
-import { ReactComponent as Kofi } from './ko-fi.svg';
+// import { ReactComponent as Kofi } from './ko-fi.svg';
 import { HowToPlayDialog } from '../HowToPlay';
 
 const openUrl = (url: string) => window.open(url, '_blank');
