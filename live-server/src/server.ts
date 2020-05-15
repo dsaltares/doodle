@@ -40,7 +40,10 @@ const createLogger = (): Logger => {
 const startServer = (logger: winston.Logger): void => {
   const app = express();
   const server = createServer(app);
-  const io = socketIo(server);
+  const io = socketIo(server, {
+    pingTimeout: 25000,
+    pingInterval: 30000,
+  });
   const port = process.env.PORT || 3001;
 
   const store = createStore();
