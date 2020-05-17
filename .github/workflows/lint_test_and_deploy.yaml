@@ -22,8 +22,24 @@ jobs:
         run: yarn lint
         working-directory: ./web-app
 
+  test-live-server:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ./live-server
+      - name: Lint
+        run: yarn lint
+        working-directory: ./live-server
+
   deploy-web-app:
-    needs: test-web-app
+    needs:
+      - test-web-app
+      - test-live-server
     runs-on: ubuntu-latest
     env:
       working-directory: ./web-app
@@ -44,23 +60,10 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./web-app/build
 
-
-  test-live-server:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12.x'
-      - name: Install Packages
-        run: yarn install
-        working-directory: ./live-server
-      - name: Lint
-        run: yarn lint
-        working-directory: ./live-server
-
   deploy-live-server:
-    needs: test-live-server
+    needs:
+      - test-web-app
+      - test-live-server
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
