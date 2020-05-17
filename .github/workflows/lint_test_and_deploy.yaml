@@ -1,0 +1,100 @@
+name: Lint, test and deploy
+on:
+  push:
+    branches:
+      - master
+jobs:
+  check-changes-web-app:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Check changes in web-app
+      uses: netlify/actions/diff-includes@master
+      with:
+        args: web-app
+
+  test-web-app:
+    needs: check-changes-web-app
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ./web-app
+      - name: Lint
+        run: yarn lint
+        working-directory: ./web-app
+
+  deploy-web-app:
+    needs: test-web-app
+    runs-on: ubuntu-latest
+    env:
+      working-directory: ./web-app
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - name: Install Packages
+      run: yarn install
+      working-directory: ${{env.working-directory}}
+    - name: Build
+      run: yarn build
+      working-directory: ${{env.working-directory}}
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./web-app/build
+
+  check-changes-live-server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Check changes in live-server
+      uses: netlify/actions/diff-includes@master
+      with:
+        args: live-server
+
+  test-live-server:
+    needs: check-changes-live-server
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+      - name: Install Packages
+        run: yarn install
+        working-directory: ./live-server
+      - name: Lint
+        run: yarn lint
+        working-directory: ./live-server
+
+  deploy-live-server:
+    needs: test-live-server
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Build & push Docker image
+      run: |
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker build -t docker.io/dsaltares/doodle-live-server:latest .
+        docker push dsaltares/doodle-live-server:latest
+      working-directory: "./live-server"
+
+    - name: Update production image
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.AWS_EC2_HOST }}
+        username: ${{ secrets.AWS_EC2_USERNAME }}
+        key: ${{ secrets.AWS_EC2_KEY }}
+        script: |
+          docker pull dsaltares/doodle-live-server
+          docker stop doodle-live-server
+          docker rm doodle-live-server
+          docker run --env HUMIO_INGEST_TOKEN=${{ secrets.HUMIO_INGEST_TOKEN }} --name doodle-live-server -d -p 3000:3000 --restart unless-stopped dsaltares/doodle-live-server
