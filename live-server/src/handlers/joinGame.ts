@@ -1,12 +1,12 @@
-import { HandlerParams } from "./types"
-import { createPlayer,  } from '../player';
+import { HandlerParams } from './types';
+import { createPlayer } from '../player';
 import { createGame } from '../game';
 import { MAX_PLAYERS } from './constants';
 
 type JoinParams = {
   name: string;
   code: string;
-}
+};
 
 const joinGame = ({
   io,
@@ -14,24 +14,24 @@ const joinGame = ({
   store: { games, gameBySocketId },
   logger,
   warnAndEmit,
-}: HandlerParams) => ({
-  name, code,
-}: JoinParams): boolean => {
+}: HandlerParams) => ({ name, code }: JoinParams): boolean => {
   const alreadyInGame = !!gameBySocketId[socket.id];
   if (alreadyInGame) {
     const game = gameBySocketId[socket.id];
     const player = game.playersBySocket[socket.id];
-    return socket.emit('connectedToGame', ({
+    return socket.emit('connectedToGame', {
       player: player.id,
-      code
-    }));
+      code,
+    });
   }
 
   const player = createPlayer({ name, socketId: socket.id });
-  const game = games[code] || createGame({
-    code,
-    creator: player.id,
-  });
+  const game =
+    games[code] ||
+    createGame({
+      code,
+      creator: player.id,
+    });
 
   const numPlayers = Object.keys(game.players).length;
   const numWaitingPlayers = Object.keys(game.waitingPlayers).length;
@@ -64,7 +64,7 @@ const joinGame = ({
   });
 
   socket.join(code);
-  socket.emit('connectedToGame', ({ player: player.id, code }));
+  socket.emit('connectedToGame', { player: player.id, code });
 
   return io.to(code).emit('gameUpdated', {
     gameState: game,

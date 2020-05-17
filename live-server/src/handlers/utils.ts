@@ -11,13 +11,16 @@ export const setToNewRound = (game: Game): void => {
   const numPlayers = playerIds.length;
   const numConceptsNeeded = numPlayers * CONCEPTS_PER_PLAYER;
   const usedConcepts = new Set(game.usedConcepts);
-  const unusedConcepts = Concepts.filter(concept => !usedConcepts.has(concept));
-  const concepts = unusedConcepts.length >= numConceptsNeeded
-    ? unusedConcepts
-    : ((): string[] => {
-      game.usedConcepts = [];
-      return Concepts;
-    })();
+  const unusedConcepts = Concepts.filter(
+    (concept) => !usedConcepts.has(concept)
+  );
+  const concepts =
+    unusedConcepts.length >= numConceptsNeeded
+      ? unusedConcepts
+      : ((): string[] => {
+          game.usedConcepts = [];
+          return Concepts;
+        })();
 
   const randomConcepts = shuffle(concepts);
   const conceptChunks = chunk(randomConcepts, CONCEPTS_PER_PLAYER);
@@ -30,19 +33,25 @@ export const setToNewRound = (game: Game): void => {
   game.round = {
     phase: {
       name: 'conceptChoice',
-      choices: playerIds.reduce((acc, id, index) => ({
-        ...acc,
-        [id]: conceptChunks[index],
-      }), {}),
+      choices: playerIds.reduce(
+        (acc, id, index) => ({
+          ...acc,
+          [id]: conceptChunks[index],
+        }),
+        {}
+      ),
     },
     order: shuffle(playerIds),
-    stacks: playerIds.reduce((acc, id) => ({
-      ...acc,
-      [id]: {
-        player: id,
-        entries: [],
-      }
-    }), {}),
+    stacks: playerIds.reduce(
+      (acc, id) => ({
+        ...acc,
+        [id]: {
+          player: id,
+          entries: [],
+        },
+      }),
+      {}
+    ),
     concepts: {},
   };
   game.usedConcepts = [

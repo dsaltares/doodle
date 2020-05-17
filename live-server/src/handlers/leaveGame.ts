@@ -1,4 +1,4 @@
-import { HandlerParams } from "./types"
+import { HandlerParams } from './types';
 import { setToInitialRound } from './utils';
 
 const leaveGame = ({

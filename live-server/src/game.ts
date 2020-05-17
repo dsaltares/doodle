@@ -3,12 +3,12 @@ import { Players } from './player';
 export type ConceptEntry = {
   type: 'contept';
   concept: string;
-}
+};
 
 export type DrawingEntry = {
   type: 'drawing';
   drawing: string;
-}
+};
 
 type Entry = {
   author: string;
@@ -44,9 +44,10 @@ export type EntryChoicePhase = {
   acknowledgedBy: {
     [id: string]: boolean;
   };
-}
+};
 
-type Phase = InitialPhase
+type Phase =
+  | InitialPhase
   | ConceptChoicePhase
   | CreateEntryPhase
   | EntryChoicePhase;
@@ -82,10 +83,7 @@ export type CreateGameParams = {
   creator: string;
 };
 
-export const createGame = ({
-  code,
-  creator,
-}: CreateGameParams): Game => ({
+export const createGame = ({ code, creator }: CreateGameParams): Game => ({
   code,
   players: {},
   waitingPlayers: {},

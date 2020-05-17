@@ -19,7 +19,14 @@
   },
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
-    "react/prop-types": "off"
+    "react/prop-types": "off",
+    "comma-dangle": ["error", {
+      "arrays": "only-multiline",
+      "objects": "only-multiline",
+      "imports": "only-multiline",
+      "exports": "only-multiline",
+      "functions": "only-multiline"
+    }]
   },
   "settings": {
     "react": {

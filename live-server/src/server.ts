@@ -17,19 +17,21 @@ const createLogger = (): Logger => {
     }),
   ];
   if (process.env.NODE_ENV !== 'development') {
-    transports.push(new HumioTransport({
-      ingestToken: process.env.HUMIO_INGEST_TOKEN,
-      tags: {
-        app: 'doodle-live-server',
-      },
-      handleExceptions: true,
-    }));
+    transports.push(
+      new HumioTransport({
+        ingestToken: process.env.HUMIO_INGEST_TOKEN,
+        tags: {
+          app: 'doodle-live-server',
+        },
+        handleExceptions: true,
+      })
+    );
   }
   const logger = winston.createLogger({
     format: winston.format.combine(
       winston.format.timestamp(),
       winston.format.splat(),
-      winston.format.json(),
+      winston.format.json()
     ),
     transports: transports,
   });

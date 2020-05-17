@@ -1,4 +1,4 @@
-import { HandlerParams } from "./types"
+import { HandlerParams } from './types';
 import { MIN_PLAYERS } from './constants';
 import { setToNewRound } from './utils';
 

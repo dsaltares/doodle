@@ -1,4 +1,4 @@
-import { HandlerParams } from "./types"
+import { HandlerParams } from './types';
 import { EntryChoicePhase } from '../game';
 import { setToNewRound } from './utils';
 
@@ -16,7 +16,7 @@ const acknowledgeWinner = ({
       message: 'The game does not exist',
       data: {
         socketId: socket.id,
-      }
+      },
     });
   }
 
@@ -65,7 +65,8 @@ const acknowledgeWinner = ({
   }
 
   const numPlayers = Object.keys(game.players).length;
-  const allHaveAcknowledged = Object.keys(phase.acknowledgedBy).length === numPlayers - 1;
+  const allHaveAcknowledged =
+    Object.keys(phase.acknowledgedBy).length === numPlayers - 1;
   const isFinalStack = phase.index === numPlayers - 1;
   if (allHaveAcknowledged) {
     if (isFinalStack) {

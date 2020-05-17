@@ -1,4 +1,4 @@
-import { Server, Socket } from 'socket.io'
+import { Server, Socket } from 'socket.io';
 import winston from 'winston';
 
 import { Store } from '../store';
@@ -10,4 +10,4 @@ export type HandlerParams = {
   store: Store;
   logger: winston.Logger;
   warnAndEmit: (params: WarnAndEmitParams) => boolean;
-}
+};

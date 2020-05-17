@@ -1,9 +1,5 @@
-import { HandlerParams } from "./types"
-import {
-  ConceptEntry,
-  DrawingEntry,
-  CreateEntryPhase,
-} from '../game';
+import { HandlerParams } from './types';
+import { ConceptEntry, DrawingEntry, CreateEntryPhase } from '../game';
 
 type EntryParams = {
   entry: ConceptEntry | DrawingEntry;
@@ -15,9 +11,7 @@ const submitEntry = ({
   store: { gameBySocketId },
   logger,
   warnAndEmit,
-}: HandlerParams) => ({
-  entry,
-}: EntryParams): boolean => {
+}: HandlerParams) => ({ entry }: EntryParams): boolean => {
   const game = gameBySocketId[socket.id];
   if (!game) {
     return warnAndEmit({
@@ -58,12 +52,15 @@ const submitEntry = ({
   const numPlayers = Object.keys(game.players).length;
   const playerIdx = game.round.order.indexOf(playerId);
   const playerIdxMinusTurn = playerIdx - phase.index;
-  const targetIdx = playerIdxMinusTurn < 0
-    ? numPlayers + playerIdxMinusTurn
-    : playerIdxMinusTurn;
+  const targetIdx =
+    playerIdxMinusTurn < 0
+      ? numPlayers + playerIdxMinusTurn
+      : playerIdxMinusTurn;
   const targetPlayerId = game.round.order[targetIdx];
   const stack = game.round.stacks[targetPlayerId];
-  const stackHasEntryByPlayer = !!stack.entries.find(entry => entry.author === playerId);
+  const stackHasEntryByPlayer = !!stack.entries.find(
+    (entry) => entry.author === playerId
+  );
   if (stackHasEntryByPlayer) {
     return warnAndEmit({
       event: 'createEntry',
@@ -82,10 +79,9 @@ const submitEntry = ({
     data: entry,
   });
 
-  const isTurnComplete = Object
-    .keys(game.round.stacks)
-    .map(id => game.round.stacks[id].entries)
-    .every((entries => entries.length === phase.index + 1));
+  const isTurnComplete = Object.keys(game.round.stacks)
+    .map((id) => game.round.stacks[id].entries)
+    .every((entries) => entries.length === phase.index + 1);
   if (isTurnComplete) {
     phase.index += 1;
   }

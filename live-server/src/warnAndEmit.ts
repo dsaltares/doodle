@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import winston from 'winston';
-import { Socket } from 'socket.io'
+import { Socket } from 'socket.io';
 
 type InitParams = {
   logger: winston.Logger;
@@ -13,10 +13,7 @@ export type Params = {
   data?: any;
 };
 
-const warnAndEmit = ({
-  logger,
-  socket,
-}: InitParams) => ({
+const warnAndEmit = ({ logger, socket }: InitParams) => ({
   event,
   message,
   data = {},

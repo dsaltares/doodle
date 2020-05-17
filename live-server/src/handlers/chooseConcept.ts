@@ -1,4 +1,4 @@
-import { HandlerParams } from "./types"
+import { HandlerParams } from './types';
 import { ConceptChoicePhase } from '../game';
 
 type ChooseParams = {
@@ -11,9 +11,7 @@ const chooseConcept = ({
   store: { gameBySocketId },
   logger,
   warnAndEmit,
-}: HandlerParams) => ({
-  concept,
-}: ChooseParams): boolean => {
+}: HandlerParams) => ({ concept }: ChooseParams): boolean => {
   const game = gameBySocketId[socket.id];
   if (!game) {
     return warnAndEmit({
@@ -66,7 +64,9 @@ const chooseConcept = ({
     });
   }
 
-  const { round: { concepts } } = game;
+  const {
+    round: { concepts },
+  } = game;
   const playerHasConcept = !!concepts[playerId];
   if (playerHasConcept) {
     return warnAndEmit({

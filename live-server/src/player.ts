@@ -11,7 +11,7 @@ export type Avatar = {
   eyebrowType: string;
   mouthType: string;
   skinColor: string;
-}
+};
 
 export type Player = {
   id: string;
@@ -23,7 +23,7 @@ export type Player = {
 
 export type Players = {
   [id: string]: Player;
-}
+};
 
 const TopTypes = [
   'NoHair',
@@ -163,13 +163,10 @@ const SkinColors = [
   'Black',
 ];
 
-const randomInt = (max: number): number => (
-  Math.floor(Math.random() * Math.floor(max))
-);
+const randomInt = (max: number): number =>
+  Math.floor(Math.random() * Math.floor(max));
 
-const pickRandom = <T>(array: T[]): T => (
-  array[randomInt(array.length)]
-);
+const pickRandom = <T>(array: T[]): T => array[randomInt(array.length)];
 
 const createAvatar = (): Avatar => ({
   topType: pickRandom(TopTypes),
@@ -187,9 +184,12 @@ const createAvatar = (): Avatar => ({
 type CreatePlayerParams = {
   name: string;
   socketId: string;
-}
+};
 
-export const createPlayer = ({ socketId, name }: CreatePlayerParams): Player => ({
+export const createPlayer = ({
+  socketId,
+  name,
+}: CreatePlayerParams): Player => ({
   id: uuidv4(),
   socketId,
   name,
