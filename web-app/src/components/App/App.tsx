@@ -11,10 +11,15 @@ import SideBar from '../SideBar';
 import useStyles from './App.styles';
 import useMountEffect from '../../utils/useMountEffect';
 
-type Props = {
+export type StateProps = {
   playerName?: string;
+};
+
+export type DispatchProps = {
   connect: () => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const App: FunctionComponent<Props> = ({ playerName, connect }) => {
   useMountEffect(() => {

@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 
-import EntryChoicePhase from './EntryChoicePhase';
+import EntryChoicePhase, {
+  StateProps,
+  DispatchProps,
+} from './EntryChoicePhase';
 import { AppDispatch } from '../../store';
 import { RootState } from '../../store/reducers';
 import {
@@ -9,7 +12,7 @@ import {
 } from '../../store/game/types';
 import { chooseEntry, acknowledgeWinner } from '../../store/game';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): StateProps => {
   const game = state.game.gameState as GameState;
   const phase = game.round.phase as EntryChoicePhaseType;
   const stackPlayerId = game.round.order[phase.index];
@@ -37,9 +40,13 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onChooseEntry: (targetPlayer: string) => dispatch(chooseEntry(targetPlayer)),
-  onAcknowledge: () => dispatch(acknowledgeWinner()),
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  onChooseEntry: (targetPlayer: string): void => {
+    dispatch(chooseEntry(targetPlayer));
+  },
+  onAcknowledge: (): void => {
+    dispatch(acknowledgeWinner());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EntryChoicePhase);

@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import Menu, { StartGameParams } from './Menu';
+import Menu, { DispatchProps } from './Menu';
 import { AppDispatch } from '../../store';
 import { createGame, joinGame } from '../../store/game';
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  startGame: ({ mode, name, code, goToGame }: StartGameParams) => {
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  startGame: ({ mode, name, code, goToGame }): void => {
     if (mode === 'newGame') {
       dispatch(createGame({ name, goToGame }));
     } else {

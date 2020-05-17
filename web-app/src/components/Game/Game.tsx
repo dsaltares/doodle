@@ -13,15 +13,20 @@ import EntryChoicePhase from '../EntryChoicePhase';
 
 import { Alert as AlertType } from '../../store/game/types';
 
-interface Props extends RouteComponentProps<{}> {
+export type StateProps = {
   connected: boolean;
   waitingToJoin: boolean;
   phaseName: string;
   alert?: AlertType;
+};
+
+export type DispatchProps = {
   connect: () => void;
   leave: () => void;
   dismissAlert: () => void;
-}
+};
+
+type Props = RouteComponentProps<{}> & StateProps & DispatchProps;
 
 class Game extends React.Component<Props, {}> {
   unblock?: () => void;

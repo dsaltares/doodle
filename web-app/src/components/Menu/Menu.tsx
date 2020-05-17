@@ -20,9 +20,11 @@ export type StartGameParams = {
   goToGame: (code: string) => void;
 };
 
-interface Props extends RouteComponentProps<{}> {
+export type DispatchProps = {
   startGame: (params: StartGameParams) => void;
-}
+};
+
+type Props = RouteComponentProps<{}> & DispatchProps;
 
 const Menu: FunctionComponent<Props> = ({ startGame, history }) => {
   const classes = useStyles();

@@ -7,13 +7,18 @@ import MainContent from '../MainContent';
 import Editor from '../Editor';
 import Emoji from '../Emoji';
 
-type Props = {
+export type StateProps = {
   firstCreateTurn: boolean;
   submitted: boolean;
   concept: string | undefined;
   conceptFrom: string | undefined;
+};
+
+export type DispatchProps = {
   onSubmit: (image: string) => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const DrawPhase: FunctionComponent<Props> = ({
   firstCreateTurn,

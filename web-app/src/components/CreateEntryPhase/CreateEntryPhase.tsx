@@ -5,7 +5,7 @@ import GuessPhase from '../GuessPhase';
 
 export type EntryType = 'draw' | 'guess';
 
-type Props = {
+export type Props = {
   type: EntryType;
 };
 

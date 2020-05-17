@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
+
+import InitialPhase, { StateProps, DispatchProps } from './InitialPhase';
 import { AppDispatch } from '../../store';
-import InitialPhase from './InitialPhase';
 import { RootState } from '../../store/reducers';
 import { GameState } from '../../store/game/types';
 import { startGame } from '../../store/game';
 import { MIN_PLAYERS, MAX_PLAYERS } from '../../store/game/constants';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): StateProps => {
   const game = state.game.gameState as GameState;
   const player = state.game.player as string;
   const numPlayers = Object.keys(game.players).length;
@@ -22,8 +23,10 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onStart: () => dispatch(startGame()),
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  onStart: (): void => {
+    dispatch(startGame());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(InitialPhase);

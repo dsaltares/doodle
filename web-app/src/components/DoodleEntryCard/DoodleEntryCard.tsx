@@ -4,9 +4,12 @@ import CardMedia from '@material-ui/core/CardMedia';
 import EntryCard from '../EntryCard';
 import { Avatar } from '../../store/game/types';
 
-type Props = {
+export type StateProps = {
   name: string;
   avatar: Avatar;
+};
+
+type Props = StateProps & {
   image: string;
   onClick?: () => void;
 };

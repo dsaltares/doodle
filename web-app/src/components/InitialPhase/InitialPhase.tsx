@@ -12,14 +12,19 @@ import { HowToPlayPanel } from '../HowToPlay';
 import useStyles from './InitialPhase.styles';
 import pluralize from '../../utils/pluralize';
 
-type Props = {
+export type StateProps = {
   createdGame: boolean;
   creatorName: string;
   missingPlayers: number;
   gameFull: boolean;
   gameUrl: string;
+};
+
+export type DispatchProps = {
   onStart: () => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const InitialPhase: FunctionComponent<Props> = ({
   createdGame,

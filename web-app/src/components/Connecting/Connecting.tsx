@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import useStyles from './Connecting.styles';
 import Emoji from '../Emoji';
 
-type Props = {
+export type Props = {
   hasError: boolean;
 };
 

@@ -9,9 +9,11 @@ import Emoji from '../Emoji';
 import { JoinGameParams } from '../../store/game/types';
 import MainContent from '../MainContent';
 
-interface Props extends RouteComponentProps<{}> {
+export type DispatchProps = {
   joinGame: (params: JoinGameParams) => void;
-}
+};
+
+type Props = RouteComponentProps<{}> & DispatchProps;
 
 const JoinMenu: FunctionComponent<Props> = ({ joinGame, history }) => {
   const [name, setName] = useState('');

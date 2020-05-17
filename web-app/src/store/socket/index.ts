@@ -42,7 +42,7 @@ export const socketDeferred = defer<SocketIOClient.Socket>();
 
 export const connect = (
   subscribe: (socket: SocketIOClient.Socket) => void
-) => async (dispatch: AppDispatch): void => {
+) => async (dispatch: AppDispatch): Promise<void> => {
   dispatch(actions.connectToSocketStarted());
 
   socket = io(LIVE_SERVER_SOCKET);

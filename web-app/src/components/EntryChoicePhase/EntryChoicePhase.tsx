@@ -4,7 +4,7 @@ import EntryChoiceAcknowledge from './EntryChoiceAcknowledge';
 import EntryChoiceList from './EntryChoiceList';
 import { Entry } from '../../store/game/types';
 
-type Props = {
+export type StateProps = {
   entries: Entry[];
   concept: string;
   stackPlayerName: string;
@@ -12,9 +12,14 @@ type Props = {
   chosenPlayerId?: string;
   chosenPlayerName?: string;
   acknowledged: boolean;
+};
+
+export type DispatchProps = {
   onChooseEntry: (playerId: string) => void;
   onAcknowledge: () => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const EntryChoicePhase: FunctionComponent<Props> = ({
   entries,

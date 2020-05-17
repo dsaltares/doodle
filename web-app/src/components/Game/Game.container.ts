@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Game from './Game';
+import Game, { StateProps, DispatchProps } from './Game';
 import { AppDispatch } from '../../store';
 import {
   connectToGameChannel,
@@ -9,7 +9,7 @@ import {
 } from '../../store/game';
 import { RootState } from '../../store/reducers';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): StateProps => {
   const game = state.game.gameState;
   const playerId = state.game.player;
 
@@ -29,10 +29,16 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  connect: () => dispatch(connectToGameChannel()),
-  leave: () => dispatch(leaveGame()),
-  dismissAlert: () => dispatch(dismissAlert()),
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  connect: (): void => {
+    dispatch(connectToGameChannel());
+  },
+  leave: (): void => {
+    dispatch(leaveGame());
+  },
+  dismissAlert: (): void => {
+    dispatch(dismissAlert());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);

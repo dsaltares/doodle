@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PlayerListItem, { PlayerState } from './PlayerListItem';
+import PlayerListItem, { PlayerState, Props } from './PlayerListItem';
 import { RootState } from '../../store/reducers';
 import { selectors } from '../../store/game';
 import {
@@ -9,7 +9,7 @@ import {
 } from '../../store/game/types';
 import { MIN_PLAYERS } from '../../store/game/constants';
 
-type Props = {
+type OwnProps = {
   id: string;
 };
 
@@ -66,7 +66,7 @@ const getPlayerState = (
   }
 };
 
-const mapStateToProps = (state: RootState, ownProps: Props) => {
+const mapStateToProps = (state: RootState, ownProps: OwnProps): Props => {
   const player = selectors.player(state, ownProps.id) as Player;
   const isWaiting = selectors.isWaiting(state, ownProps.id);
 

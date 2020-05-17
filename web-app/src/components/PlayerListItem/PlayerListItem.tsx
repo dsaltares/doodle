@@ -10,6 +10,7 @@ import Avataaar from 'avataaars';
 import Emoji from '../Emoji';
 import pluralize from '../../utils/pluralize';
 import useStyles from './PlayerListItem.styles';
+import { Avatar as AvatarType } from '../../store/game/types';
 
 export type PlayerState =
   | 'Ready'
@@ -18,22 +19,9 @@ export type PlayerState =
   | 'Drawing'
   | 'Looking';
 
-type Avatar = {
-  topType: string;
-  accessoriesType: string;
-  hairColor: string;
-  facialHairType: string;
-  clotheType: string;
-  clotheColor: string;
-  eyeType: string;
-  eyebrowType: string;
-  mouthType: string;
-  skinColor: string;
-};
-
-type Props = {
+export type Props = {
   name: string;
-  avatar: Avatar;
+  avatar: AvatarType;
   points: number;
   state?: PlayerState;
 };

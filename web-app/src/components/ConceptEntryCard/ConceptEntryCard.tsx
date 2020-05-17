@@ -5,9 +5,12 @@ import Typography from '@material-ui/core/Typography';
 import EntryCard from '../EntryCard';
 import { Avatar } from '../../store/game/types';
 
-type Props = {
+export type StateProps = {
   name: string;
   avatar: Avatar;
+};
+
+type Props = StateProps & {
   concept: string;
   onClick?: () => void;
 };

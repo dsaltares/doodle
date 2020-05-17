@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import PlayerList from './PlayerList';
+import PlayerList, { Props } from './PlayerList';
 import { RootState } from '../../store/reducers';
 import { selectors } from '../../store/game';
 import { MIN_PLAYERS, MAX_PLAYERS } from '../../store/game/constants';
 
-const mapStateToProps = (state: RootState) => ({
+const mapStateToProps = (state: RootState): Props => ({
   visible: !!state.game.player,
   playerIds: selectors.playerIds(state),
   minPlayers: MIN_PLAYERS,

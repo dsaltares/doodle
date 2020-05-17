@@ -7,11 +7,16 @@ import MainContent from '../MainContent';
 import Emoji from '../Emoji';
 import ConceptListItem from '../ConceptListItem';
 
-type Props = {
+export type StateProps = {
   concepts: string[];
   selectedConcept?: string;
+};
+
+export type DispatchProps = {
   onChooseConcept: (concept: string) => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const ConceptChoicePhase: FunctionComponent<Props> = ({
   concepts,

@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import WaitingPlayerList from './WaitingPlayerList';
+import WaitingPlayerList, { Props } from './WaitingPlayerList';
 import { RootState } from '../../store/reducers';
 import { selectors } from '../../store/game';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): Props => {
   const game = state.game.gameState;
   return {
     visible: !!game && Object.keys(game.waitingPlayers).length > 0,

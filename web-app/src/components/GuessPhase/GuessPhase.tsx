@@ -8,12 +8,17 @@ import useStyles from './GuessPhase.styles';
 import Emoji from '../Emoji';
 import MainContent from '../MainContent';
 
-type Props = {
+export type StateProps = {
   author: string | undefined;
   image: string;
   submitted: boolean;
+};
+
+export type DispatchProps = {
   onSubmit: (image: string) => void;
 };
+
+type Props = StateProps & DispatchProps;
 
 const GuessPhase: FunctionComponent<Props> = ({
   author,

@@ -1,6 +1,9 @@
 import { connect } from 'react-redux';
 
-import ConceptChoicePhase from './ConceptChoicePhase';
+import ConceptChoicePhase, {
+  StateProps,
+  DispatchProps,
+} from './ConceptChoicePhase';
 import { AppDispatch } from '../../store';
 import { RootState } from '../../store/reducers';
 import { chooseConcept } from '../../store/game';
@@ -9,7 +12,7 @@ import {
   Round,
 } from '../../store/game/types';
 
-const mapStateToProps = (state: RootState) => {
+const mapStateToProps = (state: RootState): StateProps => {
   const choosingConcept = state.game.choosingConcept;
   const round = state.game.gameState?.round as Round;
   const phase = round.phase as ConceptChoicePhaseType;
@@ -23,8 +26,10 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: AppDispatch) => ({
-  onChooseConcept: (concept: string) => dispatch(chooseConcept(concept)),
+const mapDispatchToProps = (dispatch: AppDispatch): DispatchProps => ({
+  onChooseConcept: (concept: string): void => {
+    dispatch(chooseConcept(concept));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConceptChoicePhase);
