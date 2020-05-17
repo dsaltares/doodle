@@ -3,18 +3,12 @@ on:
   push:
     branches:
       - master
-jobs:
-  check-changes-web-app:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Check changes in web-app
-      uses: netlify/actions/diff-includes@master
-      with:
-        args: './web-app'
+    paths:
+      - 'web-app/**'
+      - 'live-server/**'
 
+jobs:
   test-web-app:
-    needs: check-changes-web-app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -50,17 +44,8 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./web-app/build
 
-  check-changes-live-server:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: Check changes in live-server
-      uses: netlify/actions/diff-includes@master
-      with:
-        args: './live-server'
 
   test-live-server:
-    needs: check-changes-live-server
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
