@@ -11,7 +11,7 @@ jobs:
     - name: Check changes in web-app
       uses: netlify/actions/diff-includes@master
       with:
-        args: web-app
+        args: './web-app'
 
   test-web-app:
     needs: check-changes-web-app
@@ -57,7 +57,7 @@ jobs:
     - name: Check changes in live-server
       uses: netlify/actions/diff-includes@master
       with:
-        args: live-server
+        args: './live-server'
 
   test-live-server:
     needs: check-changes-live-server
