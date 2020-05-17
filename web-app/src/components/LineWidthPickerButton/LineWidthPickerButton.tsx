@@ -19,14 +19,15 @@ const LineWidthPickerButton: FunctionComponent<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleChange = (_e: any, newValue: number | number[]) =>
+  const handleChange = (_e: unknown, newValue: number | number[]): void => {
     onLineWidthChange(Array.isArray(newValue) ? newValue[0] : newValue);
+  };
 
   return (
     <ExpandableToolBarButton
       title="Line width"
       icon={<FiberManualRecordIcon />}
-      renderContent={() => (
+      renderContent={(): React.ReactNode => (
         <div className={classes.root}>
           <Slider
             value={lineWidth}

@@ -25,16 +25,16 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    setPlayerName: (state, action: PayloadAction<string>) => {
+    setPlayerName: (state, action: PayloadAction<string>): void => {
       state.config.name = action.payload;
     },
-    setCode: (state, action: PayloadAction<string>) => {
+    setCode: (state, action: PayloadAction<string>): void => {
       state.config.code = action.payload;
     },
-    setGamePlayer: (state, action: PayloadAction<GameJoinedEvent>) => {
+    setGamePlayer: (state, action: PayloadAction<GameJoinedEvent>): void => {
       state.player = action.payload.player;
     },
-    leaveGame: (state) => {
+    leaveGame: (state): void => {
       state.config = {
         code: undefined,
         name: undefined,
@@ -48,22 +48,22 @@ const gameSlice = createSlice({
       state.acknowledgedWinner = false;
       state.alerts = [];
     },
-    startGame: (state) => {
+    startGame: (state): void => {
       state.startingGame = true;
     },
-    chooseConcept: (state, action: PayloadAction<string>) => {
+    chooseConcept: (state, action: PayloadAction<string>): void => {
       state.choosingConcept = action.payload;
     },
-    submitEntry: (state) => {
+    submitEntry: (state): void => {
       state.submittedEntry = true;
     },
-    chooseEntry: (state, action: PayloadAction<string>) => {
+    chooseEntry: (state, action: PayloadAction<string>): void => {
       state.chosenEntry = action.payload;
     },
-    acknowledgeWinner: (state) => {
+    acknowledgeWinner: (state): void => {
       state.acknowledgedWinner = true;
     },
-    updateGame: (state, action: PayloadAction<GameUpdatedEvent>) => {
+    updateGame: (state, action: PayloadAction<GameUpdatedEvent>): void => {
       const {
         payload: { updateBy, gameState, alert },
       } = action;
@@ -89,11 +89,11 @@ const gameSlice = createSlice({
         state.gameState &&
         state.gameState.lastUpdate > gameState.lastUpdate
       ) {
-        return state;
+        return;
       }
       state.gameState = gameState;
     },
-    dismissAlert: (state) => {
+    dismissAlert: (state): void => {
       if (state.alerts.length > 0) {
         state.alerts.shift();
       }
@@ -108,7 +108,7 @@ export default reducer;
 export const subscribe = (
   dispatch: AppDispatch,
   socket: SocketIOClient.Socket
-) => {
+): void => {
   socket.on('connectedToGame', (event: GameJoinedEvent) => {
     console.log('connectedToGame:', event);
     dispatch(actions.setGamePlayer(event));
@@ -133,7 +133,7 @@ export const subscribe = (
 
 export const joinGame = ({ code, name, goToGame }: JoinGameParams) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   dispatch(actions.setPlayerName(name));
   dispatch(actions.setCode(code));
   goToGame(code);
@@ -141,7 +141,7 @@ export const joinGame = ({ code, name, goToGame }: JoinGameParams) => async (
 
 export const createGame = ({ name, goToGame }: CreateGameParams) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   const code = uuid();
   dispatch(joinGame({ code, name, goToGame }));
 };
@@ -149,7 +149,7 @@ export const createGame = ({ name, goToGame }: CreateGameParams) => async (
 export const connectToGameChannel = () => async (
   _dispatch: AppDispatch,
   getState: AppGetState
-) => {
+): Promise<void> => {
   const {
     game: {
       config: { name, code },
@@ -159,13 +159,13 @@ export const connectToGameChannel = () => async (
   socket.emit('joinGame', { name, code });
 };
 
-export const startGame = () => async (dispatch: AppDispatch) => {
+export const startGame = () => async (dispatch: AppDispatch): Promise<void> => {
   dispatch(actions.startGame());
   const socket = await socketDeferred.promise;
   socket.emit('startGame', {});
 };
 
-export const leaveGame = () => async (dispatch: AppDispatch) => {
+export const leaveGame = () => async (dispatch: AppDispatch): Promise<void> => {
   dispatch(actions.leaveGame());
   const socket = await socketDeferred.promise;
   socket.emit('leaveGame', {});
@@ -173,7 +173,7 @@ export const leaveGame = () => async (dispatch: AppDispatch) => {
 
 export const chooseConcept = (concept: string) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   dispatch(actions.chooseConcept(concept));
   const socket = await socketDeferred.promise;
   socket.emit('chooseConcept', { concept });
@@ -181,7 +181,7 @@ export const chooseConcept = (concept: string) => async (
 
 export const submitDrawing = (drawing: string) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   dispatch(actions.submitEntry());
   const socket = await socketDeferred.promise;
   socket.emit('submitEntry', {
@@ -191,7 +191,7 @@ export const submitDrawing = (drawing: string) => async (
 
 export const submitConcept = (concept: string) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   dispatch(actions.submitEntry());
   const socket = await socketDeferred.promise;
   socket.emit('submitEntry', {
@@ -201,13 +201,15 @@ export const submitConcept = (concept: string) => async (
 
 export const chooseEntry = (targetPlayer: string) => async (
   dispatch: AppDispatch
-) => {
+): Promise<void> => {
   dispatch(actions.chooseEntry(targetPlayer));
   const socket = await socketDeferred.promise;
   socket.emit('chooseEntry', { targetPlayer });
 };
 
-export const acknowledgeWinner = () => async (dispatch: AppDispatch) => {
+export const acknowledgeWinner = () => async (
+  dispatch: AppDispatch
+): Promise<void> => {
   dispatch(actions.acknowledgeWinner());
   const socket = await socketDeferred.promise;
   socket.emit('acknowledgeWinner', {});

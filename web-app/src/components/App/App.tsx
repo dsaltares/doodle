@@ -22,7 +22,9 @@ const App: FunctionComponent<Props> = ({ playerName, connect }) => {
   });
 
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const onToggleDrawer = () => setDrawerOpen(!drawerOpen);
+  const onToggleDrawer = (): void => {
+    setDrawerOpen(!drawerOpen);
+  };
 
   const classes = useStyles();
 

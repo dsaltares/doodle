@@ -23,7 +23,7 @@ const DrawPhase: FunctionComponent<Props> = ({
   onSubmit,
 }) => {
   const editorRef = createRef<Editor>();
-  const handleSubmitClicked = () => {
+  const handleSubmitClicked = (): void => {
     const editor = editorRef.current;
     if (editor) {
       const image = editor.export();

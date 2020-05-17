@@ -28,10 +28,12 @@ const ExpandableToolBarButton: FunctionComponent<Props> = ({
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = (): void => {
+    setAnchorEl(null);
+  };
 
   const open = Boolean(anchorEl);
   const id = open ? `${title}-popover` : undefined;

@@ -17,7 +17,7 @@ export type Props = {
   gameStarted: boolean;
 };
 
-const PlayerSkeleton = () => {
+const PlayerSkeleton: FunctionComponent = () => {
   const classes = useStyles();
   return (
     <ListItem divider>
@@ -55,7 +55,7 @@ const PlayerList: FunctionComponent<Props> = ({
         <PlayerSkeleton key={`skeleton_${index}`} />
       ))
     : [];
-  const getMessage = () => {
+  const getMessage = (): string => {
     if (numPlayers < minPlayers) {
       const needed = minPlayers - numPlayers;
       return `${needed} needed`;

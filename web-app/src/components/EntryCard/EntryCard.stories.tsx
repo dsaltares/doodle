@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Typography from '@material-ui/core/Typography';
 
 import EntryCard from './EntryCard';
 
 export default { title: 'EntryCard' };
 
-export const noActions = () => (
+export const noActions: FunctionComponent = () => (
   <EntryCard
     name="David Saltares"
     avatar={{

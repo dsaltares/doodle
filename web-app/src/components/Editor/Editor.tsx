@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Grid from '@material-ui/core/Grid';
 
 import ToolBar from '../ToolBar';
 import { SketchField } from './Editor.styled';
+import { SketchField as SketchFieldType } from 'react-sketch';
 
 type Tool = 'pencil' | 'eraser';
 type Props = {};
@@ -15,7 +16,7 @@ type State = {
 };
 
 class Editor extends React.Component<Props, State> {
-  private sketch: SketchField;
+  private sketch: SketchFieldType | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -37,40 +38,40 @@ class Editor extends React.Component<Props, State> {
     this.onSketchChange = this.onSketchChange.bind(this);
   }
 
-  onLineWidthChange(lineWidth: number) {
+  onLineWidthChange(lineWidth: number): void {
     this.setState({ lineWidth });
   }
 
-  onColorChange(color: string) {
+  onColorChange(color: string): void {
     this.setState({ color });
   }
 
-  onToolChange(tool: Tool) {
+  onToolChange(tool: Tool): void {
     this.setState({ tool });
   }
 
-  onUndo() {
+  onUndo(): void {
     if (!this.sketch) {
       return;
     }
     this.sketch.undo();
   }
 
-  onRedo() {
+  onRedo(): void {
     if (!this.sketch) {
       return;
     }
     this.sketch.redo();
   }
 
-  onEraseAll() {
+  onEraseAll(): void {
     if (!this.sketch) {
       return;
     }
     this.sketch.clear();
   }
 
-  onSketchChange() {
+  onSketchChange(): void {
     if (!this.sketch) {
       return;
     }
@@ -94,7 +95,7 @@ class Editor extends React.Component<Props, State> {
     return this.sketch.toDataURL();
   }
 
-  render() {
+  render(): ReactNode {
     const { lineWidth, color, tool, canUndo, canRedo } = this.state;
 
     const editorColor = tool === 'pencil' ? color : '#ffffff';
@@ -118,8 +119,10 @@ class Editor extends React.Component<Props, State> {
         </Grid>
         <Grid item xs={10}>
           <SketchField
-            ref={(sketch: any) => (this.sketch = sketch)}
-            height="480px"
+            ref={(sketch: SketchFieldType): void => {
+              this.sketch = sketch;
+            }}
+            height={480}
             tool={tool}
             lineColor={editorColor}
             lineWidth={lineWidth}

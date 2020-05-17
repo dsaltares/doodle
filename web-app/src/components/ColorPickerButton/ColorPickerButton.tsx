@@ -15,18 +15,19 @@ const ColorPickerButton: FunctionComponent<Props> = ({
   color = Colors[0],
   onColorChange,
 }) => {
-  const handleOnChangeComplete = (color: ColorResult) =>
+  const handleOnChangeComplete = (color: ColorResult): void => {
     onColorChange(color.hex);
+  };
 
   return (
     <ExpandableToolBarButton
       title="Color"
       icon={<FiberManualRecordIcon style={{ color }} />}
-      renderContent={({ close }) => (
+      renderContent={({ close }): React.ReactNode => (
         <CirclePicker
           colors={Colors}
           color={color}
-          onChangeComplete={(color) => {
+          onChangeComplete={(color): void => {
             close();
             handleOnChangeComplete(color);
           }}

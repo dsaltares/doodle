@@ -17,10 +17,10 @@ export type StartGameParams = {
   mode: GameMode;
   name: string;
   code: string;
-  goToGame: (code: string) => any;
+  goToGame: (code: string) => void;
 };
 
-interface Props extends RouteComponentProps<any> {
+interface Props extends RouteComponentProps<{}> {
   startGame: (params: StartGameParams) => void;
 }
 
@@ -28,21 +28,26 @@ const Menu: FunctionComponent<Props> = ({ startGame, history }) => {
   const classes = useStyles();
 
   const [mode, setMode] = useState('newGame');
-  const handleModeChange = (_event: any, newMode: string) => setMode(newMode);
+  const handleModeChange = (_event: unknown, newMode: string): void => {
+    setMode(newMode);
+  };
 
   const [name, setName] = useState('');
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>): void =>
     setName(event.target.value);
 
   const [code, setCode] = useState('');
-  const handleGameCodeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleGameCodeChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setCode(event.target.value);
+  };
 
   const hasName = name.length > 0;
   const hasGameCode = code.length > 0;
   const canStartGame = hasName && (mode === 'newGame' || hasGameCode);
 
-  const handleGoClicked = (event: FormEvent<HTMLFormElement>) => {
+  const handleGoClicked = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (canStartGame) {
       startGame({

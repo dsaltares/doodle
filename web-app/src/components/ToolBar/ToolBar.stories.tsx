@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { action } from '@storybook/addon-actions';
 
 import ToolBar from './ToolBar';
 
 export default { title: 'ToolBar' };
 
-export const defaultState = () => (
+export const defaultState: FunctionComponent = () => (
   <ToolBar
     onLineWidthChange={action('onLineWidthChange')}
     onColorChange={action('onColorChange')}

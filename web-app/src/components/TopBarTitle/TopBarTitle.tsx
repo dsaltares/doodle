@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 
-const TopBarTitle = () => (
+const TopBarTitle: React.FunctionComponent = () => (
   <Grid
     container
     direction="row"

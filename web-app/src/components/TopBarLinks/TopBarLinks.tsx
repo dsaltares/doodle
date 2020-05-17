@@ -12,9 +12,11 @@ import { ReactComponent as GitHub } from './github.svg';
 // import { ReactComponent as Kofi } from './ko-fi.svg';
 import { HowToPlayDialog } from '../HowToPlay';
 
-const openUrl = (url: string) => window.open(url, '_blank');
+const openUrl = (url: string): void => {
+  window.open(url, '_blank');
+};
 
-type Props = {
+export type Props = {
   gameStarted: boolean;
 };
 
@@ -22,8 +24,12 @@ const TopBarLinks: FunctionComponent<Props> = ({ gameStarted }) => {
   const classes = useStyles();
 
   const [helpOpen, setHelpOpen] = useState(false);
-  const handleHelpClicked = () => setHelpOpen(true);
-  const handleHelpClosed = () => setHelpOpen(false);
+  const handleHelpClicked = (): void => setHelpOpen(true);
+  const handleHelpClosed = (): void => setHelpOpen(false);
+
+  const handleGithubClicked = (): void => {
+    openUrl('https://github.com/dsaltares/doodle');
+  };
 
   const howToPlay = gameStarted ? (
     <Grid item>
@@ -65,7 +71,7 @@ const TopBarLinks: FunctionComponent<Props> = ({ gameStarted }) => {
           <Tooltip title="Check out the source code! 💻" placement="bottom">
             <IconButton
               className={classes.iconButton}
-              onClick={() => openUrl('https://github.com/dsaltares/doodle')}
+              onClick={handleGithubClicked}
             >
               <SvgIcon>
                 <GitHub href="https://github.com/dsaltares/doodle" />

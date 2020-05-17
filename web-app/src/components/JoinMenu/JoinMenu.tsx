@@ -9,22 +9,26 @@ import Emoji from '../Emoji';
 import { JoinGameParams } from '../../store/game/types';
 import MainContent from '../MainContent';
 
-interface Props extends RouteComponentProps<any> {
+interface Props extends RouteComponentProps<{}> {
   joinGame: (params: JoinGameParams) => void;
 }
 
 const JoinMenu: FunctionComponent<Props> = ({ joinGame, history }) => {
   const [name, setName] = useState('');
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleNameChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setName(event.target.value);
+  };
 
   const { code } = useParams();
-  const handleGoClicked = () =>
+  const handleGoClicked = (): void => {
     joinGame({
       name,
       code: code as string,
       goToGame: (code: string) => history.push(`/game/${code}`),
     });
+  };
 
   const hasName = name.length > 0;
 

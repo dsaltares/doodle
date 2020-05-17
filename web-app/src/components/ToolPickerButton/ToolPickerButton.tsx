@@ -15,7 +15,7 @@ type Props = {
   onToolChange: (tool: Tool) => void;
 };
 
-const getIconForTool = (tool: Tool) =>
+const getIconForTool: FunctionComponent<Tool> = (tool) =>
   tool === 'pencil' ? (
     <CreateIcon />
   ) : (
@@ -28,11 +28,11 @@ const ToolPickerButton: FunctionComponent<Props> = ({ tool, onToolChange }) => (
   <ExpandableToolBarButton
     title="Tool"
     icon={getIconForTool(tool)}
-    renderContent={({ close }) => (
+    renderContent={({ close }): React.ReactNode => (
       <ToggleButtonGroup
         value={tool}
         exclusive
-        onChange={(_event, newTool) => {
+        onChange={(_event, newTool): void => {
           close();
           onToolChange(newTool);
         }}

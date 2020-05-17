@@ -39,7 +39,9 @@ const ConceptChoicePhase: FunctionComponent<Props> = ({
               concept={concept}
               selected={selectedConcept === concept}
               disabled={!!selectedConcept}
-              onClick={() => onChooseConcept(concept)}
+              onClick={(): void => {
+                onChooseConcept(concept);
+              }}
             />
           ))}
         </List>

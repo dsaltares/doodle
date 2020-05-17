@@ -23,9 +23,12 @@ const GuessPhase: FunctionComponent<Props> = ({
 }) => {
   const classes = useStyles();
   const [guess, setGuess] = useState('');
-  const handleGuessChanged = (event: React.ChangeEvent<HTMLInputElement>) =>
+  const handleGuessChanged = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     setGuess(event.target.value);
-  const handleSubmitClicked = () => {
+  };
+  const handleSubmitClicked = (): void => {
     onSubmit(guess);
   };
 

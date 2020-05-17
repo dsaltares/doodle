@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import MainContent from '../MainContent';
 import Emoji from '../Emoji';
 
-const WaitingToJoin = () => (
+const WaitingToJoin: React.FunctionComponent = () => (
   <MainContent>
     <Grid container direction="row" alignItems="center" spacing={2}>
       <Grid item>

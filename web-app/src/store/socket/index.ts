@@ -14,18 +14,18 @@ const socketSlice = createSlice({
   name: 'socket',
   initialState,
   reducers: {
-    connectToSocketStarted: (state) => {
+    connectToSocketStarted: (state): void => {
       state.status = 'connecting';
     },
-    connectToSocketSuccess: (state) => {
+    connectToSocketSuccess: (state): void => {
       state.status = 'connected';
       state.hasError = false;
     },
-    connectToSocketFailed: (state) => {
+    connectToSocketFailed: (state): void => {
       state.status = 'error';
       state.hasError = true;
     },
-    disconnected: (state) => {
+    disconnected: (state): void => {
       state.status = 'disconnected';
       state.hasError = true;
     },
@@ -42,7 +42,7 @@ export const socketDeferred = defer<SocketIOClient.Socket>();
 
 export const connect = (
   subscribe: (socket: SocketIOClient.Socket) => void
-) => async (dispatch: AppDispatch) => {
+) => async (dispatch: AppDispatch): void => {
   dispatch(actions.connectToSocketStarted());
 
   socket = io(LIVE_SERVER_SOCKET);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -13,7 +13,7 @@ import EntryChoicePhase from '../EntryChoicePhase';
 
 import { Alert as AlertType } from '../../store/game/types';
 
-interface Props extends RouteComponentProps<any> {
+interface Props extends RouteComponentProps<{}> {
   connected: boolean;
   waitingToJoin: boolean;
   phaseName: string;
@@ -32,7 +32,7 @@ class Game extends React.Component<Props, {}> {
     this.onBeforeUnload = this.onBeforeUnload.bind(this);
   }
 
-  onBeforeUnload(e: BeforeUnloadEvent) {
+  onBeforeUnload(e: BeforeUnloadEvent): string | undefined {
     if (process.env.NODE_ENV !== 'development') {
       const dialogText = 'You will exit the game.';
       e.returnValue = dialogText;
@@ -40,7 +40,7 @@ class Game extends React.Component<Props, {}> {
     }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const { connect, history } = this.props;
 
     connect();
@@ -48,7 +48,7 @@ class Game extends React.Component<Props, {}> {
     this.unblock = history.block('Are you sure you want to leave the game?');
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     window.removeEventListener('beforeunload', this.onBeforeUnload);
     const { leave } = this.props;
     leave();
@@ -57,7 +57,7 @@ class Game extends React.Component<Props, {}> {
     }
   }
 
-  renderContent() {
+  renderContent(): ReactNode {
     const { connected, phaseName, waitingToJoin } = this.props;
 
     if (!connected) {
@@ -82,7 +82,7 @@ class Game extends React.Component<Props, {}> {
     }
   }
 
-  renderAlert() {
+  renderAlert(): ReactNode {
     const { alert, dismissAlert } = this.props;
     const alertComponent = alert ? (
       <Alert onClose={dismissAlert} severity={alert.severity}>
@@ -102,7 +102,7 @@ class Game extends React.Component<Props, {}> {
     );
   }
 
-  render() {
+  render(): ReactNode {
     return (
       <React.Fragment>
         {this.renderContent()}

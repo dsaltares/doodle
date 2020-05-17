@@ -4,7 +4,7 @@ import PlayerListItem from './PlayerListItem';
 
 export default { title: 'PlayerListItem' };
 
-export const avatars = () => (
+export const avatars = (): React.ReactNode => (
   <List>
     <PlayerListItem
       name="David Saltares"
@@ -43,7 +43,7 @@ export const avatars = () => (
   </List>
 );
 
-export const states = () => (
+export const states = (): React.ReactNode => (
   <List>
     <PlayerListItem
       name="David Saltares"

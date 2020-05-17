@@ -57,11 +57,13 @@ const InitialPhase: FunctionComponent<Props> = ({
   }
 
   const [alertOpen, setAlertOpen] = useState(false);
-  const handleInviteClicked = () => {
+  const handleInviteClicked = (): void => {
     copy(gameUrl);
     setAlertOpen(true);
   };
-  const handleAlertClosed = () => setAlertOpen(false);
+  const handleAlertClosed = (): void => {
+    setAlertOpen(false);
+  };
 
   return (
     <Grid container direction="column" spacing={3}>

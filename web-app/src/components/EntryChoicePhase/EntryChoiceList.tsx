@@ -65,7 +65,9 @@ const EntryChoiceList: FunctionComponent<Props> = ({
                 image={entry.data.drawing}
                 onClick={
                   currentPlayerChooses
-                    ? () => onChooseEntry(entry.author)
+                    ? (): void => {
+                        onChooseEntry(entry.author);
+                      }
                     : undefined
                 }
               />
@@ -75,7 +77,9 @@ const EntryChoiceList: FunctionComponent<Props> = ({
                 concept={entry.data.concept}
                 onClick={
                   currentPlayerChooses
-                    ? () => onChooseEntry(entry.author)
+                    ? (): void => {
+                        onChooseEntry(entry.author);
+                      }
                     : undefined
                 }
               />

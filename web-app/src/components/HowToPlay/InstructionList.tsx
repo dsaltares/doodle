@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import List from '@material-ui/core/List';
 
 import InstructionListItem from './InstructionListItem';
@@ -37,7 +37,7 @@ const Instructions = [
   },
 ];
 
-const InstructionList = () => (
+const InstructionList: FunctionComponent = () => (
   <List>
     {Instructions.map((step, index) => (
       <InstructionListItem

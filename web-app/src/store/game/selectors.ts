@@ -38,7 +38,7 @@ export const isWaiting = (state: RootState, id: string): boolean => {
   return !!game.waitingPlayers[id];
 };
 
-export const isFirstCreateTurn = (state: RootState) => {
+export const isFirstCreateTurn = (state: RootState): boolean => {
   const game = state.game.gameState;
   if (!game) {
     return false;
@@ -50,7 +50,10 @@ export const isFirstCreateTurn = (state: RootState) => {
   return phase.index === 0;
 };
 
-const currentStackForPlayer = (state: RootState, playerId: string) => {
+const currentStackForPlayer = (
+  state: RootState,
+  playerId: string
+): Stack | undefined => {
   const game = state.game.gameState;
   if (!game || game.round.phase.name !== 'createEntry') {
     return;
@@ -68,7 +71,10 @@ const currentStackForPlayer = (state: RootState, playerId: string) => {
   return game.round.stacks[sourcePlayerId];
 };
 
-const getPlayerSourceEntry = (state: RootState, playerId: string) => {
+const getPlayerSourceEntry = (
+  state: RootState,
+  playerId: string
+): Entry | undefined => {
   const game = state.game.gameState;
   if (!game || game.round.phase.name !== 'createEntry') {
     return;
@@ -80,12 +86,12 @@ const getPlayerSourceEntry = (state: RootState, playerId: string) => {
   return lastEntry;
 };
 
-export const getSourceEntry = (state: RootState) => {
+export const getSourceEntry = (state: RootState): Entry | undefined => {
   const playerId = state.game.player as string;
   return getPlayerSourceEntry(state, playerId);
 };
 
-export const currentConcept = (state: RootState) => {
+export const currentConcept = (state: RootState): string | undefined => {
   if (isFirstCreateTurn(state)) {
     const game = state.game.gameState;
     const playerId = state.game.player;
@@ -101,13 +107,13 @@ export const currentConcept = (state: RootState) => {
   return conceptEntry.concept;
 };
 
-export const currentDrawing = (state: RootState) => {
+export const currentDrawing = (state: RootState): string | undefined => {
   const entry = getSourceEntry(state) as Entry;
   const drawingEntry = entry.data as DrawingEntry;
   return drawingEntry.drawing;
 };
 
-export const sourceEntryAuthor = (state: RootState) => {
+export const sourceEntryAuthor = (state: RootState): string | undefined => {
   if (isFirstCreateTurn(state)) {
     const game = state.game.gameState;
     const playerId = state.game.player;
@@ -123,7 +129,10 @@ export const sourceEntryAuthor = (state: RootState) => {
   return author?.name;
 };
 
-export const playerHasSubmitted = (state: RootState, playerId: string) => {
+export const playerHasSubmitted = (
+  state: RootState,
+  playerId: string
+): boolean => {
   const game = state.game.gameState;
   if (!game || game.round.phase.name !== 'createEntry') {
     return false;
@@ -134,7 +143,7 @@ export const playerHasSubmitted = (state: RootState, playerId: string) => {
   return !!entry && entry.author === playerId;
 };
 
-export const hasSubmitted = (state: RootState) => {
+export const hasSubmitted = (state: RootState): boolean => {
   if (state.game.submittedEntry) {
     return true;
   }

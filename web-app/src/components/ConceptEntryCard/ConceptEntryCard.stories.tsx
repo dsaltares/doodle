@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { action } from '@storybook/addon-actions';
 import Grid from '@material-ui/core/Grid';
 
@@ -19,7 +19,7 @@ const avatar = {
   skinColor: 'Light',
 };
 
-export const noActions = () => (
+export const noActions: FunctionComponent = () => (
   <ConceptEntryCard
     name="David Saltares"
     avatar={avatar}
@@ -27,7 +27,7 @@ export const noActions = () => (
   />
 );
 
-export const withActions = () => (
+export const withActions: FunctionComponent = () => (
   <ConceptEntryCard
     name="David Saltares"
     avatar={avatar}
@@ -36,7 +36,7 @@ export const withActions = () => (
   />
 );
 
-export const cardGrid = () => (
+export const cardGrid: FunctionComponent = () => (
   <Grid container direction="row" spacing={3}>
     <Grid item xs={5}>
       <ConceptEntryCard

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import Emoji from './Emoji';
 
 export default { title: 'Emoji' };
 
-export const noLabel = () => <Emoji symbol="🤯" />;
+export const noLabel: FunctionComponent = () => <Emoji symbol="🤯" />;
 
-export const label = () => <Emoji symbol="👍" label="thumbs up" />;
+export const label: FunctionComponent = () => (
+  <Emoji symbol="👍" label="thumbs up" />
+);

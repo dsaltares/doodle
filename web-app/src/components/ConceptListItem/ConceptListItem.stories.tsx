@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FunctionComponent } from 'react';
 import { action } from '@storybook/addon-actions';
 import List from '@material-ui/core/List';
 import ConceptListItem from './ConceptListItem';
@@ -11,7 +11,7 @@ const concepts = [
   'Throwing a frog',
 ];
 
-export const someConcepts = () => (
+export const someConcepts: FunctionComponent = () => (
   <List>
     {concepts.map((concept) => (
       <ConceptListItem
