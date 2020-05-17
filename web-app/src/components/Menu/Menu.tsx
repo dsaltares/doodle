@@ -1,8 +1,4 @@
-import React, {
-  useState,
-  FunctionComponent,
-  FormEvent,
-} from 'react';
+import React, { useState, FunctionComponent, FormEvent } from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -18,36 +14,29 @@ import { HowToPlayPanel } from '../HowToPlay';
 export type GameMode = 'newGame' | 'joinGame';
 
 export type StartGameParams = {
-  mode: GameMode,
-  name: string,
-  code: string,
-  goToGame: (code: string) => any,
-}
+  mode: GameMode;
+  name: string;
+  code: string;
+  goToGame: (code: string) => any;
+};
 
 interface Props extends RouteComponentProps<any> {
-  startGame: (params: StartGameParams) => void,
+  startGame: (params: StartGameParams) => void;
 }
 
-const Menu: FunctionComponent<Props> = ({
-  startGame,
-  history,
-}) => {
+const Menu: FunctionComponent<Props> = ({ startGame, history }) => {
   const classes = useStyles();
 
   const [mode, setMode] = useState('newGame');
-  const handleModeChange = (
-    (_event: any, newMode: string) => setMode(newMode)
-  );
+  const handleModeChange = (_event: any, newMode: string) => setMode(newMode);
 
   const [name, setName] = useState('');
-  const handleNameChange = (
-    (event:React.ChangeEvent<HTMLInputElement>) => setName(event.target.value)
-  );
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setName(event.target.value);
 
   const [code, setCode] = useState('');
-  const handleGameCodeChange = (
-    (event:React.ChangeEvent<HTMLInputElement>) => setCode(event.target.value)
-  );
+  const handleGameCodeChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setCode(event.target.value);
 
   const hasName = name.length > 0;
   const hasGameCode = code.length > 0;
@@ -65,8 +54,8 @@ const Menu: FunctionComponent<Props> = ({
     }
   };
 
-  const codeField = mode === 'joinGame'
-    ? (
+  const codeField =
+    mode === 'joinGame' ? (
       <Grid item xs={12}>
         <TextField
           variant="outlined"
@@ -75,8 +64,7 @@ const Menu: FunctionComponent<Props> = ({
           fullWidth
         />
       </Grid>
-    )
-    : null;
+    ) : null;
 
   return (
     <Grid container direction="column" alignItems="center" spacing={3}>
@@ -94,11 +82,11 @@ const Menu: FunctionComponent<Props> = ({
                     className={classes.buttonGroup}
                   >
                     <ToggleButton value="newGame" className={classes.button}>
-                      <Emoji symbol="✏️"/>
+                      <Emoji symbol="✏️" />
                       <span> New Game</span>
                     </ToggleButton>
                     <ToggleButton value="joinGame" className={classes.button}>
-                      <Emoji symbol="👥"/>
+                      <Emoji symbol="👥" />
                       <span> Join Game</span>
                     </ToggleButton>
                   </ToggleButtonGroup>
@@ -121,7 +109,7 @@ const Menu: FunctionComponent<Props> = ({
                   color="primary"
                   disabled={!canStartGame}
                 >
-                  <Emoji symbol="🙌"/>
+                  <Emoji symbol="🙌" />
                   <span>Go!</span>
                 </Button>
               </Grid>

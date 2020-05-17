@@ -8,14 +8,11 @@ import useStyles from './SideBar.styles';
 import PlayerList, { WaitingPlayerList } from '../PlayerList';
 
 type Props = {
-  drawerOpen: boolean,
-  onToggleDrawer: () => void,
-}
+  drawerOpen: boolean;
+  onToggleDrawer: () => void;
+};
 
-const SideBar: FunctionComponent<Props> = ({
-  drawerOpen,
-  onToggleDrawer,
-}) => {
+const SideBar: FunctionComponent<Props> = ({ drawerOpen, onToggleDrawer }) => {
   const classes = useStyles();
 
   const drawer = (

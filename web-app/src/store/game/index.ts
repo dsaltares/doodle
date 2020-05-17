@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 as uuid } from 'uuid';
 import { AppDispatch, AppGetState } from '..';
 import { socketDeferred } from '../socket';
@@ -9,7 +9,7 @@ import {
   GameUpdatedEvent,
   JoinGameParams,
   Alert,
-} from "./types";
+} from './types';
 import * as selectors from './selectors';
 
 const initialState: GameSliceState = {
@@ -19,7 +19,7 @@ const initialState: GameSliceState = {
   submittedEntry: false,
   acknowledgedWinner: false,
   alerts: [],
-}
+};
 
 const gameSlice = createSlice({
   name: 'game',
@@ -78,14 +78,17 @@ const gameSlice = createSlice({
 
       const hasAlert = !!alert;
       const playerId = state.player as string;
-      const forCurrentPlayer = !alert?.ignorePlayers
-        || !alert.ignorePlayers.includes(playerId)
+      const forCurrentPlayer =
+        !alert?.ignorePlayers || !alert.ignorePlayers.includes(playerId);
 
       if (hasAlert && forCurrentPlayer) {
         state.alerts.push(alert as Alert);
       }
 
-      if (state.gameState && state.gameState.lastUpdate > gameState.lastUpdate) {
+      if (
+        state.gameState &&
+        state.gameState.lastUpdate > gameState.lastUpdate
+      ) {
         return state;
       }
       state.gameState = gameState;
@@ -94,7 +97,7 @@ const gameSlice = createSlice({
       if (state.alerts.length > 0) {
         state.alerts.shift();
       }
-    }
+    },
   },
 });
 
@@ -102,7 +105,10 @@ const { actions, reducer } = gameSlice;
 
 export default reducer;
 
-export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) => {
+export const subscribe = (
+  dispatch: AppDispatch,
+  socket: SocketIOClient.Socket
+) => {
   socket.on('connectedToGame', (event: GameJoinedEvent) => {
     console.log('connectedToGame:', event);
     dispatch(actions.setGamePlayer(event));
@@ -125,16 +131,16 @@ export const subscribe = (dispatch: AppDispatch, socket: SocketIOClient.Socket) 
   });
 };
 
-export const createGame = (
-  { name, goToGame }: CreateGameParams,
-)=> async (dispatch: AppDispatch) => {
+export const createGame = ({ name, goToGame }: CreateGameParams) => async (
+  dispatch: AppDispatch
+) => {
   const code = uuid();
   dispatch(joinGame({ code, name, goToGame }));
 };
 
-export const joinGame = (
-  { code, name, goToGame }: JoinGameParams,
-)=> async (dispatch: AppDispatch) => {
+export const joinGame = ({ code, name, goToGame }: JoinGameParams) => async (
+  dispatch: AppDispatch
+) => {
   dispatch(actions.setPlayerName(name));
   dispatch(actions.setCode(code));
   goToGame(code);
@@ -142,31 +148,31 @@ export const joinGame = (
 
 export const connectToGameChannel = () => async (
   _dispatch: AppDispatch,
-  getState: AppGetState,
+  getState: AppGetState
 ) => {
-  const { game: { config: { name, code } } } = getState();
+  const {
+    game: {
+      config: { name, code },
+    },
+  } = getState();
   const socket = await socketDeferred.promise;
   socket.emit('joinGame', { name, code });
 };
 
-export const startGame = () => async (
-  dispatch: AppDispatch,
-) => {
+export const startGame = () => async (dispatch: AppDispatch) => {
   dispatch(actions.startGame());
   const socket = await socketDeferred.promise;
   socket.emit('startGame', {});
 };
 
-export const leaveGame = () => async (
-  dispatch: AppDispatch,
-) => {
+export const leaveGame = () => async (dispatch: AppDispatch) => {
   dispatch(actions.leaveGame());
   const socket = await socketDeferred.promise;
   socket.emit('leaveGame', {});
 };
 
 export const chooseConcept = (concept: string) => async (
-  dispatch: AppDispatch,
+  dispatch: AppDispatch
 ) => {
   dispatch(actions.chooseConcept(concept));
   const socket = await socketDeferred.promise;
@@ -174,36 +180,34 @@ export const chooseConcept = (concept: string) => async (
 };
 
 export const submitDrawing = (drawing: string) => async (
-  dispatch: AppDispatch,
+  dispatch: AppDispatch
 ) => {
   dispatch(actions.submitEntry());
   const socket = await socketDeferred.promise;
   socket.emit('submitEntry', {
-    entry: { type: 'drawing', drawing }
+    entry: { type: 'drawing', drawing },
   });
 };
 
 export const submitConcept = (concept: string) => async (
-  dispatch: AppDispatch,
+  dispatch: AppDispatch
 ) => {
   dispatch(actions.submitEntry());
   const socket = await socketDeferred.promise;
   socket.emit('submitEntry', {
-    entry: { type: 'concept', concept }
+    entry: { type: 'concept', concept },
   });
 };
 
-export const chooseEntry = (targetPlayer: string) => async(
-  dispatch: AppDispatch,
+export const chooseEntry = (targetPlayer: string) => async (
+  dispatch: AppDispatch
 ) => {
   dispatch(actions.chooseEntry(targetPlayer));
   const socket = await socketDeferred.promise;
   socket.emit('chooseEntry', { targetPlayer });
 };
 
-export const acknowledgeWinner = () => async(
-  dispatch: AppDispatch,
-) => {
+export const acknowledgeWinner = () => async (dispatch: AppDispatch) => {
   dispatch(actions.acknowledgeWinner());
   const socket = await socketDeferred.promise;
   socket.emit('acknowledgeWinner', {});

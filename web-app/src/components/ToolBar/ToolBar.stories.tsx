@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 
 import ToolBar from './ToolBar';
 
-export default { title: 'ToolBar' }
+export default { title: 'ToolBar' };
 
 export const defaultState = () => (
   <ToolBar

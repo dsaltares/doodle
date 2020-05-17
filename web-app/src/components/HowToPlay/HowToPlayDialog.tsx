@@ -1,8 +1,8 @@
-import React, { FunctionComponent }  from 'react';
+import React, { FunctionComponent } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Grid from '@material-ui/core/Grid'
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -11,14 +11,11 @@ import { useTheme } from '@material-ui/core/styles';
 import InstructionList from './InstructionList';
 
 type Props = {
-  open: boolean,
-  onClose: () => void,
+  open: boolean;
+  onClose: () => void;
 };
 
-const HowToPlayDialog: FunctionComponent<Props> = ({
-  open,
-  onClose,
-}) => {
+const HowToPlayDialog: FunctionComponent<Props> = ({ open, onClose }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -36,9 +33,7 @@ const HowToPlayDialog: FunctionComponent<Props> = ({
           justify="space-between"
           alignItems="center"
         >
-          <Grid item>
-            How to play
-          </Grid>
+          <Grid item>How to play</Grid>
           <Grid item>
             <IconButton onClick={onClose}>
               <CloseIcon />

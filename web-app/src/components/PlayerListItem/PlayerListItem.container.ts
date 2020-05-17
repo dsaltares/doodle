@@ -10,13 +10,13 @@ import {
 import { MIN_PLAYERS } from '../../store/game/constants';
 
 type Props = {
-  id: string
-}
+  id: string;
+};
 
 const getPlayerState = (
   state: RootState,
   id: string,
-  isWaiting: boolean,
+  isWaiting: boolean
 ): PlayerState | undefined => {
   if (!state.game.gameState || isWaiting) {
     return;
@@ -26,7 +26,7 @@ const getPlayerState = (
   const createdByCurrentPlayer = game.createdBy === id;
   const numPlayers = Object.keys(game.players).length;
 
-  switch(game.round.phase.name) {
+  switch (game.round.phase.name) {
     case 'initial':
       if (createdByCurrentPlayer) {
         return numPlayers >= MIN_PLAYERS ? 'Thinking' : 'Looking';
@@ -74,6 +74,6 @@ const mapStateToProps = (state: RootState, ownProps: Props) => {
     ...player,
     state: getPlayerState(state, ownProps.id, isWaiting),
   };
-}
+};
 
 export default connect(mapStateToProps)(PlayerListItem);

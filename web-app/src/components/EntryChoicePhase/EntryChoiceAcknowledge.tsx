@@ -11,13 +11,13 @@ import { Entry } from '../../store/game/types';
 import useStyles from './EntryChoicePhase.styles';
 
 type Props = {
-  winningEntry: Entry,
-  concept: string,
-  stackPlayerName: string,
-  currentPlayerChose: boolean,
-  chosenPlayerName: string,
-  acknowledged: boolean,
-  onAcknowledge: () => void,
+  winningEntry: Entry;
+  concept: string;
+  stackPlayerName: string;
+  currentPlayerChose: boolean;
+  chosenPlayerName: string;
+  acknowledged: boolean;
+  onAcknowledge: () => void;
 };
 
 const EntryChoiceAcknowledge: FunctionComponent<Props> = ({
@@ -35,35 +35,32 @@ const EntryChoiceAcknowledge: FunctionComponent<Props> = ({
     ? `You chose the entry by ${chosenPlayerName} for "${concept}"!`
     : `${stackPlayerName} chose the entry by ${chosenPlayerName} for "${concept}"!`;
 
-  const entryCard = winningEntry.data.type === 'drawing'
-    ? (
+  const entryCard =
+    winningEntry.data.type === 'drawing' ? (
       <DoodleEntryCard
         playerId={winningEntry.author}
         image={winningEntry.data.drawing}
       />
-    )
-    : (
+    ) : (
       <ConceptEntryCard
         playerId={winningEntry.author}
         concept={winningEntry.data.concept}
       />
     );
 
-  const nextButton = !currentPlayerChose
-    ? (
-      <Grid item xs={12}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={acknowledged}
-          onClick={onAcknowledge}
-        >
-          <Emoji symbol="👏"/>
-          <span>Next</span>
-        </Button>
-      </Grid>
-    )
-    : null;
+  const nextButton = !currentPlayerChose ? (
+    <Grid item xs={12}>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={acknowledged}
+        onClick={onAcknowledge}
+      >
+        <Emoji symbol="👏" />
+        <span>Next</span>
+      </Button>
+    </Grid>
+  ) : null;
 
   return (
     <Grid item xs={12}>

@@ -7,9 +7,9 @@ import ExpandableToolBarButton from '../ExpandableToolBarButton';
 import useStyles from './LineWidthPickerButton.styles';
 
 type Props = {
-  lineWidth: number,
-  onLineWidthChange: (width: number) => void,
-}
+  lineWidth: number;
+  onLineWidthChange: (width: number) => void;
+};
 
 const valueText = (value: number): string => `${value} px`;
 
@@ -19,10 +19,8 @@ const LineWidthPickerButton: FunctionComponent<Props> = ({
 }) => {
   const classes = useStyles();
 
-  const handleChange = (
-    _e: any,
-    newValue: number | number[],
-  ) => onLineWidthChange(Array.isArray(newValue) ? newValue[0] : newValue);
+  const handleChange = (_e: any, newValue: number | number[]) =>
+    onLineWidthChange(Array.isArray(newValue) ? newValue[0] : newValue);
 
   return (
     <ExpandableToolBarButton

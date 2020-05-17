@@ -8,34 +8,30 @@ import useStyles from './Connecting.styles';
 import Emoji from '../Emoji';
 
 type Props = {
-  hasError: boolean,
+  hasError: boolean;
 };
 
-const Connecting: FunctionComponent<Props> = ({
-  hasError,
-}) => {
+const Connecting: FunctionComponent<Props> = ({ hasError }) => {
   const classes = useStyles();
   const severity = hasError ? 'error' : 'info';
-  const message = hasError
-    ? (
-      <Grid
-        container
-        direction="row"
-        justify="flex-start"
-        alignItems="center"
-        spacing={1}
-      >
-        <Grid item>
-          <Typography variant="h4">
-            <Emoji symbol="🙈" />
-          </Typography>
-        </Grid>
-        <Grid item>
-          Failed to connect, retrying...
-        </Grid>
+  const message = hasError ? (
+    <Grid
+      container
+      direction="row"
+      justify="flex-start"
+      alignItems="center"
+      spacing={1}
+    >
+      <Grid item>
+        <Typography variant="h4">
+          <Emoji symbol="🙈" />
+        </Typography>
       </Grid>
-    )
-    : 'Connecting...';
+      <Grid item>Failed to connect, retrying...</Grid>
+    </Grid>
+  ) : (
+    'Connecting...'
+  );
   return (
     <Grid item xs={12}>
       <Alert
@@ -54,9 +50,7 @@ const Connecting: FunctionComponent<Props> = ({
           <Grid item>
             <CircularProgress color="inherit" />
           </Grid>
-          <Grid item>
-            {message}
-          </Grid>
+          <Grid item>{message}</Grid>
         </Grid>
       </Alert>
     </Grid>

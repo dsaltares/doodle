@@ -17,7 +17,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onSubmit: (drawing: string) => dispatch(submitDrawing(drawing)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(DrawPhase);
+export default connect(mapStateToProps, mapDispatchToProps)(DrawPhase);

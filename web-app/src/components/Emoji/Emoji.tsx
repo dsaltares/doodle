@@ -1,16 +1,12 @@
 import React, { FunctionComponent } from 'react';
 
 type Props = {
-  symbol: string,
-  label?: string,
-  className?: string,
-}
+  symbol: string;
+  label?: string;
+  className?: string;
+};
 
-const Emoji: FunctionComponent<Props> = ({
-  symbol,
-  label,
-  className,
-}) => (
+const Emoji: FunctionComponent<Props> = ({ symbol, label, className }) => (
   <span
     className={className}
     role="img"

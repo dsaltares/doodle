@@ -2,7 +2,7 @@ import React from 'react';
 import List from '@material-ui/core/List';
 import PlayerListItem from './PlayerListItem';
 
-export default { title: 'PlayerListItem' }
+export default { title: 'PlayerListItem' };
 
 export const avatars = () => (
   <List>

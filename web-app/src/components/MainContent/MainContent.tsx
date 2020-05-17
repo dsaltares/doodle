@@ -5,13 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import useStyles from './MainContent.styles';
 
 type Props = {
-  width?: number,
+  width?: number;
 };
 
-const MainContent: FunctionComponent<Props> = ({
-  children,
-  width = 500,
-}) => {
+const MainContent: FunctionComponent<Props> = ({ children, width = 500 }) => {
   const classes = useStyles({ width });
 
   return (

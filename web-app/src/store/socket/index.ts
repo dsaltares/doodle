@@ -1,35 +1,35 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 import io from 'socket.io-client';
 import defer from 'p-defer';
 import { AppDispatch } from '..';
-import { SocketState } from "./types";
+import { SocketState } from './types';
 import { LIVE_SERVER_SOCKET } from '../endpoints';
 
 const initialState: SocketState = {
   status: 'disconnected',
   hasError: false,
-}
+};
 
 const socketSlice = createSlice({
   name: 'socket',
   initialState,
   reducers: {
-    connectToSocketStarted: state => {
+    connectToSocketStarted: (state) => {
       state.status = 'connecting';
     },
     connectToSocketSuccess: (state) => {
       state.status = 'connected';
       state.hasError = false;
     },
-    connectToSocketFailed: state => {
+    connectToSocketFailed: (state) => {
       state.status = 'error';
       state.hasError = true;
     },
-    disconnected: state => {
+    disconnected: (state) => {
       state.status = 'disconnected';
       state.hasError = true;
     },
-  }
+  },
 });
 
 const { actions, reducer } = socketSlice;
@@ -40,22 +40,29 @@ export let socket: SocketIOClient.Socket;
 
 export const socketDeferred = defer<SocketIOClient.Socket>();
 
-export const connect = (subscribe: (socket: SocketIOClient.Socket) => void) => async (dispatch: AppDispatch) => {
+export const connect = (
+  subscribe: (socket: SocketIOClient.Socket) => void
+) => async (dispatch: AppDispatch) => {
   dispatch(actions.connectToSocketStarted());
 
   socket = io(LIVE_SERVER_SOCKET);
   socketDeferred.resolve(socket);
 
   const successEvents = ['connect', 'reconnect'];
-  successEvents.forEach(event => {
+  successEvents.forEach((event) => {
     socket.on(event, () => {
       dispatch(actions.connectToSocketSuccess());
       subscribe(socket);
     });
   });
 
-  const errorEvents = ['connect_error', 'connect_timeout', 'error', 'disconnected'];
-  errorEvents.forEach(event => {
+  const errorEvents = [
+    'connect_error',
+    'connect_timeout',
+    'error',
+    'disconnected',
+  ];
+  errorEvents.forEach((event) => {
     socket.on(event, () => {
       dispatch(actions.connectToSocketFailed());
     });

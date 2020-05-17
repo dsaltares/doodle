@@ -7,10 +7,7 @@ import {
   GameState,
   EntryChoicePhase as EntryChoicePhaseType,
 } from '../../store/game/types';
-import {
-  chooseEntry,
-  acknowledgeWinner,
-} from '../../store/game';
+import { chooseEntry, acknowledgeWinner } from '../../store/game';
 
 const mapStateToProps = (state: RootState) => {
   const game = state.game.gameState as GameState;
@@ -26,7 +23,8 @@ const mapStateToProps = (state: RootState) => {
     ? game.players[chosenPlayerId].name
     : undefined;
   const entries = stack.entries;
-  const acknowledged = state.game.acknowledgedWinner || !!phase.acknowledgedBy[playerId];
+  const acknowledged =
+    state.game.acknowledgedWinner || !!phase.acknowledgedBy[playerId];
 
   return {
     stackPlayerName,
@@ -44,7 +42,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onAcknowledge: () => dispatch(acknowledgeWinner()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(EntryChoicePhase);
+export default connect(mapStateToProps, mapDispatchToProps)(EntryChoicePhase);

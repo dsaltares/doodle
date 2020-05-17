@@ -25,11 +25,9 @@ const mapStateToProps = (state: RootState) => {
     connected: true,
     waitingToJoin: !!game.waitingPlayers[playerId],
     phaseName: game.round.phase.name,
-    alert: state.game.alerts.length > 0
-      ? state.game.alerts[0]
-      : undefined,
+    alert: state.game.alerts.length > 0 ? state.game.alerts[0] : undefined,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   connect: () => dispatch(connectToGameChannel()),
@@ -37,7 +35,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   dismissAlert: () => dispatch(dismissAlert()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

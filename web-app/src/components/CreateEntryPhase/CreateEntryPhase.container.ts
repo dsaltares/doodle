@@ -6,9 +6,7 @@ import { CreateEntryPhase as CreateEntryPhaseType } from '../../store/game/types
 
 const mapStateToProps = (state: RootState) => {
   const phase = state.game.gameState?.round.phase as CreateEntryPhaseType;
-  const type: EntryType = phase.index % 2 === 0
-    ? 'draw'
-    : 'guess'
+  const type: EntryType = phase.index % 2 === 0 ? 'draw' : 'guess';
 
   return { type };
 };

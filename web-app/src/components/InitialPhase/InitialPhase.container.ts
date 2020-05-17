@@ -4,10 +4,7 @@ import InitialPhase from './InitialPhase';
 import { RootState } from '../../store/reducers';
 import { GameState } from '../../store/game/types';
 import { startGame } from '../../store/game';
-import {
-  MIN_PLAYERS,
-  MAX_PLAYERS,
-} from '../../store/game/constants';
+import { MIN_PLAYERS, MAX_PLAYERS } from '../../store/game/constants';
 
 const mapStateToProps = (state: RootState) => {
   const game = state.game.gameState as GameState;
@@ -29,7 +26,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onStart: () => dispatch(startGame()),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(InitialPhase);
+export default connect(mapStateToProps, mapDispatchToProps)(InitialPhase);

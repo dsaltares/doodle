@@ -4,15 +4,15 @@ import Grid from '@material-ui/core/Grid';
 import ToolBar from '../ToolBar';
 import { SketchField } from './Editor.styled';
 
-type Tool = 'pencil' | 'eraser'
-type Props = {}
+type Tool = 'pencil' | 'eraser';
+type Props = {};
 type State = {
-  lineWidth: number,
-  color: string,
-  tool: Tool
-  canUndo: boolean,
-  canRedo: boolean,
-}
+  lineWidth: number;
+  color: string;
+  tool: Tool;
+  canUndo: boolean;
+  canRedo: boolean;
+};
 
 class Editor extends React.Component<Props, State> {
   private sketch: any;
@@ -95,13 +95,7 @@ class Editor extends React.Component<Props, State> {
   }
 
   render() {
-    const {
-      lineWidth,
-      color,
-      tool,
-      canUndo,
-      canRedo,
-    } = this.state;
+    const { lineWidth, color, tool, canUndo, canRedo } = this.state;
 
     const editorColor = tool === 'pencil' ? color : '#ffffff';
 
@@ -124,8 +118,8 @@ class Editor extends React.Component<Props, State> {
         </Grid>
         <Grid item xs={10}>
           <SketchField
-            ref={(sketch: any) => this.sketch = sketch}
-            height='480px'
+            ref={(sketch: any) => (this.sketch = sketch)}
+            height="480px"
             tool={tool}
             lineColor={editorColor}
             lineWidth={lineWidth}
@@ -133,7 +127,7 @@ class Editor extends React.Component<Props, State> {
           />
         </Grid>
       </Grid>
-    )
+    );
   }
 }
 

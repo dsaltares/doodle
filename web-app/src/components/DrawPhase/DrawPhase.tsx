@@ -1,7 +1,4 @@
-import React, {
-  FunctionComponent,
-  createRef,
-} from 'react';
+import React, { FunctionComponent, createRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -11,11 +8,11 @@ import Editor from '../Editor';
 import Emoji from '../Emoji';
 
 type Props = {
-  firstCreateTurn: boolean,
-  submitted: boolean,
-  concept: string | undefined,
-  conceptFrom: string | undefined,
-  onSubmit: (image: string) => void,
+  firstCreateTurn: boolean;
+  submitted: boolean;
+  concept: string | undefined;
+  conceptFrom: string | undefined;
+  onSubmit: (image: string) => void;
 };
 
 const DrawPhase: FunctionComponent<Props> = ({
@@ -53,7 +50,7 @@ const DrawPhase: FunctionComponent<Props> = ({
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Editor ref={editorRef}/>
+        <Editor ref={editorRef} />
       </Grid>
       <Grid item xs={12}>
         <Button
@@ -62,7 +59,7 @@ const DrawPhase: FunctionComponent<Props> = ({
           onClick={handleSubmitClicked}
           disabled={submitted}
         >
-          <Emoji symbol="🎨"/>
+          <Emoji symbol="🎨" />
           <span>Done</span>
         </Button>
       </Grid>

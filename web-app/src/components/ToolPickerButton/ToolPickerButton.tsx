@@ -8,27 +8,23 @@ import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ExpandableToolBarButton from '../ExpandableToolBarButton';
 import { ReactComponent as EraserIcon } from './eraser.svg';
 
-type Tool = 'pencil' | 'eraser'
+type Tool = 'pencil' | 'eraser';
 
 type Props = {
-  tool: Tool,
-  onToolChange: (tool: Tool) => void,
-}
+  tool: Tool;
+  onToolChange: (tool: Tool) => void;
+};
 
-const getIconForTool = (tool: Tool) => (
-  tool === 'pencil'
-    ? <CreateIcon />
-    : (
-      <SvgIcon>
-        <EraserIcon />
-      </SvgIcon>
-    )
-);
+const getIconForTool = (tool: Tool) =>
+  tool === 'pencil' ? (
+    <CreateIcon />
+  ) : (
+    <SvgIcon>
+      <EraserIcon />
+    </SvgIcon>
+  );
 
-const ToolPickerButton: FunctionComponent<Props> = ({
-  tool,
-  onToolChange,
-}) => (
+const ToolPickerButton: FunctionComponent<Props> = ({ tool, onToolChange }) => (
   <ExpandableToolBarButton
     title="Tool"
     icon={getIconForTool(tool)}
@@ -38,7 +34,7 @@ const ToolPickerButton: FunctionComponent<Props> = ({
         exclusive
         onChange={(_event, newTool) => {
           close();
-          onToolChange(newTool)
+          onToolChange(newTool);
         }}
         aria-label="text alignment"
       >

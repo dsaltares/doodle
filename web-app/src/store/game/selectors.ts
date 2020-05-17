@@ -1,5 +1,12 @@
-import { RootState } from "../reducers";
-import { Player, CreateEntryPhase, Stack, Entry, ConceptEntry, DrawingEntry } from "./types";
+import { RootState } from '../reducers';
+import {
+  Player,
+  CreateEntryPhase,
+  Stack,
+  Entry,
+  ConceptEntry,
+  DrawingEntry,
+} from './types';
 
 export const playerIds = (state: RootState): string[] => {
   if (!state.game.gameState) {
@@ -46,7 +53,7 @@ export const isFirstCreateTurn = (state: RootState) => {
 export const currentConcept = (state: RootState) => {
   if (isFirstCreateTurn(state)) {
     const game = state.game.gameState;
-    const playerId = state.game.player
+    const playerId = state.game.player;
     if (!game || !playerId) {
       return;
     }
@@ -68,7 +75,7 @@ export const currentDrawing = (state: RootState) => {
 export const sourceEntryAuthor = (state: RootState) => {
   if (isFirstCreateTurn(state)) {
     const game = state.game.gameState;
-    const playerId = state.game.player
+    const playerId = state.game.player;
     if (!game || !playerId) {
       return;
     }
@@ -91,9 +98,10 @@ const currentStackForPlayer = (state: RootState, playerId: string) => {
   const playerIdx = game.round.order.indexOf(playerId);
   const numPlayers = Object.keys(game.players).length;
   const playerIdxMinusTurn = playerIdx - phase.index;
-  const sourceIdx = playerIdxMinusTurn < 0
-    ? numPlayers + playerIdxMinusTurn
-    : playerIdxMinusTurn;
+  const sourceIdx =
+    playerIdxMinusTurn < 0
+      ? numPlayers + playerIdxMinusTurn
+      : playerIdxMinusTurn;
   const sourcePlayerId = game.round.order[sourceIdx];
   return game.round.stacks[sourcePlayerId];
 };

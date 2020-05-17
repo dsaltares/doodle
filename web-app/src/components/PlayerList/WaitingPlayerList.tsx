@@ -5,9 +5,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import PlayerListItem from '../PlayerListItem';
 
 export type Props = {
-  visible: boolean,
-  playerIds: string[],
-}
+  visible: boolean;
+  playerIds: string[];
+};
 
 const WaitingPlayerList: FunctionComponent<Props> = ({
   visible,
@@ -18,12 +18,10 @@ const WaitingPlayerList: FunctionComponent<Props> = ({
   }
 
   return (
-    <List subheader={(
-      <ListSubheader>Waiting players</ListSubheader>
-    )}>
-      {
-        playerIds.map(id => (<PlayerListItem key={id} id={id} />))
-      }
+    <List subheader={<ListSubheader>Waiting players</ListSubheader>}>
+      {playerIds.map((id) => (
+        <PlayerListItem key={id} id={id} />
+      ))}
     </List>
   );
 };

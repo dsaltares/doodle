@@ -7,20 +7,21 @@ import ExpandableToolBarButton from '../ExpandableToolBarButton';
 import Colors from './Colors';
 
 type Props = {
-  color?: string,
-  onColorChange: (color: string) => void,
-}
+  color?: string;
+  onColorChange: (color: string) => void;
+};
 
 const ColorPickerButton: FunctionComponent<Props> = ({
-  color=Colors[0],
+  color = Colors[0],
   onColorChange,
 }) => {
-  const handleOnChangeComplete = (color: ColorResult) => onColorChange(color.hex);
+  const handleOnChangeComplete = (color: ColorResult) =>
+    onColorChange(color.hex);
 
   return (
     <ExpandableToolBarButton
-      title='Color'
-      icon={<FiberManualRecordIcon style={{ color }}/>}
+      title="Color"
+      icon={<FiberManualRecordIcon style={{ color }} />}
       renderContent={({ close }) => (
         <CirclePicker
           colors={Colors}

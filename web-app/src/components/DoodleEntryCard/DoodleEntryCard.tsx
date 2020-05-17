@@ -5,11 +5,11 @@ import EntryCard from '../EntryCard';
 import { Avatar } from '../../store/game/types';
 
 type Props = {
-  name: string,
-  avatar: Avatar,
-  image: string,
-  onClick?: () => void,
-}
+  name: string;
+  avatar: Avatar;
+  image: string;
+  onClick?: () => void;
+};
 
 const DoodleEntryCard: FunctionComponent<Props> = ({
   name,
@@ -20,14 +20,14 @@ const DoodleEntryCard: FunctionComponent<Props> = ({
   <EntryCard
     name={name}
     avatar={avatar}
-    entry={(
+    entry={
       <CardMedia
         component="img"
         image={image}
         width="500"
         title={`Entry by ${name}`}
       />
-    )}
+    }
     onClick={onClick}
   />
 );

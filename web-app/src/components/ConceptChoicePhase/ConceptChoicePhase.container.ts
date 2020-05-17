@@ -27,7 +27,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onChooseConcept: (concept: string) => dispatch(chooseConcept(concept)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ConceptChoicePhase);
+export default connect(mapStateToProps, mapDispatchToProps)(ConceptChoicePhase);

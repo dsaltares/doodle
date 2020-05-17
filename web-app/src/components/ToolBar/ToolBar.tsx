@@ -11,21 +11,21 @@ import LineWidthPickerButton from '../LineWidthPickerButton';
 import ColorPickerButton from '../ColorPickerButton';
 import ToolPickerButton from '../ToolPickerButton';
 
-export type Tool = 'pencil' | 'eraser'
+export type Tool = 'pencil' | 'eraser';
 
 type Props = {
-  lineWidth?: number,
-  onLineWidthChange: (width: number) => void,
-  color?: string,
-  onColorChange: (color: string) => void,
-  tool?: Tool
-  onToolChange: (tool: Tool) => void,
-  canUndo?: boolean,
-  onUndo: () => void,
-  canRedo?: boolean,
-  onRedo: () => void,
-  onEraseAll: () => void,
-}
+  lineWidth?: number;
+  onLineWidthChange: (width: number) => void;
+  color?: string;
+  onColorChange: (color: string) => void;
+  tool?: Tool;
+  onToolChange: (tool: Tool) => void;
+  canUndo?: boolean;
+  onUndo: () => void;
+  canRedo?: boolean;
+  onRedo: () => void;
+  onEraseAll: () => void;
+};
 
 const ToolBar: FunctionComponent<Props> = ({
   lineWidth = 5,
@@ -40,24 +40,13 @@ const ToolBar: FunctionComponent<Props> = ({
   onRedo,
   onEraseAll,
 }) => (
-  <Grid
-    container
-    direction="column"
-    spacing={0}
-    alignItems="center"
-  >
+  <Grid container direction="column" spacing={0} alignItems="center">
     <LineWidthPickerButton
       lineWidth={lineWidth}
       onLineWidthChange={onLineWidthChange}
     />
-    <ColorPickerButton
-      color={color}
-      onColorChange={onColorChange}
-    />
-    <ToolPickerButton
-      tool={tool}
-      onToolChange={onToolChange}
-    />
+    <ColorPickerButton color={color} onColorChange={onColorChange} />
+    <ToolPickerButton tool={tool} onToolChange={onToolChange} />
     <ToolBarButton
       title="Undo"
       icon={<UndoIcon />}

@@ -1,19 +1,15 @@
-import React, {
-  ReactNode,
-  FunctionComponent,
-  MouseEvent,
-} from 'react';
+import React, { ReactNode, FunctionComponent, MouseEvent } from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import useStyles from './ToolBarButton.styles';
 
 type Props = {
-  title: string,
-  icon: ReactNode,
-  onClick: (event: MouseEvent<HTMLElement>) => void,
-  disabled?: boolean,
-}
+  title: string;
+  icon: ReactNode;
+  onClick: (event: MouseEvent<HTMLElement>) => void;
+  disabled?: boolean;
+};
 
 const ToolBarButton: FunctionComponent<Props> = ({
   title,

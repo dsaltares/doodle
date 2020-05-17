@@ -1,12 +1,5 @@
-import React, {
-  useState,
-  FunctionComponent,
-} from 'react';
-import {
-  HashRouter,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import React, { useState, FunctionComponent } from 'react';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -19,14 +12,11 @@ import useStyles from './App.styles';
 import useMountEffect from '../../utils/useMountEffect';
 
 type Props = {
-  playerName?: string,
-  connect: () => void,
-}
+  playerName?: string;
+  connect: () => void;
+};
 
-const App: FunctionComponent<Props> = ({
-  playerName,
-  connect,
-}) => {
+const App: FunctionComponent<Props> = ({ playerName, connect }) => {
   useMountEffect(() => {
     connect();
   });
@@ -39,16 +29,9 @@ const App: FunctionComponent<Props> = ({
   return (
     <div className={classes.root}>
       <TopBar onToggleDrawer={onToggleDrawer} />
-      {
-        playerName
-          ? (
-            <SideBar
-              drawerOpen={drawerOpen}
-              onToggleDrawer={onToggleDrawer}
-            />
-          )
-          : null
-      }
+      {playerName ? (
+        <SideBar drawerOpen={drawerOpen} onToggleDrawer={onToggleDrawer} />
+      ) : null}
       <div className={classes.content}>
         <Toolbar />
         <HashRouter>
@@ -57,11 +40,7 @@ const App: FunctionComponent<Props> = ({
               <Menu />
             </Route>
             <Route exact path="/game/:code">
-              {
-                playerName
-                  ? <Game />
-                  : <JoinMenu />
-              }
+              {playerName ? <Game /> : <JoinMenu />}
             </Route>
           </Switch>
         </HashRouter>

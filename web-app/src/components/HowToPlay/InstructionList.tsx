@@ -10,7 +10,8 @@ const Instructions = [
   },
   {
     emoji: '🔗',
-    text: 'Share the link with friends. Remember, Doodle is best played on a video call!',
+    text:
+      'Share the link with friends. Remember, Doodle is best played on a video call!',
   },
   {
     emoji: '🤫',
@@ -18,7 +19,8 @@ const Instructions = [
   },
   {
     emoji: '✏️',
-    text: "Draw your concept. Don't know how to draw? Worry not, the worse you draw, the more fun the round will be!",
+    text:
+      "Draw your concept. Don't know how to draw? Worry not, the worse you draw, the more fun the round will be!",
   },
   {
     emoji: '🤔',
@@ -26,26 +28,25 @@ const Instructions = [
   },
   {
     emoji: '✏️',
-    text: "Time to draw what another player guessed!",
+    text: 'Time to draw what another player guessed!',
   },
   {
     emoji: '🙌',
-    text: 'When the round is done, each player chooses their favourite entry for their concept.',
+    text:
+      'When the round is done, each player chooses their favourite entry for their concept.',
   },
 ];
 
 const InstructionList = () => (
   <List>
-    {
-      Instructions.map((step, index) => (
-        <InstructionListItem
-          key={index}
-          emoji={step.emoji}
-          text={step.text}
-          divider={index < Instructions.length - 1}
-        />
-      ))
-    }
+    {Instructions.map((step, index) => (
+      <InstructionListItem
+        key={index}
+        emoji={step.emoji}
+        text={step.text}
+        divider={index < Instructions.length - 1}
+      />
+    ))}
   </List>
 );
 

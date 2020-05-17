@@ -16,7 +16,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => ({
   onSubmit: (concept: string) => dispatch(submitConcept(concept)),
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(GuessPhase);
+export default connect(mapStateToProps, mapDispatchToProps)(GuessPhase);

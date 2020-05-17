@@ -10,19 +10,24 @@ import PlayerListItem from '../PlayerListItem';
 import useStyles from './PlayerList.styles';
 
 export type Props = {
-  visible: boolean,
-  playerIds: string[],
-  minPlayers: number,
-  maxPlayers: number,
-  gameStarted: boolean,
-}
+  visible: boolean;
+  playerIds: string[];
+  minPlayers: number;
+  maxPlayers: number;
+  gameStarted: boolean;
+};
 
 const PlayerSkeleton = () => {
   const classes = useStyles();
   return (
     <ListItem divider>
       <ListItemAvatar>
-        <Skeleton variant="circle" height={64} width={64} className={classes.avatar}/>
+        <Skeleton
+          variant="circle"
+          height={64}
+          width={64}
+          className={classes.avatar}
+        />
       </ListItemAvatar>
       <ListItemText
         primary={<Skeleton variant="text" width={100} />}
@@ -46,9 +51,9 @@ const PlayerList: FunctionComponent<Props> = ({
   const numPlayers = playerIds.length;
   const remainingPlayers = Math.max(0, maxPlayers - numPlayers);
   const skeletons = !gameStarted
-    ? Array.from(Array(remainingPlayers).keys()).map(index => (
-      <PlayerSkeleton key={`skeleton_${index}`} />
-    ))
+    ? Array.from(Array(remainingPlayers).keys()).map((index) => (
+        <PlayerSkeleton key={`skeleton_${index}`} />
+      ))
     : [];
   const getMessage = () => {
     if (numPlayers < minPlayers) {
@@ -62,11 +67,11 @@ const PlayerList: FunctionComponent<Props> = ({
   };
 
   return (
-    <List subheader={(
-      <ListSubheader>Players - {`${getMessage()}`}</ListSubheader>
-    )}>
+    <List
+      subheader={<ListSubheader>Players - {`${getMessage()}`}</ListSubheader>}
+    >
       {[
-        ...playerIds.map(id => (<PlayerListItem key={id} id={id} />)),
+        ...playerIds.map((id) => <PlayerListItem key={id} id={id} />),
         ...skeletons,
       ]}
     </List>

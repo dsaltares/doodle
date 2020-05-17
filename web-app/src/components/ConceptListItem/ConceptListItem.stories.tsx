@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions';
 import List from '@material-ui/core/List';
 import ConceptListItem from './ConceptListItem';
 
-export default { title: 'ConceptListItem' }
+export default { title: 'ConceptListItem' };
 
 const concepts = [
   'Netflix & Chill',
@@ -13,13 +13,11 @@ const concepts = [
 
 export const someConcepts = () => (
   <List>
-    {
-      concepts.map(concept => (
-        <ConceptListItem
-          concept={concept}
-          onClick={action(`onClick - ${concept}`)}
-        />
-      ))
-    }
+    {concepts.map((concept) => (
+      <ConceptListItem
+        concept={concept}
+        onClick={action(`onClick - ${concept}`)}
+      />
+    ))}
   </List>
 );

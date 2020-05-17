@@ -11,14 +11,14 @@ import ToolBarButton from '../ToolBarButton';
 import useStyles from './ExpandableToolBarButton.styles';
 
 type RenderContentProps = {
-  close: () => void,
-}
+  close: () => void;
+};
 
 type Props = {
-  title: string,
-  icon: ReactNode,
-  renderContent: (props: RenderContentProps) => ReactNode,
-}
+  title: string;
+  icon: ReactNode;
+  renderContent: (props: RenderContentProps) => ReactNode;
+};
 
 const ExpandableToolBarButton: FunctionComponent<Props> = ({
   title,
@@ -38,11 +38,7 @@ const ExpandableToolBarButton: FunctionComponent<Props> = ({
 
   return (
     <React.Fragment>
-      <ToolBarButton
-        title={title}
-        icon={icon}
-        onClick={handleClick}
-      />
+      <ToolBarButton title={title} icon={icon} onClick={handleClick} />
       <Popover
         id={id}
         classes={{

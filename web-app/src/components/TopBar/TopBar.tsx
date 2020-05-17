@@ -11,20 +11,28 @@ import TopBarTitle from '../TopBarTitle';
 import TopBarLinks from '../TopBarLinks';
 
 type Props = {
-  onToggleDrawer: () => void,
+  onToggleDrawer: () => void;
 };
 
-const TopBar: FunctionComponent<Props> = ({
-  onToggleDrawer,
-}) => {
+const TopBar: FunctionComponent<Props> = ({ onToggleDrawer }) => {
   const classes = useStyles();
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar >
-        <Grid container direction="row" justify="space-between" alignItems="center">
+      <Toolbar>
+        <Grid
+          container
+          direction="row"
+          justify="space-between"
+          alignItems="center"
+        >
           <Grid item>
-            <Grid container direction="row" justify="flex-start" alignItems="center">
+            <Grid
+              container
+              direction="row"
+              justify="flex-start"
+              alignItems="center"
+            >
               <Grid item>
                 <IconButton
                   color="inherit"

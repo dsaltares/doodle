@@ -5,8 +5,8 @@ import { RootState } from '../../store/reducers';
 import { GameState } from '../../store/game/types';
 
 interface OwnProps {
-  playerId: string,
-};
+  playerId: string;
+}
 
 const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
   const game = state.game.gameState as GameState;
@@ -15,5 +15,5 @@ const mapStateToProps = (state: RootState, ownProps: OwnProps) => {
     name: player.name,
     avatar: player.avatar,
   };
-}
+};
 export default connect(mapStateToProps)(ConceptEntryCard);

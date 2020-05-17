@@ -1,7 +1,4 @@
-import React, {
-  FunctionComponent,
-  ReactNode
-} from 'react';
+import React, { FunctionComponent, ReactNode } from 'react';
 import Grid from '@material-ui/core/Grid';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -12,11 +9,11 @@ import { Avatar as AvatarType } from '../../store/game/types';
 import useStyles from './EntryCard.styles';
 
 type Props = {
-  name: string,
-  avatar: AvatarType,
-  entry: ReactNode,
-  onClick?: () => void,
-}
+  name: string;
+  avatar: AvatarType;
+  entry: ReactNode;
+  onClick?: () => void;
+};
 
 const EntryCard: FunctionComponent<Props> = ({
   name,
@@ -29,7 +26,7 @@ const EntryCard: FunctionComponent<Props> = ({
   const content = (
     <div className={classes.container}>
       <CardHeader
-        avatar={(
+        avatar={
           <Avatar variant="rounded" alt={name} className={classes.avatar}>
             <Avataaar
               avatarStyle="Circle"
@@ -45,21 +42,23 @@ const EntryCard: FunctionComponent<Props> = ({
               skinColor={avatar.skinColor}
             />
           </Avatar>
-        )}
+        }
         title={name}
       />
       {entry}
     </div>
   );
-  const wrapped = onClick
-    ? (<CardActionArea onClick={onClick}>{content}</CardActionArea>)
-    : content;
+  const wrapped = onClick ? (
+    <CardActionArea onClick={onClick}>{content}</CardActionArea>
+  ) : (
+    content
+  );
 
   return (
     <Grid item xs={12}>
       {wrapped}
     </Grid>
   );
-}
+};
 
 export default EntryCard;

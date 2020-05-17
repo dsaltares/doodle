@@ -10,11 +10,11 @@ import ConceptEntryCard from '../ConceptEntryCard';
 import { Entry, DrawingEntry } from '../../store/game/types';
 
 type Props = {
-  entries: Entry[],
-  concept: string,
-  stackPlayerName: string,
-  currentPlayerChooses: boolean,
-  onChooseEntry: (playerId: string) => void,
+  entries: Entry[];
+  concept: string;
+  stackPlayerName: string;
+  currentPlayerChooses: boolean;
+  onChooseEntry: (playerId: string) => void;
 };
 
 const EntryChoiceList: FunctionComponent<Props> = ({
@@ -28,10 +28,8 @@ const EntryChoiceList: FunctionComponent<Props> = ({
 
   const message = currentPlayerChooses
     ? `Choose your favourite entry for "${concept}".`
-    : `${stackPlayerName} is choosing their favourite entry for "${concept}".`
-  const emoji = currentPlayerChooses
-    ? '🤔'
-    : '😅';
+    : `${stackPlayerName} is choosing their favourite entry for "${concept}".`;
+  const emoji = currentPlayerChooses ? '🤔' : '😅';
 
   const firstEntry = entries[0];
   const drawingEntry = firstEntry.data as DrawingEntry;
@@ -59,45 +57,41 @@ const EntryChoiceList: FunctionComponent<Props> = ({
             </Grid>
           </Paper>
         </Grid>
-          {
-            otherEntries.map((entry) => {
-              const entryCard = entry.data.type === 'drawing'
-                ? (
-                  <DoodleEntryCard
-                    playerId={entry.author}
-                    image={entry.data.drawing}
-                    onClick={
-                      currentPlayerChooses
-                        ? () => onChooseEntry(entry.author)
-                        : undefined
-                    }
-                  />
-                )
-                : (
-                  <ConceptEntryCard
-                    playerId={entry.author}
-                    concept={entry.data.concept}
-                    onClick={
-                      currentPlayerChooses
-                        ? () => onChooseEntry(entry.author)
-                        : undefined
-                    }
-                  />
-                );
-              return (
-                <Grid item xs={12} key={entry.author}>
-                  <Paper
-                    elevation={1}
-                    variant="outlined"
-                    className={classes.entryPaper}
-                  >
-                    {entryCard}
-                  </Paper>
-                </Grid>
-              );
-            }
-          )
-        }
+        {otherEntries.map((entry) => {
+          const entryCard =
+            entry.data.type === 'drawing' ? (
+              <DoodleEntryCard
+                playerId={entry.author}
+                image={entry.data.drawing}
+                onClick={
+                  currentPlayerChooses
+                    ? () => onChooseEntry(entry.author)
+                    : undefined
+                }
+              />
+            ) : (
+              <ConceptEntryCard
+                playerId={entry.author}
+                concept={entry.data.concept}
+                onClick={
+                  currentPlayerChooses
+                    ? () => onChooseEntry(entry.author)
+                    : undefined
+                }
+              />
+            );
+          return (
+            <Grid item xs={12} key={entry.author}>
+              <Paper
+                elevation={1}
+                variant="outlined"
+                className={classes.entryPaper}
+              >
+                {entryCard}
+              </Paper>
+            </Grid>
+          );
+        })}
       </Grid>
     </Grid>
   );

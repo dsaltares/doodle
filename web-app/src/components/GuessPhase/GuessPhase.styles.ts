@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   image: {
     width: 400,
     borderRadius: 4,
-  }
+  },
 }));
 
 export default useStyles;

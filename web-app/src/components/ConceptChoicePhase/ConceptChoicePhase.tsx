@@ -8,9 +8,9 @@ import Emoji from '../Emoji';
 import ConceptListItem from '../ConceptListItem';
 
 type Props = {
-  concepts: string[],
-  selectedConcept?: string,
-  onChooseConcept: (concept: string) => void,
+  concepts: string[];
+  selectedConcept?: string;
+  onChooseConcept: (concept: string) => void;
 };
 
 const ConceptChoicePhase: FunctionComponent<Props> = ({
@@ -33,17 +33,15 @@ const ConceptChoicePhase: FunctionComponent<Props> = ({
       </Grid>
       <Grid item xs={12}>
         <List>
-          {
-            concepts.map(concept => (
-              <ConceptListItem
-                key={concept}
-                concept={concept}
-                selected={selectedConcept === concept}
-                disabled={!!selectedConcept}
-                onClick={() => onChooseConcept(concept)}
-              />
-            ))
-          }
+          {concepts.map((concept) => (
+            <ConceptListItem
+              key={concept}
+              concept={concept}
+              selected={selectedConcept === concept}
+              disabled={!!selectedConcept}
+              onClick={() => onChooseConcept(concept)}
+            />
+          ))}
         </List>
       </Grid>
     </MainContent>

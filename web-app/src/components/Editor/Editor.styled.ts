@@ -5,4 +5,3 @@ export const SketchField = styled(SketchFieldBase)({
   border: '1px solid',
   borderRadius: 4,
 });
-

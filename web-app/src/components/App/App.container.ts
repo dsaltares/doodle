@@ -12,9 +12,11 @@ const mapStateToProps = (state: RootState) => ({
 
 const mapDispatchToProps = (dispatch: AppDispatch) => ({
   connect: () => {
-    dispatch(connectToSocket((socket) => {
-      subscribe(dispatch, socket);
-    }));
+    dispatch(
+      connectToSocket((socket) => {
+        subscribe(dispatch, socket);
+      })
+    );
   },
 });
 

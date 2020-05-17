@@ -11,27 +11,32 @@ import Emoji from '../Emoji';
 import pluralize from '../../utils/pluralize';
 import useStyles from './PlayerListItem.styles';
 
-export type PlayerState = 'Ready' | 'Thinking' | 'Guessing' | 'Drawing' | 'Looking';
+export type PlayerState =
+  | 'Ready'
+  | 'Thinking'
+  | 'Guessing'
+  | 'Drawing'
+  | 'Looking';
 
 type Avatar = {
-  topType: string,
-  accessoriesType: string,
-  hairColor: string,
-  facialHairType: string,
-  clotheType: string,
-  clotheColor: string,
-  eyeType: string,
-  eyebrowType: string,
-  mouthType: string,
-  skinColor: string,
-}
+  topType: string;
+  accessoriesType: string;
+  hairColor: string;
+  facialHairType: string;
+  clotheType: string;
+  clotheColor: string;
+  eyeType: string;
+  eyebrowType: string;
+  mouthType: string;
+  skinColor: string;
+};
 
 type Props = {
-  name: string,
-  avatar: Avatar,
-  points: number,
-  state?: PlayerState,
-}
+  name: string;
+  avatar: Avatar;
+  points: number;
+  state?: PlayerState;
+};
 
 const statusEmojis = {
   Ready: '✅',
@@ -39,7 +44,7 @@ const statusEmojis = {
   Thinking: '🤔',
   Guessing: '🕵️‍♂️',
   Drawing: '✏️',
-}
+};
 
 const PlayerItem: FunctionComponent<Props> = ({
   name,
@@ -71,15 +76,13 @@ const PlayerItem: FunctionComponent<Props> = ({
         primary={name}
         secondary={`${points} ${pluralize('point', 'points', points)}`}
       />
-      {
-        state && (
-          <ListItemSecondaryAction>
-            <Typography variant="h5">
-              <Emoji symbol={statusEmojis[state]} />
-            </Typography>
-          </ListItemSecondaryAction>
-        )
-      }
+      {state && (
+        <ListItemSecondaryAction>
+          <Typography variant="h5">
+            <Emoji symbol={statusEmojis[state]} />
+          </Typography>
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };

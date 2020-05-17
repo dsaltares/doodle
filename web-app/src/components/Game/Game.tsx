@@ -14,13 +14,13 @@ import EntryChoicePhase from '../EntryChoicePhase';
 import { Alert as AlertType } from '../../store/game/types';
 
 interface Props extends RouteComponentProps<any> {
-  connected: boolean,
-  waitingToJoin: boolean,
-  phaseName: string,
-  alert?: AlertType,
-  connect: () => void,
-  leave: () => void,
-  dismissAlert: () => void,
+  connected: boolean;
+  waitingToJoin: boolean;
+  phaseName: string;
+  alert?: AlertType;
+  connect: () => void;
+  leave: () => void;
+  dismissAlert: () => void;
 }
 
 class Game extends React.Component<Props, {}> {
@@ -34,7 +34,7 @@ class Game extends React.Component<Props, {}> {
 
   onBeforeUnload(e: BeforeUnloadEvent) {
     if (process.env.NODE_ENV !== 'development') {
-      var dialogText = 'You will exit the game.';
+      const dialogText = 'You will exit the game.';
       e.returnValue = dialogText;
       return dialogText;
     }
@@ -58,18 +58,14 @@ class Game extends React.Component<Props, {}> {
   }
 
   renderContent() {
-    const {
-      connected,
-      phaseName,
-      waitingToJoin,
-    } = this.props;
+    const { connected, phaseName, waitingToJoin } = this.props;
 
     if (!connected) {
       return <Connecting />;
     }
 
     if (waitingToJoin) {
-      return <WaitingToJoin />
+      return <WaitingToJoin />;
     }
 
     switch (phaseName) {
@@ -80,21 +76,19 @@ class Game extends React.Component<Props, {}> {
       case 'createEntry':
         return <CreateEntryPhase />;
       case 'entryChoice':
-        return <EntryChoicePhase />
+        return <EntryChoicePhase />;
       default:
-        return <Typography>Unknown phase</Typography>
+        return <Typography>Unknown phase</Typography>;
     }
   }
 
   renderAlert() {
     const { alert, dismissAlert } = this.props;
-    const alertComponent = alert
-      ? (
-        <Alert onClose={dismissAlert} severity={alert.severity}>
-          {alert.message}
-        </Alert>
-      )
-      : undefined;
+    const alertComponent = alert ? (
+      <Alert onClose={dismissAlert} severity={alert.severity}>
+        {alert.message}
+      </Alert>
+    ) : undefined;
 
     return (
       <Snackbar

@@ -4,16 +4,12 @@ import Typography from '@material-ui/core/Typography';
 
 import ExpandableToolBarButton from './ExpandableToolBarButton';
 
-export default { title: 'ExpandableToolBarButton' }
+export default { title: 'ExpandableToolBarButton' };
 
 export const defaultState = () => (
   <ExpandableToolBarButton
     title="Sample"
     icon={<CreateIcon />}
-    renderContent={() => (
-      <Typography>
-        This is the expanded content
-      </Typography>
-    )}
+    renderContent={() => <Typography>This is the expanded content</Typography>}
   />
 );

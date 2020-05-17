@@ -1,7 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-} from 'react';
+import React, { FunctionComponent, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -12,10 +9,10 @@ import Emoji from '../Emoji';
 import MainContent from '../MainContent';
 
 type Props = {
-  author: string | undefined,
-  image: string,
-  submitted: boolean,
-  onSubmit: (image: string) => void,
+  author: string | undefined;
+  image: string;
+  submitted: boolean;
+  onSubmit: (image: string) => void;
 };
 
 const GuessPhase: FunctionComponent<Props> = ({
@@ -26,9 +23,8 @@ const GuessPhase: FunctionComponent<Props> = ({
 }) => {
   const classes = useStyles();
   const [guess, setGuess] = useState('');
-  const handleGuessChanged = (
-    (event:React.ChangeEvent<HTMLInputElement>) => setGuess(event.target.value)
-  )
+  const handleGuessChanged = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setGuess(event.target.value);
   const handleSubmitClicked = () => {
     onSubmit(guess);
   };
@@ -65,7 +61,7 @@ const GuessPhase: FunctionComponent<Props> = ({
           onClick={handleSubmitClicked}
           disabled={submitted}
         >
-          <Emoji symbol="🎨"/>
+          <Emoji symbol="🎨" />
           <span>Done</span>
         </Button>
       </Grid>

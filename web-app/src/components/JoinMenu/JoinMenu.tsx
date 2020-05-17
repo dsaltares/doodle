@@ -1,7 +1,4 @@
-import React, {
-  useState,
-  FunctionComponent,
-} from 'react';
+import React, { useState, FunctionComponent } from 'react';
 import { useParams, withRouter, RouteComponentProps } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -13,24 +10,21 @@ import { JoinGameParams } from '../../store/game/types';
 import MainContent from '../MainContent';
 
 interface Props extends RouteComponentProps<any> {
-  joinGame: (params: JoinGameParams) => void,
+  joinGame: (params: JoinGameParams) => void;
 }
 
-const JoinMenu: FunctionComponent<Props> = ({
-  joinGame,
-  history,
-}) => {
+const JoinMenu: FunctionComponent<Props> = ({ joinGame, history }) => {
   const [name, setName] = useState('');
-  const handleNameChange = (
-    (event:React.ChangeEvent<HTMLInputElement>) => setName(event.target.value)
-  );
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setName(event.target.value);
 
   const { code } = useParams();
-  const handleGoClicked = () => joinGame({
-    name,
-    code: code as string,
-    goToGame: (code: string) => history.push(`/game/${code}`),
-  });
+  const handleGoClicked = () =>
+    joinGame({
+      name,
+      code: code as string,
+      goToGame: (code: string) => history.push(`/game/${code}`),
+    });
 
   const hasName = name.length > 0;
 
@@ -42,7 +36,7 @@ const JoinMenu: FunctionComponent<Props> = ({
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <Typography>
-                  <Emoji symbol="👥"/>
+                  <Emoji symbol="👥" />
                   <span>Join a game</span>
                 </Typography>
               </Grid>
@@ -62,7 +56,7 @@ const JoinMenu: FunctionComponent<Props> = ({
                   disabled={!hasName}
                   onClick={handleGoClicked}
                 >
-                  <Emoji symbol="🙌"/>
+                  <Emoji symbol="🙌" />
                   <span>Go!</span>
                 </Button>
               </Grid>

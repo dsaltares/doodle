@@ -1,7 +1,4 @@
-import React, {
-  FunctionComponent,
-  useState,
-} from 'react';
+import React, { FunctionComponent, useState } from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import SvgIcon from '@material-ui/core/SvgIcon';
@@ -18,37 +15,39 @@ import { HowToPlayDialog } from '../HowToPlay';
 const openUrl = (url: string) => window.open(url, '_blank');
 
 type Props = {
-  gameStarted: boolean,
+  gameStarted: boolean;
 };
 
-const TopBarLinks: FunctionComponent<Props> = ({
-  gameStarted,
-}) => {
+const TopBarLinks: FunctionComponent<Props> = ({ gameStarted }) => {
   const classes = useStyles();
 
   const [helpOpen, setHelpOpen] = useState(false);
   const handleHelpClicked = () => setHelpOpen(true);
   const handleHelpClosed = () => setHelpOpen(false);
 
-  const howToPlay = gameStarted
-    ? (
-      <Grid item>
-        <Button
-          className={classes.iconButton}
-          variant="contained"
-          color="primary"
-          onClick={handleHelpClicked}
-          startIcon={<HelpIcon />}
-        >
-          How to play
-        </Button>
-      </Grid>
-    )
-    : undefined;
+  const howToPlay = gameStarted ? (
+    <Grid item>
+      <Button
+        className={classes.iconButton}
+        variant="contained"
+        color="primary"
+        onClick={handleHelpClicked}
+        startIcon={<HelpIcon />}
+      >
+        How to play
+      </Button>
+    </Grid>
+  ) : undefined;
 
   return (
     <>
-      <Grid container direction="row" justify="flex-start" alignItems="center" spacing={0}>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        spacing={0}
+      >
         {howToPlay}
         {/* <Grid item>
           <Tooltip title="Support the project on Ko-fi ☕" placement="bottom">
@@ -69,13 +68,13 @@ const TopBarLinks: FunctionComponent<Props> = ({
               onClick={() => openUrl('https://github.com/dsaltares/doodle')}
             >
               <SvgIcon>
-                <GitHub href="https://github.com/dsaltares/doodle"/>
+                <GitHub href="https://github.com/dsaltares/doodle" />
               </SvgIcon>
             </IconButton>
           </Tooltip>
         </Grid>
       </Grid>
-    <HowToPlayDialog open={helpOpen} onClose={handleHelpClosed} />
+      <HowToPlayDialog open={helpOpen} onClose={handleHelpClosed} />
     </>
   );
 };

@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 type PaperProps = {
-  width: number,
+  width: number;
 };
 
 const useStyles = makeStyles((theme) => ({

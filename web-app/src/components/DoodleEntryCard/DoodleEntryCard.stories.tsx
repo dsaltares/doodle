@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 
 import DoodleEntryCard from './DoodleEntryCard';
 
-export default { title: 'DoodleEntryCard' }
+export default { title: 'DoodleEntryCard' };
 
 const avatar = {
   topType: 'Eyepatch',
@@ -35,7 +35,6 @@ export const withActions = () => (
     onClick={action('onClick')}
   />
 );
-
 
 export const cardGrid = () => (
   <Grid container direction="row" spacing={3}>

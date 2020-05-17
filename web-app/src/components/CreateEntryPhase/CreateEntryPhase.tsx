@@ -6,15 +6,10 @@ import GuessPhase from '../GuessPhase';
 export type EntryType = 'draw' | 'guess';
 
 type Props = {
-  type: EntryType,
+  type: EntryType;
 };
 
-const CreateEntryPhase: FunctionComponent<Props> = ({
-  type,
-}) => (
-  type === 'draw'
-    ? <DrawPhase />
-    : <GuessPhase />
-);
+const CreateEntryPhase: FunctionComponent<Props> = ({ type }) =>
+  type === 'draw' ? <DrawPhase /> : <GuessPhase />;
 
 export default CreateEntryPhase;

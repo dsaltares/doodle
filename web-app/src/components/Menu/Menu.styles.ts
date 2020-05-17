@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     flex: 1,
-  }
+  },
 }));
 
 export default useStyles;

@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 import EntryCard from './EntryCard';
 
-export default { title: 'EntryCard' }
+export default { title: 'EntryCard' };
 
 export const noActions = () => (
   <EntryCard
@@ -20,8 +20,6 @@ export const noActions = () => (
       mouthType: 'ScreamOpen',
       skinColor: 'Light',
     }}
-    entry={(
-      <Typography>This is the entry content</Typography>
-    )}
+    entry={<Typography>This is the entry content</Typography>}
   />
 );
