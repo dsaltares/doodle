@@ -15,7 +15,7 @@ type State = {
 };
 
 class Editor extends React.Component<Props, State> {
-  private sketch: any;
+  private sketch: SketchField;
 
   constructor(props: Props) {
     super(props);

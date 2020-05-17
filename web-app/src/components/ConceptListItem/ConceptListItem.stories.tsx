@@ -15,6 +15,7 @@ export const someConcepts = () => (
   <List>
     {concepts.map((concept) => (
       <ConceptListItem
+        key={concept}
         concept={concept}
         onClick={action(`onClick - ${concept}`)}
       />

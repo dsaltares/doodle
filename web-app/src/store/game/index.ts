@@ -131,19 +131,19 @@ export const subscribe = (
   });
 };
 
-export const createGame = ({ name, goToGame }: CreateGameParams) => async (
-  dispatch: AppDispatch
-) => {
-  const code = uuid();
-  dispatch(joinGame({ code, name, goToGame }));
-};
-
 export const joinGame = ({ code, name, goToGame }: JoinGameParams) => async (
   dispatch: AppDispatch
 ) => {
   dispatch(actions.setPlayerName(name));
   dispatch(actions.setCode(code));
   goToGame(code);
+};
+
+export const createGame = ({ name, goToGame }: CreateGameParams) => async (
+  dispatch: AppDispatch
+) => {
+  const code = uuid();
+  dispatch(joinGame({ code, name, goToGame }));
 };
 
 export const connectToGameChannel = () => async (

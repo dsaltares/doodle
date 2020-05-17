@@ -50,6 +50,41 @@ export const isFirstCreateTurn = (state: RootState) => {
   return phase.index === 0;
 };
 
+const currentStackForPlayer = (state: RootState, playerId: string) => {
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return;
+  }
+
+  const phase = game.round.phase as CreateEntryPhase;
+  const playerIdx = game.round.order.indexOf(playerId);
+  const numPlayers = Object.keys(game.players).length;
+  const playerIdxMinusTurn = playerIdx - phase.index;
+  const sourceIdx =
+    playerIdxMinusTurn < 0
+      ? numPlayers + playerIdxMinusTurn
+      : playerIdxMinusTurn;
+  const sourcePlayerId = game.round.order[sourceIdx];
+  return game.round.stacks[sourcePlayerId];
+};
+
+const getPlayerSourceEntry = (state: RootState, playerId: string) => {
+  const game = state.game.gameState;
+  if (!game || game.round.phase.name !== 'createEntry') {
+    return;
+  }
+
+  const phase = game.round.phase as CreateEntryPhase;
+  const stack = currentStackForPlayer(state, playerId) as Stack;
+  const lastEntry = stack.entries[phase.index - 1];
+  return lastEntry;
+};
+
+export const getSourceEntry = (state: RootState) => {
+  const playerId = state.game.player as string;
+  return getPlayerSourceEntry(state, playerId);
+};
+
 export const currentConcept = (state: RootState) => {
   if (isFirstCreateTurn(state)) {
     const game = state.game.gameState;
@@ -86,41 +121,6 @@ export const sourceEntryAuthor = (state: RootState) => {
   const entry = getSourceEntry(state) as Entry;
   const author = player(state, entry.author);
   return author?.name;
-};
-
-const currentStackForPlayer = (state: RootState, playerId: string) => {
-  const game = state.game.gameState;
-  if (!game || game.round.phase.name !== 'createEntry') {
-    return;
-  }
-
-  const phase = game.round.phase as CreateEntryPhase;
-  const playerIdx = game.round.order.indexOf(playerId);
-  const numPlayers = Object.keys(game.players).length;
-  const playerIdxMinusTurn = playerIdx - phase.index;
-  const sourceIdx =
-    playerIdxMinusTurn < 0
-      ? numPlayers + playerIdxMinusTurn
-      : playerIdxMinusTurn;
-  const sourcePlayerId = game.round.order[sourceIdx];
-  return game.round.stacks[sourcePlayerId];
-};
-
-const getPlayerSourceEntry = (state: RootState, playerId: string) => {
-  const game = state.game.gameState;
-  if (!game || game.round.phase.name !== 'createEntry') {
-    return;
-  }
-
-  const phase = game.round.phase as CreateEntryPhase;
-  const stack = currentStackForPlayer(state, playerId) as Stack;
-  const lastEntry = stack.entries[phase.index - 1];
-  return lastEntry;
-};
-
-export const getSourceEntry = (state: RootState) => {
-  const playerId = state.game.player as string;
-  return getPlayerSourceEntry(state, playerId);
 };
 
 export const playerHasSubmitted = (state: RootState, playerId: string) => {
