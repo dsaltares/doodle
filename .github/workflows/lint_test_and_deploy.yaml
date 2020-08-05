@@ -86,3 +86,4 @@ jobs:
           docker stop doodle-live-server
           docker rm doodle-live-server
           docker run --env HUMIO_INGEST_TOKEN=${{ secrets.HUMIO_INGEST_TOKEN }} --name doodle-live-server -d -p 3000:3000 --restart unless-stopped dsaltares/doodle-live-server
+          docker image prune -a -f
