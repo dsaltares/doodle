@@ -45,6 +45,7 @@ const startServer = (logger: winston.Logger): void => {
   const io = socketIo(server, {
     pingTimeout: 25000,
     pingInterval: 30000,
+    origins: '*:*',
   });
   const port = process.env.PORT || 3001;
 
