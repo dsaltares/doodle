@@ -27,7 +27,7 @@
     "lodash.chunk": "^4.2.0",
     "lodash.flatten": "^4.4.0",
     "lodash.shuffle": "^4.2.0",
-    "npm": "^6.14.4",
+    "npm": "^6.14.6",
     "socket.io": "^2.4.0",
     "typescript": "^3.8.3",
     "uuid": "^7.0.3",
