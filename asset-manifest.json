@@ -4,18 +4,18 @@
     "main.js.map": "/static/js/main.a1ff7cff.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.2fd1e5d8.js",
     "runtime-main.js.map": "/static/js/runtime-main.2fd1e5d8.js.map",
-    "static/js/2.d24de373.chunk.js": "/static/js/2.d24de373.chunk.js",
-    "static/js/2.d24de373.chunk.js.map": "/static/js/2.d24de373.chunk.js.map",
+    "static/js/2.1cc40339.chunk.js": "/static/js/2.1cc40339.chunk.js",
+    "static/js/2.1cc40339.chunk.js.map": "/static/js/2.1cc40339.chunk.js.map",
     "index.html": "/index.html",
-    "precache-manifest.e4a0ec15d3e54d089be13064704d7a53.js": "/precache-manifest.e4a0ec15d3e54d089be13064704d7a53.js",
+    "precache-manifest.428f1333082d8e4679de2334f7abcff6.js": "/precache-manifest.428f1333082d8e4679de2334f7abcff6.js",
     "service-worker.js": "/service-worker.js",
-    "static/js/2.d24de373.chunk.js.LICENSE.txt": "/static/js/2.d24de373.chunk.js.LICENSE.txt",
+    "static/js/2.1cc40339.chunk.js.LICENSE.txt": "/static/js/2.1cc40339.chunk.js.LICENSE.txt",
     "static/media/eraser.0015ff96.svg": "/static/media/eraser.0015ff96.svg",
     "static/media/github.617870e4.svg": "/static/media/github.617870e4.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.2fd1e5d8.js",
-    "static/js/2.d24de373.chunk.js",
+    "static/js/2.1cc40339.chunk.js",
     "static/js/main.a1ff7cff.chunk.js"
   ]
 }
