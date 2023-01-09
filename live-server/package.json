@@ -21,7 +21,7 @@
     "@types/socket.io": "^2.1.4",
     "@types/uuid": "^7.0.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "humio-winston": "^1.0.6",
     "install": "^0.13.0",
     "lodash.chunk": "^4.2.0",
